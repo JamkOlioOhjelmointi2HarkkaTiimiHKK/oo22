@@ -9,18 +9,10 @@ using namespace sf;
 
 int main()
 {
-    RenderWindow window(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "OO2");
+    RenderWindow window(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "OO22");
 	window.setVerticalSyncEnabled(true);
 
-	Font calibri;
-	if(!calibri.loadFromFile("res/calibri.ttf")){
-		printf("Error: font not found!\n");
-	}
-	Text debugText;
-	debugText.setFont(calibri);
-	debugText.setString("0");
-	debugText.setCharacterSize(24);
-	debugText.setColor(Color::White);
+	bool showDebug = true;
 
 	Clock clock;
 	Time elapsedTime = clock.restart(); 
@@ -40,6 +32,9 @@ int main()
 		if (Controls::get()->iskeydown(Keyboard::Escape)){
 			window.close();
 		}
+		if (Controls::get()->kIsReleased(Keyboard::F1)){
+			showDebug = !showDebug;
+		}
 
 		//Logic here		
 		Controls::get()->update();
@@ -47,7 +42,7 @@ int main()
 		//FPS
 		if(elapsedTime.asMilliseconds() >= 1000){
 			clock.restart();
-			debugText.setString(std::to_string(fps));
+			Content::get()->setDebugText(std::to_string(fps));
 			fps = 0;
 		}
 		else{
@@ -57,7 +52,9 @@ int main()
 
 		//Draw here
 		window.clear(Color::Black);
-		window.draw(debugText);
+		if (showDebug){
+			window.draw(Content::get()->getDebugText());
+		}
         window.display();
     }
 

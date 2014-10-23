@@ -11,19 +11,23 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="character.cpp" />
     <ClCompile Include="Content.cpp" />
     <ClCompile Include="Controls.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="player.cpp" />
+    <ClCompile Include="StateHandler.cpp" />
     <ClCompile Include="Utility.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Button.h" />
     <ClInclude Include="character.h" />
     <ClInclude Include="Content.h" />
     <ClInclude Include="Controls.h" />
     <ClInclude Include="globals.h" />
     <ClInclude Include="player.h" />
+    <ClInclude Include="StateHandler.h" />
     <ClInclude Include="Utility.h" />
   </ItemGroup>
   <ItemGroup>

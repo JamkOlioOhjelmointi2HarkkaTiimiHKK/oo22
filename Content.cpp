@@ -9,8 +9,12 @@ Content::Content(void) //ladataan sisältö
 		printf("Error: Player texture not found!\n");
 	}
 	if (!calibri.loadFromFile("res/calibri.ttf")){
-		printf("Error: font not found!\n");
+		printf("Error: Calibri font not found!\n");
 	}
+	debugText.setFont(calibri);
+	debugText.setString("0");
+	debugText.setCharacterSize(24);
+	debugText.setColor(sf::Color::White);
 
 }
 
@@ -29,10 +33,18 @@ sf::Font Content::getCalibriFont()
 	return this->calibri;
 }
 
+sf::Text Content::getDebugText(){
+	return this->debugText;
+}
+
 Content* Content::get()
 {
 	if (!content)
 		content = new Content();
 
 	return content;
+}
+
+void Content::setDebugText(std::string text){
+	debugText.setString(text);
 }

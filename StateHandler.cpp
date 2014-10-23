@@ -34,6 +34,7 @@ void StateHandler::showMenu()
 
 }
 */
+/*
 void StateHandler::editStart()
 {
 	if (state != uninitialized)
@@ -69,32 +70,33 @@ void StateHandler::editLoop()
 	Controls::get()->update();
 	switch (state)
 	{
-	case menu:
-	{
-		showMenu();
-		break;
-	}
+		case menu:
+		{
+			showMenu();
+			break;
+		}
 
-	case edit:
-	{
-				 editState->update();
-				 window.clear(sf::Color(255, 0, 0));
-				 editState->draw();
-				 window.display();
+		case edit:
+		{
+					 editState->update();
+					 window.clear(sf::Color(255, 0, 0));
+					 editState->draw();
+					 window.display();
 
-				 if (Controls::get()->kIsPressed(sf::Keyboard().Escape))
-				 {
-					 mainMenu->unInitialize();
-					 state = menu;
+					 if (Controls::get()->kIsPressed(sf::Keyboard().Escape))
+					 {
+						 mainMenu->unInitialize();
+						 state = menu;
 
-				 }
+					 }
 
-	}
+		}
 	}
 }
+*/
 
 StateHandler::~StateHandler()
 {
-	delete editState;
-	delete mainMenu;
+	//delete editState;
+	//delete mainMenu;
 }

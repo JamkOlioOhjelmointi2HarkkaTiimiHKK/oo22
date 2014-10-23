@@ -7,7 +7,6 @@
 * Tuomas Kyttä
 */
 #pragma once
-#include "main.h"
 #include "Controls.h"
 #include "Content.h"
 

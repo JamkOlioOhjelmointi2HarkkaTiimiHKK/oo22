@@ -1,14 +1,17 @@
 #pragma once
 #include "SFML/Graphics.hpp"
-#include "main.h"
 #include <functional>
 #include "Controls.h"
 #include "Content.h"
 
 class Button
 {
+private:
+	sf::Font calibri;
+
 public:
 	Button(sf::Vector2f, std::string, std::function<void()>);
+	Button(double x, double y, std::string, std::function<void()>);
 
 	std::function<void()> function;
 
@@ -16,7 +19,7 @@ public:
 	sf::RectangleShape button;
 	sf::Text buttonText;
 	void update();
-	void draw();
+	void draw(sf::RenderWindow &window);
 
 	~Button();
 };
