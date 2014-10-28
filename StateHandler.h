@@ -7,27 +7,29 @@
 * 
 */
 #pragma once
+#include <SFML/Graphics.hpp>
 #include "Controls.h"
 #include "Content.h"
-
-//class EditorState;
-//class MainMenu;
-
+#include "globals.h"
+using namespace sf;
 class StateHandler
 {
 private:
-	enum gameState {uninitialized, menu, edit, exit}; // vaihtoehtoinen tapa tehä, tehdään state pointteri ja muutetaan sen sisältöä
-	//EditorState *editState; jos haluat tehä fiinejä tiloja
-	//MainMenu *mainMenu;
-
+	enum gameState {uninitialized, menu, play, exit};
+	RenderWindow window;
+	Clock clock;
+	Time elapsedTime;
+	bool showDebug;
+	int fps;
 public:
 
 	StateHandler();
 
-	void editStart();
-	bool editExit();
-	void editLoop();
+	void gameStart();
+	bool gameExit();
+	void gameLoop();
 	void showMenu();
+	void showPlay();
 
 	gameState state;
 

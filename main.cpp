@@ -1,14 +1,12 @@
-#include <SFML/Graphics.hpp>
+#include "StateHandler.h"
 #include "player.h"
-#include "globals.h"
-#include "Controls.h"
-#include "Content.h"
 using namespace sf;
-
-
 
 int main()
 {
+	StateHandler game;
+	game.gameStart();
+	/*
     RenderWindow window(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "OO22");
 	window.setVerticalSyncEnabled(true);
 
@@ -57,6 +55,6 @@ int main()
 		}
         window.display();
     }
-
+	*/
     return 0;
 }

@@ -4,52 +4,28 @@
 StateHandler::StateHandler()
 {
 	state = uninitialized;
-	//editState = new EditorState();
-	//mainMenu = new MainMenu();
-
+	window.create(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "OO22");
+	window.setVerticalSyncEnabled(true);
+	showDebug = true;
 }
-/*
-void StateHandler::showMenu()
-{	
-	mainMenu->update();
-	window.clear(sf::Color().White);
-	mainMenu->draw();
-	//TEMP
-	dt = time1.restart().asSeconds();
-	fps.setString(std::to_string((int)(1/dt)));
-	window.draw(fps);
-	window.display();
 
-	MainMenu::menuResult result = mainMenu->action;
 
-	switch (result)
-	{
-	case MainMenu::merge:
-		state = exit; // tilapäinen
-		break;
-	case MainMenu::edit:
-		state = edit; // voi hyvää päivää nimeämisen kanssa, toimii kuitenkin kuin junan vessa
-		break;
-	}
 
-}
-*/
-/*
-void StateHandler::editStart()
+void StateHandler::gameStart()
 {
 	if (state != uninitialized)
 		return;
 	state = menu;
 
-	while (!editExit())
+	while (!gameExit())
 	{			
-		editLoop();
+		gameLoop();
 	}
 
 	window.close();
 }
 
-bool StateHandler::editExit()
+bool StateHandler::gameExit()
 {
 	if (state == exit)
 		return true;
@@ -57,12 +33,12 @@ bool StateHandler::editExit()
 		return false;
 }
 
-void StateHandler::editLoop()
+void StateHandler::gameLoop()
 {	
-	sf::Event currentEvent;
+	Event currentEvent;
 	if (window.pollEvent(currentEvent))
 	{
-		if (currentEvent.type == sf::Event::Closed)
+		if (currentEvent.type == Event::Closed)
 			state = exit;
 
 	}
@@ -76,27 +52,47 @@ void StateHandler::editLoop()
 			break;
 		}
 
-		case edit:
+		case play:
 		{
-					 editState->update();
-					 window.clear(sf::Color(255, 0, 0));
-					 editState->draw();
-					 window.display();
 
-					 if (Controls::get()->kIsPressed(sf::Keyboard().Escape))
-					 {
-						 mainMenu->unInitialize();
-						 state = menu;
+			showPlay();
+			//playState->update();
+			window.clear(Color::Black);
+			//playState->draw();
+			window.display();
 
-					 }
+			if (Controls::get()->kIsPressed(sf::Keyboard().Escape))
+			{
+				//mainMenu->unInitialize();
+				state = menu;
+			}
 
 		}
 	}
 }
-*/
+
+void StateHandler::showMenu()
+{
+	//Controls::get()->update();
+	window.clear(Color::Black);
+	if (showDebug){
+		window.draw(Content::get()->debugText);
+	}
+	window.display();
+
+	//dt = time1.restart().asSeconds();
+	//fps.setString(std::to_string((int)(1 / dt)));
+
+	//MainMenu::menuResult result = mainMenu->action;
+
+
+}
+
+void StateHandler::showPlay(){
+
+}
 
 StateHandler::~StateHandler()
 {
-	//delete editState;
-	//delete mainMenu;
+
 }
