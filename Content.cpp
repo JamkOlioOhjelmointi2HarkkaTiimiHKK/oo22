@@ -5,7 +5,7 @@ Content* Content::content;
 Content::Content(void) //ladataan sisältö
 {
 	//backgroundTex.loadFromFile("res/taivas.png");
-	if (!playerTex.loadFromFile("res/player.png")){
+	if (!playerTexture.loadFromFile("res/player.png")){
 		printf("Error: Player texture not found!\n");
 	}
 	if (!calibri.loadFromFile("res/calibri.ttf")){
@@ -21,20 +21,6 @@ Content::Content(void) //ladataan sisältö
 Content::~Content(void)
 {
 
-}
-
-sf::Texture Content::getPlayerTexture()
-{
-	return this->playerTex;
-}
-
-sf::Font Content::getCalibriFont()
-{
-	return this->calibri;
-}
-
-sf::Text Content::getDebugText(){
-	return this->debugText;
 }
 
 Content* Content::get()

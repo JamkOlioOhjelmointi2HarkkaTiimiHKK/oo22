@@ -4,7 +4,7 @@
 Button::Button(sf::Vector2f position, std::string text, std::function<void()> func)
 {
 	function = func;
-	calibri = Content::get()->getCalibriFont();
+	calibri = Content::get()->calibri;
 	button.setPosition(position);
 	button.setSize(sf::Vector2f(150, 150));
 	button.setFillColor(sf::Color().Magenta);
@@ -16,7 +16,7 @@ Button::Button(sf::Vector2f position, std::string text, std::function<void()> fu
 Button::Button(double x, double y, std::string text, std::function<void()> func)
 {
 	function = func;
-	calibri = Content::get()->getCalibriFont();
+	calibri = Content::get()->calibri;
 	button.setPosition(x, y);
 	button.setSize(sf::Vector2f(150, 150));
 	button.setFillColor(sf::Color().Magenta);

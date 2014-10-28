@@ -1,3 +1,11 @@
+/*
+* 17.10.2014 Tein tilakoneen ja annoin enumille mahdolliset tilat
+* Tuomas Kyttä
+*
+*
+*
+* 
+*/
 #pragma once
 #include "SFML/Graphics.hpp"
 #include <functional>

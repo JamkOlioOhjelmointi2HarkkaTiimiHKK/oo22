@@ -53,7 +53,7 @@ int main()
 		//Draw here
 		window.clear(Color::Black);
 		if (showDebug){
-			window.draw(Content::get()->getDebugText());
+			window.draw(Content::get()->debugText);
 		}
         window.display();
     }
