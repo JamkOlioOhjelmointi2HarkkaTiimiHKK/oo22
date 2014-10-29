@@ -21,6 +21,7 @@ private:
 	Time elapsedTime;
 	bool showDebug;
 	int fps;
+	float dt;
 public:
 
 	StateHandler();
@@ -28,8 +29,11 @@ public:
 	void gameStart();
 	bool gameExit();
 	void gameLoop();
-	void showMenu();
-	void showPlay();
+	void runMenu();
+	void runPlay();
+
+	void handleControls();
+	void handleTime();
 
 	gameState state;
 

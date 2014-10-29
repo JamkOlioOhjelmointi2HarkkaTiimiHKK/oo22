@@ -7,6 +7,7 @@ StateHandler::StateHandler()
 	window.create(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "OO22");
 	window.setVerticalSyncEnabled(true);
 	showDebug = true;
+	fps = 0;
 }
 
 
@@ -48,48 +49,66 @@ void StateHandler::gameLoop()
 	{
 		case menu:
 		{
-			showMenu();
+			runMenu();
 			break;
 		}
 
 		case play:
 		{
-
-			showPlay();
-			//playState->update();
-			window.clear(Color::Black);
-			//playState->draw();
-			window.display();
-
-			if (Controls::get()->kIsPressed(sf::Keyboard().Escape))
-			{
-				//mainMenu->unInitialize();
-				state = menu;
-			}
-
+			runPlay();
+			break;
 		}
 	}
 }
 
-void StateHandler::showMenu()
+void StateHandler::runMenu()
 {
-	//Controls::get()->update();
+	//Controls::get()->update(); Jos lisään sisäisen whilen niin tämä pitää säilyttää
+	handleControls();
+
 	window.clear(Color::Black);
 	if (showDebug){
 		window.draw(Content::get()->debugText);
 	}
 	window.display();
 
-	//dt = time1.restart().asSeconds();
-	//fps.setString(std::to_string((int)(1 / dt)));
-
-	//MainMenu::menuResult result = mainMenu->action;
-
-
+	handleTime();
 }
 
-void StateHandler::showPlay(){
+void StateHandler::runPlay(){
+	
+	handleControls();
 
+	window.clear(Color::Black);
+	if (showDebug){
+		window.draw(Content::get()->debugText);
+	}
+	window.display();
+
+	handleTime();
+}
+
+void StateHandler::handleControls(){
+
+	if (Controls::get()->kIsReleased(Keyboard::F1)){
+		showDebug = !showDebug;
+	}
+	if (Controls::get()->kIsPressed(sf::Keyboard().Escape)){
+
+		if (state == menu){
+			state = exit;
+		}
+		else{
+			state = menu;
+		}
+	}
+}
+
+void StateHandler::handleTime(){
+
+	dt = clock.restart().asSeconds();
+	fps = (int)(1 / dt);
+	Content::get()->setDebugText(std::to_string(fps));
 }
 
 StateHandler::~StateHandler()
