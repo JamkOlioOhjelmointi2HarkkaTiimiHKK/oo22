@@ -2,9 +2,9 @@
 
 Controls* Controls::controls; // pointteri controls controls namespacesta
 
-void Controls::update() 
+void Controls::update(sf::RenderWindow &window) 
 {
-	mpos = sf::Mouse::getPosition();
+	mpos = sf::Mouse::getPosition(window);
 
 	for(int i=0;i<255;++i)
 	{

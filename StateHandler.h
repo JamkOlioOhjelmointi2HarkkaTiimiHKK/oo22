@@ -11,29 +11,33 @@
 #include "Controls.h"
 #include "Content.h"
 #include "globals.h"
+#include "Button.h"
+#include "player.h"
 using namespace sf;
 class StateHandler
 {
 private:
 	enum gameState {uninitialized, menu, play, exit};
 	RenderWindow window;
-	Clock clock;
+	Clock clock, secondClock;
 	Time elapsedTime;
-	bool showDebug;
+	bool showDebug, secondPassed;
 	int fps;
 	float dt;
 public:
 
 	StateHandler();
 
-	void gameStart();
-	bool gameExit();
+	void startGame();
+	bool exitGame();
 	void gameLoop();
 	void runMenu();
 	void runPlay();
-
-	void handleControls();
+	
+	void handleControls(RenderWindow &window);
 	void handleTime();
+
+	void setState(gameState);
 
 	gameState state;
 

@@ -7,18 +7,17 @@ StateHandler::StateHandler()
 	window.create(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "OO22");
 	window.setVerticalSyncEnabled(true);
 	showDebug = true;
+	elapsedTime = secondClock.restart();
 	fps = 0;
 }
 
-
-
-void StateHandler::gameStart()
+void StateHandler::startGame()
 {
 	if (state != uninitialized)
 		return;
 	state = menu;
 
-	while (!gameExit())
+	while (!exitGame())
 	{			
 		gameLoop();
 	}
@@ -26,7 +25,7 @@ void StateHandler::gameStart()
 	window.close();
 }
 
-bool StateHandler::gameExit()
+bool StateHandler::exitGame()
 {
 	if (state == exit)
 		return true;
@@ -44,7 +43,7 @@ void StateHandler::gameLoop()
 
 	}
 
-	Controls::get()->update();
+	Controls::get()->update(window);
 	switch (state)
 	{
 		case menu:
@@ -63,33 +62,52 @@ void StateHandler::gameLoop()
 
 void StateHandler::runMenu()
 {
-	//Controls::get()->update(); Jos lisään sisäisen whilen niin tämä pitää säilyttää
-	handleControls();
+	Button playButton(Vector2f(SCREEN_WIDTH - 200, 300), "Play", [&](){state = play; });
+	Button exitButton(Vector2f(SCREEN_WIDTH - 200, 500), "Exit", [&](){state = exit; });
 
-	window.clear(Color::Black);
-	if (showDebug){
-		window.draw(Content::get()->debugText);
+	while (state == menu){
+		
+		elapsedTime = secondClock.getElapsedTime();
+
+		handleControls(window);
+		playButton.update();
+		exitButton.update();
+
+		window.clear(Color::Black);
+		if (showDebug){
+			window.draw(Content::get()->debugText); 
+		}
+
+		playButton.draw(window);
+		exitButton.draw(window);
+		window.display();
+
+		handleTime();
 	}
-	window.display();
-
-	handleTime();
-}
-
-void StateHandler::runPlay(){
 	
-	handleControls();
-
-	window.clear(Color::Black);
-	if (showDebug){
-		window.draw(Content::get()->debugText);
-	}
-	window.display();
-
-	handleTime();
 }
 
-void StateHandler::handleControls(){
+void StateHandler::runPlay()
+{	
+	//player.create(200, 200);
 
+	while (state == play){
+
+		handleControls(window);
+
+		window.clear(Color::Black);
+		if (showDebug){
+			window.draw(Content::get()->debugText);
+		}
+		window.display();
+
+		handleTime();
+	}
+}
+
+void StateHandler::handleControls(RenderWindow &window){
+	
+	Controls::get()->update(window);
 	if (Controls::get()->kIsReleased(Keyboard::F1)){
 		showDebug = !showDebug;
 	}
@@ -102,13 +120,34 @@ void StateHandler::handleControls(){
 			state = menu;
 		}
 	}
+
+	Event currentEvent;
+	if (window.pollEvent(currentEvent))
+	{
+		if (currentEvent.type == Event::Closed)
+			state = exit;
+
+	}
 }
 
 void StateHandler::handleTime(){
 
 	dt = clock.restart().asSeconds();
-	fps = (int)(1 / dt);
-	Content::get()->setDebugText(std::to_string(fps));
+
+	if (elapsedTime.asMilliseconds() >= 1000){
+		secondClock.restart();
+		secondPassed = true;
+		Content::get()->setDebugText(std::to_string(fps));
+		fps = 0;
+	}
+	else{
+		fps++;
+		secondPassed = false;
+	}
+}
+
+void StateHandler::setState(gameState s){
+	this->state = s;
 }
 
 StateHandler::~StateHandler()

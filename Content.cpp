@@ -15,12 +15,12 @@ Content::Content(void) //ladataan sisältö
 	debugText.setString("0");
 	debugText.setCharacterSize(24);
 	debugText.setColor(sf::Color::White);
-
+	
 }
 
 Content::~Content(void)
 {
-
+	free(content);
 }
 
 Content* Content::get()

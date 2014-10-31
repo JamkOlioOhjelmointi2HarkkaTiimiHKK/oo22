@@ -12,7 +12,7 @@ class Controls
 	static Controls* controls;
 	Controls(void);
 public:
-	void update();
+	void update(sf::RenderWindow &window);
 	bool iskeydown(sf::Keyboard::Key key);
 	bool kIsPressed(sf::Keyboard::Key key);
 	bool kIsReleased(sf::Keyboard::Key key);
