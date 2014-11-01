@@ -10,7 +10,7 @@ void Player::update(){
 
 void Player::create(float posX, float posY){
 	this->createCharacter(posX, posY);
-	//this->setTexture(Content::get()->playerTexture);
+	this->setTexture(&Content::get()->playerTexture);
 }
 Player::~Player(){
 

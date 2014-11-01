@@ -7,6 +7,7 @@
 * 
 */
 #pragma once
+#include <fstream>
 #include <SFML/Graphics.hpp>
 #include "Controls.h"
 #include "Content.h"
@@ -14,6 +15,7 @@
 #include "Button.h"
 #include "player.h"
 using namespace sf;
+
 class StateHandler
 {
 private:
@@ -29,30 +31,39 @@ private:
 	RenderWindow window;
 	Clock clock, secondClock;
 	Time elapsedTime;
+	Text title;
+	float titleAnimation;
 
 	Button playButton, optionsButton, exitButton, backButton;
-	Button applyButton, vsyncButton, fpsLimitButton;
+	Button applyButton, vsyncButton, fpsLimitButton, antiAliasingButton, fullScreenButton;
+	
+	Player player;
 
-	std::string optionsFilename;
 	bool showDebug, secondPassed;
 	int fps;
 	float dt;
 
 	void loopGame();
+
 	void runMenu();
 	void updateMenu();
 	void drawMenu(RenderWindow &window);
+	void initializeMenu();
 
 	void runOptions();
 	void updateOptions();
 	void drawOptions(RenderWindow &window);
 	void applyOptionSettings();
+	void initializeOptions();
 	void changeVsync();
 	void changeFPSLimit();
+	void changeAA();
+	void changeFullScreen();
 
 	void runPlay();
 	void updatePlay();
 	void drawPlay(RenderWindow &window);
+	void initializePlay();
 
 	void handleControls(RenderWindow &window);
 	void handleTime();
