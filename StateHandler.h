@@ -17,7 +17,8 @@ using namespace sf;
 class StateHandler
 {
 private:
-	enum gameState {uninitialized, menu, play, exit};
+	enum gameState {uninitialized, menu, options, play, exit};
+	ContextSettings settings;
 	RenderWindow window;
 	Clock clock, secondClock;
 	Time elapsedTime;
@@ -30,8 +31,13 @@ public:
 
 	void startGame();
 	bool exitGame();
-	void gameLoop();
+	void loopGame();
 	void runMenu();
+	void updateMenu(Button, Button, Button);
+	void drawMenu(RenderWindow &window);
+
+	void runOptions();
+
 	void runPlay();
 	
 	void handleControls(RenderWindow &window);

@@ -4,7 +4,8 @@
 StateHandler::StateHandler()
 {
 	state = uninitialized;
-	window.create(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "OO22");
+	settings.antialiasingLevel = 0;
+	window.create(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "OO22", Style::Default, settings);
 	window.setVerticalSyncEnabled(true);
 	showDebug = true;
 	elapsedTime = secondClock.restart();
@@ -19,7 +20,7 @@ void StateHandler::startGame()
 
 	while (!exitGame())
 	{			
-		gameLoop();
+		loopGame();
 	}
 
 	window.close();
@@ -33,7 +34,7 @@ bool StateHandler::exitGame()
 		return false;
 }
 
-void StateHandler::gameLoop()
+void StateHandler::loopGame()
 {	
 	Event currentEvent;
 	if (window.pollEvent(currentEvent))
@@ -51,6 +52,11 @@ void StateHandler::gameLoop()
 			runMenu();
 			break;
 		}
+		case options:
+		{
+			runOptions();
+			break;
+		}
 
 		case play:
 		{
@@ -62,29 +68,57 @@ void StateHandler::gameLoop()
 
 void StateHandler::runMenu()
 {
-	Button playButton(Vector2f(SCREEN_WIDTH - 200, 300), "Play", [&](){state = play; });
-	Button exitButton(Vector2f(SCREEN_WIDTH - 200, 500), "Exit", [&](){state = exit; });
+	Vector2f menuButtonSize(Vector2f(150, 85));
+	Button playButton(Vector2f(SCREEN_WIDTH - 200, 300), "Play", [&](){state = play; }, menuButtonSize);
+	Button optionsButton(Vector2f(SCREEN_WIDTH - 200, 400), "Options", [&](){state = options; }, menuButtonSize);
+	Button exitButton(Vector2f(SCREEN_WIDTH - 200, 500), "Exit", [&](){state = exit; }, menuButtonSize);
 
 	while (state == menu){
 		
 		elapsedTime = secondClock.getElapsedTime();
 
 		handleControls(window);
-		playButton.update();
-		exitButton.update();
-
-		window.clear(Color::Black);
-		if (showDebug){
-			window.draw(Content::get()->debugText); 
-		}
-
-		playButton.draw(window);
-		exitButton.draw(window);
-		window.display();
+		
+		updateMenu(playButton, optionsButton, exitButton);
+		drawMenu(window);
+		
 
 		handleTime();
 	}
 	
+}
+
+void StateHandler::updateMenu(Button playButton, Button optionsButton, Button exitButton){
+	playButton.update();
+	optionsButton.update();
+	exitButton.update();
+}
+
+void StateHandler::drawMenu(RenderWindow &window){
+	window.clear(Color::Black);
+	if (showDebug){
+		window.draw(Content::get()->debugText);
+	}
+
+	//playButton.draw(window);
+	//optionsButton.draw(window);
+	//exitButton.draw(window);
+	window.display();
+}
+
+void StateHandler::runOptions(){
+	while (state == options){
+
+		handleControls(window);
+
+		window.clear(Color::Black);
+		if (showDebug){
+			window.draw(Content::get()->debugText);
+		}
+		window.display();
+
+		handleTime();
+	}
 }
 
 void StateHandler::runPlay()
