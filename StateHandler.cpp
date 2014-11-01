@@ -1,13 +1,19 @@
 #include "StateHandler.h"
 
-
 StateHandler::StateHandler()
 {
 	state = uninitialized;
-	settings.antialiasingLevel = 0;
-	window.create(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "OO22", Style::Default, settings);
-	window.setVerticalSyncEnabled(true);
+	optionsStruct.settings.antialiasingLevel = 0;
+	optionsStruct.isVsync = true;
+	optionsStruct.fpsLimit = 0;
+	optionsStruct.isFullScreen = false;
 	showDebug = true;
+	if (optionsStruct.isFullScreen)
+		window.create(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "OO22", Style::Fullscreen, optionsStruct.settings);
+	else
+		window.create(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "OO22", Style::Default, optionsStruct.settings);
+	window.setVerticalSyncEnabled(optionsStruct.isVsync);
+	window.setFramerateLimit(optionsStruct.fpsLimit);
 	elapsedTime = secondClock.restart();
 	fps = 0;
 }
@@ -41,7 +47,6 @@ void StateHandler::loopGame()
 	{
 		if (currentEvent.type == Event::Closed)
 			state = exit;
-
 	}
 
 	Controls::get()->update(window);
@@ -66,29 +71,25 @@ void StateHandler::loopGame()
 	}
 }
 
+#pragma region Menu
 void StateHandler::runMenu()
 {
 	Vector2f menuButtonSize(Vector2f(150, 85));
-	Button playButton(Vector2f(SCREEN_WIDTH - 200, 300), "Play", [&](){state = play; }, menuButtonSize);
-	Button optionsButton(Vector2f(SCREEN_WIDTH - 200, 400), "Options", [&](){state = options; }, menuButtonSize);
-	Button exitButton(Vector2f(SCREEN_WIDTH - 200, 500), "Exit", [&](){state = exit; }, menuButtonSize);
+	playButton.initialize(Vector2f(SCREEN_WIDTH - 200, 300), [&](){state = play; }, menuButtonSize, "Play");
+	optionsButton.initialize(Vector2f(SCREEN_WIDTH - 200, 400), [&](){state = options; }, menuButtonSize, "Options");
+	exitButton.initialize(Vector2f(SCREEN_WIDTH - 200, 500), [&](){state = exit; }, menuButtonSize, "Exit");
 
 	while (state == menu){
 		
 		elapsedTime = secondClock.getElapsedTime();
-
 		handleControls(window);
-		
-		updateMenu(playButton, optionsButton, exitButton);
+		updateMenu();
 		drawMenu(window);
-		
-
 		handleTime();
 	}
-	
 }
 
-void StateHandler::updateMenu(Button playButton, Button optionsButton, Button exitButton){
+void StateHandler::updateMenu(){
 	playButton.update();
 	optionsButton.update();
 	exitButton.update();
@@ -99,28 +100,111 @@ void StateHandler::drawMenu(RenderWindow &window){
 	if (showDebug){
 		window.draw(Content::get()->debugText);
 	}
-
-	//playButton.draw(window);
-	//optionsButton.draw(window);
-	//exitButton.draw(window);
+	playButton.draw(window);
+	optionsButton.draw(window);
+	exitButton.draw(window);
 	window.display();
 }
+#pragma endregion Menu
 
+#pragma region Options
 void StateHandler::runOptions(){
+
+	Vector2f optionsButtonSize(Vector2f(150, 85));
+	Vector2f optionsWideButtonSize(Vector2f(250, 85));
+	std::string vsyncButtonString, fpsLimitString;
+
+	if (optionsStruct.isVsync)
+		vsyncButtonString = "vsync: ON";
+	else
+		vsyncButtonString = "vsync: OFF";
+	if (optionsStruct.fpsLimit != 0)
+		fpsLimitString = "FPS limit: " + std::to_string(optionsStruct.fpsLimit);
+	else
+		fpsLimitString = "FPS limit: Unlimited";
+
+	backButton.initialize(Vector2f(SCREEN_WIDTH - 200, 500), [&](){state = menu; }, optionsButtonSize, "Back");
+	applyButton.initialize(Vector2f(SCREEN_WIDTH - 200, 400), [&](){applyOptionSettings(); }, optionsButtonSize, "Apply");
+	vsyncButton.initialize(Vector2f(SCREEN_WIDTH / 2, 400), [&](){changeVsync(); }, optionsWideButtonSize, vsyncButtonString);
+	fpsLimitButton.initialize(Vector2f(SCREEN_WIDTH / 2, 500), [&](){changeFPSLimit(); }, optionsWideButtonSize, fpsLimitString);
+
 	while (state == options){
-
+		elapsedTime = secondClock.getElapsedTime();
 		handleControls(window);
-
-		window.clear(Color::Black);
-		if (showDebug){
-			window.draw(Content::get()->debugText);
-		}
-		window.display();
-
+		updateOptions();
+		drawOptions(window);
 		handleTime();
 	}
 }
 
+void StateHandler::updateOptions(){
+	backButton.update();
+	applyButton.update();
+	vsyncButton.update();
+	fpsLimitButton.update();
+}
+
+void StateHandler::drawOptions(RenderWindow &window){
+	window.clear(Color::Black);
+	if (showDebug){
+		window.draw(Content::get()->debugText);
+	}
+	backButton.draw(window);
+	applyButton.draw(window);
+	vsyncButton.draw(window);
+	fpsLimitButton.draw(window);
+	window.display();
+}
+
+void StateHandler::applyOptionSettings(){
+	window.setVerticalSyncEnabled(optionsStruct.isVsync);
+	window.setFramerateLimit(optionsStruct.fpsLimit);
+}
+
+void StateHandler::changeVsync(){
+	optionsStruct.isVsync = !optionsStruct.isVsync;
+
+	std::string vsyncButtonString;
+
+	if (optionsStruct.isVsync)
+		vsyncButtonString = "vsync: ON";
+	else
+		vsyncButtonString = "vsync: OFF";
+
+	vsyncButton.buttonText.setString(vsyncButtonString);
+}
+void StateHandler::changeFPSLimit(){
+
+	std::string fpsLimitString;
+
+	if (optionsStruct.fpsLimit > 0){
+		if (optionsStruct.fpsLimit > 30){
+			if (optionsStruct.fpsLimit > 60){
+				optionsStruct.fpsLimit = 0;
+			}
+			else{
+				optionsStruct.fpsLimit = 120;
+			}
+		}
+		else{
+			optionsStruct.fpsLimit = 60;
+		}
+	}
+	else{
+		optionsStruct.fpsLimit = 30;
+	}
+
+
+	if (optionsStruct.fpsLimit != 0)
+		fpsLimitString = "FPS limit: " + std::to_string(optionsStruct.fpsLimit);
+	else
+		fpsLimitString = "FPS limit: Unlimited";
+
+	fpsLimitButton.buttonText.setString(fpsLimitString);
+}
+#pragma endregion Options
+
+#pragma region Play
 void StateHandler::runPlay()
 {	
 	//player.create(200, 200);
@@ -138,7 +222,16 @@ void StateHandler::runPlay()
 		handleTime();
 	}
 }
+void StateHandler::updatePlay(){
 
+}
+
+void StateHandler::drawPlay(RenderWindow &window){
+
+}
+#pragma endregion Play
+
+#pragma region Tools
 void StateHandler::handleControls(RenderWindow &window){
 	
 	Controls::get()->update(window);
@@ -183,7 +276,7 @@ void StateHandler::handleTime(){
 void StateHandler::setState(gameState s){
 	this->state = s;
 }
-
+#pragma endregion Tools
 StateHandler::~StateHandler()
 {
 

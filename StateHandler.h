@@ -18,35 +18,57 @@ class StateHandler
 {
 private:
 	enum gameState {uninitialized, menu, options, play, exit};
-	ContextSettings settings;
+
+	struct optionValues{
+		bool isVsync;
+		int fpsLimit;
+		ContextSettings settings;
+		bool isFullScreen;
+	};
+	optionValues optionsStruct;
 	RenderWindow window;
 	Clock clock, secondClock;
 	Time elapsedTime;
+
+	Button playButton, optionsButton, exitButton, backButton;
+	Button applyButton, vsyncButton, fpsLimitButton;
+
+	std::string optionsFilename;
 	bool showDebug, secondPassed;
 	int fps;
 	float dt;
-public:
 
-	StateHandler();
-
-	void startGame();
-	bool exitGame();
 	void loopGame();
 	void runMenu();
-	void updateMenu(Button, Button, Button);
+	void updateMenu();
 	void drawMenu(RenderWindow &window);
 
 	void runOptions();
+	void updateOptions();
+	void drawOptions(RenderWindow &window);
+	void applyOptionSettings();
+	void changeVsync();
+	void changeFPSLimit();
 
 	void runPlay();
-	
+	void updatePlay();
+	void drawPlay(RenderWindow &window);
+
 	void handleControls(RenderWindow &window);
 	void handleTime();
+
 
 	void setState(gameState);
 
 	gameState state;
+	
+public:
 
+	StateHandler();
 	~StateHandler();
+
+	void startGame();
+	bool exitGame();
+
 };
 

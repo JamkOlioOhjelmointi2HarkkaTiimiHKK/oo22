@@ -40,6 +40,9 @@ void Button::update()
 	}
 	else
 		isMouseOverButton = false;
+
+	//Jos nappia liikuttaa, niin tekstiliikkuu sen kanssa. Kätevä mm. pieniin nappi animaatioihin.
+	buttonText.setPosition((button.getPosition().x + button.getSize().x / 2 - buttonText.getGlobalBounds().width / 2), (button.getPosition().y + button.getSize().y / 2 - buttonText.getGlobalBounds().height / 2));
 }
 
 void Button::setSize(sf::Vector2f size){
