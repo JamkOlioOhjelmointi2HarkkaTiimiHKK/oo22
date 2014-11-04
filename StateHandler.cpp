@@ -81,7 +81,11 @@ void StateHandler::loopGame()
 
 		case play:
 		{
-			runPlay();
+			Play playMode;
+			if (playMode.runPlay(window))
+				state = menu;
+			else
+				state = exit;
 			break;
 		}
 	}
@@ -195,9 +199,9 @@ void StateHandler::initializeOptions(){
 	AAString = "AA: " + std::to_string(optionsStruct.settings.antialiasingLevel);
 
 	if (optionsStruct.isFullScreen)
-		fullScreenString = "Windowed";
-	else
 		fullScreenString = "Fullscreen";
+	else
+		fullScreenString = "Windowed";
 
 	backButton.initialize(Vector2f(SCREEN_WIDTH - 200, 600), [&](){state = menu; }, optionsButtonSize, "Back");
 	applyButton.initialize(Vector2f(SCREEN_WIDTH - 200, 500), [&](){applyOptionSettings(); }, optionsButtonSize, "Apply");
@@ -290,43 +294,12 @@ void StateHandler::changeFullScreen(){
 	optionsStruct.isFullScreen = !optionsStruct.isFullScreen;
 
 	if (optionsStruct.isFullScreen)
-		fullScreenString = "Windowed";
-	else
 		fullScreenString = "Fullscreen";
+	else
+		fullScreenString = "Windowed";
 	fullScreenButton.buttonText.setString(fullScreenString);
 }
 #pragma endregion Options
-
-#pragma region Play
-void StateHandler::runPlay()
-{	
-	player.create(200, 200);
-	initializePlay();
-
-	while (state == play){
-		elapsedTime = secondClock.getElapsedTime();
-		handleControls(window);
-		updatePlay();
-		drawPlay(window);
-		handleTime();
-	}
-}
-void StateHandler::updatePlay(){
-
-}
-
-void StateHandler::drawPlay(RenderWindow &window){
-	window.clear(Color::Black);
-	if (showDebug){
-		window.draw(Content::get()->debugText);
-	}
-	window.display();
-
-}
-void StateHandler::initializePlay(){
-
-}
-#pragma endregion Play
 
 #pragma region Tools
 void StateHandler::handleControls(RenderWindow &window){

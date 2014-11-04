@@ -14,6 +14,7 @@
 #include "globals.h"
 #include "Button.h"
 #include "player.h"
+#include "Play.h"
 using namespace sf;
 
 class StateHandler
@@ -36,8 +37,6 @@ private:
 
 	Button playButton, optionsButton, exitButton, backButton;
 	Button applyButton, vsyncButton, fpsLimitButton, antiAliasingButton, fullScreenButton;
-	
-	Player player;
 
 	bool showDebug, secondPassed;
 	int fps;
@@ -60,16 +59,8 @@ private:
 	void changeAA();
 	void changeFullScreen();
 
-	void runPlay();
-	void updatePlay();
-	void drawPlay(RenderWindow &window);
-	void initializePlay();
-
 	void handleControls(RenderWindow &window);
 	void handleTime();
-
-
-	void setState(gameState);
 
 	gameState state;
 	
@@ -80,6 +71,6 @@ public:
 
 	void startGame();
 	bool exitGame();
-
+	void setState(gameState);
 };
 
