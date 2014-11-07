@@ -1,17 +1,16 @@
 #pragma once
-#include "main.h"
+#include <SFML\Graphics.hpp>
 #include <string.h>
 
 class MapObject
 {
 protected:
-	sf::RectangleShape shape;
+	
 	std::string name;
 public:
+	sf::RectangleShape shape;
 	MapObject();
 	MapObject(MapObject&);	
-	void update(sf::Vector2f);
-	void draw();
 	void setPos(sf::Vector2f);
 	sf::Vector2f getSize();
 	sf::Vector2f getPos();
