@@ -154,3 +154,6 @@ $RECYCLE.BIN/
 
 # Mac desktop service store files
 .DS_Store
+oo22.vcxproj
+oo22.vcxproj.filters
+oo22.vcxproj
