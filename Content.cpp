@@ -15,7 +15,7 @@ Content::Content(void) //ladataan sisältö
 	debugText.setString("0");
 	debugText.setCharacterSize(24);
 	debugText.setColor(sf::Color::White);
-	
+	font.loadFromFile("res\\calibri.ttf");
 }
 
 Content::~Content(void)

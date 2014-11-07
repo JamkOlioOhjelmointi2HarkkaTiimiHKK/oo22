@@ -20,6 +20,7 @@ public:
 	sf::Texture playerTexture;
 	sf::Texture backgroundTexture;
 	sf::Font calibri;
+	sf::Font font; // Tuomas K‰ytt‰‰ t‰t‰
 	sf::Text debugText;
 
 	static Content* get();
