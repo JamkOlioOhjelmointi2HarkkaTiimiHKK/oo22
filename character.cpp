@@ -17,10 +17,15 @@ void Character::move(float dt){
 void Character::draw(sf::RenderWindow &window){
 	window.draw(*this);
 }
-
-void Character::createCharacter(float posX, float posY){
+void Character::createCharacter(sf::Vector2f position, sf::Vector2f size){
+	this->setPosition(position.x, position.y);
+	this->setSize(size);
+	DX = DY = 0;
+	velocityX = velocityY = 500;
+}
+void Character::createCharacter(float posX, float posY, float sizeX, float sizeY){
 	this->setPosition(posX, posY);
-	this->setSize(sf::Vector2f(150, 400));
+	this->setSize(sf::Vector2f(sizeX, sizeY));
 	DX = DY = 0;
 	velocityX = velocityY = 500;
 }

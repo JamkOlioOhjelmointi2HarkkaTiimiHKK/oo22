@@ -12,7 +12,8 @@ public:
 	~Character();
 	void move(float dt);
 	void draw(sf::RenderWindow &window);
-	void createCharacter(float posX, float posY);
+	void createCharacter(float posX, float posY, float sizeX, float sizeY);
+	void createCharacter(sf::Vector2f position, sf::Vector2f size);
 	void setDirection(int DX, int DY);
 	void setDX(int DX);
 	void setDY(int DY);

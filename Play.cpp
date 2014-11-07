@@ -23,7 +23,7 @@ bool Play::runPlay(RenderWindow &window)
 }
 
 void Play::initializePlay(){
-	player.create(200, 200);
+	player.create(200, 200, 32, 64);
 }
 
 void Play::updatePlay(){

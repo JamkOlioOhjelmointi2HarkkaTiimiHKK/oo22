@@ -24,8 +24,8 @@ void Player::update(float dt){
 	
 }
 
-void Player::create(float posX, float posY){
-	this->createCharacter(posX, posY);
+void Player::create(float posX, float posY, float sizeX, float sizeY){
+	this->createCharacter(posX, posY, sizeX, sizeY);
 	this->setTexture(&Content::get()->playerTexture);
 }
 Player::~Player(){
