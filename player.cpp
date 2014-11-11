@@ -22,6 +22,20 @@ void Player::update(float dt){
 	}
 
 
+		if (Controls::get()->iskeydown(sf::Keyboard::Space)){
+			this->setDY(-1);
+		}
+		if (Controls::get()->kIsReleased(sf::Keyboard::Space)){
+
+			this->setDY(1);
+		
+		}
+	
+	if (sprite.getPosition().y >= 400){
+
+		this->setDY(0);
+		
+	}
 	this->move(dt);
 	
 }

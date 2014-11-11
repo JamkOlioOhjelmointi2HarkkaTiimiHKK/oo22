@@ -30,6 +30,7 @@ void Character::initializeCharacter(float posX, float posY, float sizeX, float s
 	DX = DY = 0;
 	velocityX = velocityY = 500;
 	sprite.setOrigin(sf::Vector2f(sizeX/2, sizeY/2));
+	falling = true;
 }
 
 void Character::setDirection(int dx, int dy){

@@ -8,6 +8,7 @@ protected:
 	int DX, DY;
 	float velocityX, velocityY;
 	sf::Sprite sprite;
+	bool falling;
 public:
 	Character();
 	~Character();
