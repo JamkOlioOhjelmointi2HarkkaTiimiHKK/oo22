@@ -11,9 +11,11 @@ void Player::update(float dt){
 	}
 	else if (Controls::get()->iskeydown(sf::Keyboard::A)){
 		this->setDX(-1);
+		this->setFacingDirection(false);
 	}
 	else if (Controls::get()->iskeydown(sf::Keyboard::D)){
 		this->setDX(1);
+		this->setFacingDirection(true);
 	}
 	else{
 		this->setDX(0);
@@ -26,7 +28,8 @@ void Player::update(float dt){
 
 void Player::create(float posX, float posY, float sizeX, float sizeY){
 	this->createCharacter(posX, posY, sizeX, sizeY);
-	this->setTexture(&Content::get()->playerTexture);
+	this->sprite.setTexture(Content::get()->playerTexture);
+	//this->setTexture(&Content::get()->playerTexture);
 }
 Player::~Player(){
 
