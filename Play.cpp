@@ -33,10 +33,13 @@ void Play::updatePlay(){
 
 void Play::drawPlay(RenderWindow &window){
 	window.clear(Color::Black);
+
+	player.draw(window);
 	if (showDebug){
 		window.draw(Content::get()->debugText);
+		player.drawHitboxes(window);
 	}
-	player.draw(window);
+	
 	window.display();
 
 }

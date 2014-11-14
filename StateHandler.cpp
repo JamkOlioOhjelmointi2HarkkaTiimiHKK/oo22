@@ -134,9 +134,9 @@ void StateHandler::initializeMenu(){
 	title.setCharacterSize(400);
 	title.setString("OO22");
 	title.setPosition(10, -100);
-	playButton.initialize(Vector2f(SCREEN_WIDTH - 200, 400), [&](){state = play; }, menuButtonSize, "Play");
-	optionsButton.initialize(Vector2f(SCREEN_WIDTH - 200, 500), [&](){state = options; }, menuButtonSize, "Options");
-	exitButton.initialize(Vector2f(SCREEN_WIDTH - 200, 600), [&](){state = exit; }, menuButtonSize, "Exit");
+	playButton.initialize(Vector2f(35, 400), [&](){state = play; }, menuButtonSize, "Play");
+	optionsButton.initialize(Vector2f(35, 500), [&](){state = options; }, menuButtonSize, "Options");
+	exitButton.initialize(Vector2f(35, 600), [&](){state = exit; }, menuButtonSize, "Exit");
 }
 #pragma endregion Menu
 
@@ -203,12 +203,12 @@ void StateHandler::initializeOptions(){
 	else
 		fullScreenString = "Windowed";
 
-	backButton.initialize(Vector2f(SCREEN_WIDTH - 200, 600), [&](){state = menu; }, optionsButtonSize, "Back");
-	applyButton.initialize(Vector2f(SCREEN_WIDTH - 200, 500), [&](){applyOptionSettings(); }, optionsButtonSize, "Apply");
-	vsyncButton.initialize(Vector2f(SCREEN_WIDTH / 2, 500), [&](){changeVsync(); }, optionsWideButtonSize, vsyncButtonString);
-	fpsLimitButton.initialize(Vector2f(SCREEN_WIDTH / 2, 600), [&](){changeFPSLimit(); }, optionsWideButtonSize, fpsLimitString);
-	antiAliasingButton.initialize(Vector2f(SCREEN_WIDTH / 2, 400), [&](){changeAA(); }, optionsWideButtonSize, AAString);
-	fullScreenButton.initialize(Vector2f((SCREEN_WIDTH / 2)-265, 600), [&](){changeFullScreen(); }, optionsWideButtonSize, fullScreenString);
+	backButton.initialize(Vector2f(35, 600), [&](){state = menu; }, optionsButtonSize, "Back");
+	applyButton.initialize(Vector2f(35, 500), [&](){applyOptionSettings(); }, optionsButtonSize, "Apply");
+	vsyncButton.initialize(Vector2f(200, 500), [&](){changeVsync(); }, optionsWideButtonSize, vsyncButtonString);
+	fpsLimitButton.initialize(Vector2f(200, 600), [&](){changeFPSLimit(); }, optionsWideButtonSize, fpsLimitString);
+	antiAliasingButton.initialize(Vector2f(200, 400), [&](){changeAA(); }, optionsWideButtonSize, AAString);
+	fullScreenButton.initialize(Vector2f(465, 600), [&](){changeFullScreen(); }, optionsWideButtonSize, fullScreenString);
 }
 
 void StateHandler::applyOptionSettings(){

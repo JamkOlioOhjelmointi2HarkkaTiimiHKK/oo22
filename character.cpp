@@ -10,6 +10,18 @@ Character::~Character(){
 
 }
 
+void Character::initializeCharacter(float posX, float posY, float sizeX, float sizeY){
+	sprite.setPosition(posX, posY);
+	this->setSize(sf::Vector2f(sizeX, sizeY));
+	this->sizeX = sizeX;
+	this->sizeY = sizeY;
+	DX = DY = 0;
+	velocityX = velocityY = 500;
+	sprite.setOrigin(sf::Vector2f(sizeX / 2, sizeY / 2));
+	falling = true;
+	hitbox.initializeHitBoxes(sprite, sizeX, sizeY);
+}
+
 void Character::move(float dt){
 	sprite.setPosition(sprite.getPosition().x + (DX * (velocityX * dt)), sprite.getPosition().y + (DY * (velocityY * dt)));
 }
@@ -17,20 +29,15 @@ void Character::move(float dt){
 void Character::draw(sf::RenderWindow &window){
 	window.draw(sprite);
 }
+void Character::drawHitboxes(sf::RenderWindow &window){
+	hitbox.draw(window);
+}
+
 void Character::createCharacter(sf::Vector2f position, sf::Vector2f size){
 	initializeCharacter(position.x, position.y, size.x, size.y);
 }
 void Character::createCharacter(float posX, float posY, float sizeX, float sizeY){
 	initializeCharacter(posX, posY, sizeX, sizeY);
-}
-
-void Character::initializeCharacter(float posX, float posY, float sizeX, float sizeY){
-	sprite.setPosition(posX, posY);
-	this->setSize(sf::Vector2f(sizeX, sizeY));
-	DX = DY = 0;
-	velocityX = velocityY = 500;
-	sprite.setOrigin(sf::Vector2f(sizeX/2, sizeY/2));
-	falling = true;
 }
 
 void Character::setDirection(int dx, int dy){
@@ -39,10 +46,12 @@ void Character::setDirection(int dx, int dy){
 }
 
 void Character::setFacingDirection(bool facingLeft){
+
 	if (facingLeft)
 		sprite.setScale(1, 1);
 	else
 		sprite.setScale(-1, 1);
+
 }
 
 void Character::setDX(int dx){

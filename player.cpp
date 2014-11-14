@@ -36,8 +36,9 @@ void Player::update(float dt){
 		this->setDY(0);
 		
 	}
-	this->move(dt);
 	
+	this->move(dt);
+	hitbox.update(sprite);
 }
 
 void Player::create(float posX, float posY, float sizeX, float sizeY){
