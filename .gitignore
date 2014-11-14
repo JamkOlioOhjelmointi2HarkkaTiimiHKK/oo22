@@ -157,3 +157,7 @@ $RECYCLE.BIN/
 oo22.vcxproj
 oo22.vcxproj.filters
 oo22.vcxproj
+*.vcxproj
+*.filters
+*.filters
+*.vcxproj
