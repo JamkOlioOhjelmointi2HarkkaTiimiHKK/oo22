@@ -20,9 +20,10 @@
     <ClCompile Include="Floor.cpp" />
     <ClCompile Include="Hitbox.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainMenuState.cpp" />
     <ClCompile Include="MapObject.cpp" />
     <ClCompile Include="Merge.cpp" />
-    <ClCompile Include="Play.cpp" />
+    <ClCompile Include="PlayState.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="StateHandler.cpp" />
     <ClCompile Include="Utility.cpp" />
@@ -37,9 +38,10 @@
     <ClInclude Include="Floor.h" />
     <ClInclude Include="globals.h" />
     <ClInclude Include="Hitbox.h" />
+    <ClInclude Include="MainMenuState.h" />
     <ClInclude Include="MapObject.h" />
     <ClInclude Include="Merge.h" />
-    <ClInclude Include="Play.h" />
+    <ClInclude Include="PlayState.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="StateHandler.h" />
     <ClInclude Include="Utility.h" />

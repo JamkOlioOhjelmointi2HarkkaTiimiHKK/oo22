@@ -1,7 +1,7 @@
 /*
 * raah, miksei mainmenu ole oma luokkansa? samoin option menu?
 * 
-*
+* Tulee olemaan. -Arttu
 *
 *
 * 
@@ -14,7 +14,7 @@
 #include "globals.h"
 #include "Button.h"
 #include "player.h"
-#include "Play.h"
+#include "PlayState.h"
 #include "EditorState.h"
 #include "Merge.h"
 using namespace sf;
@@ -44,8 +44,7 @@ private:
 	Text title;
 	float titleAnimation;
 
-	Button playButton, optionsButton, exitButton, backButton;
-	Button applyButton, vsyncButton, fpsLimitButton, antiAliasingButton, fullScreenButton;
+	Button applyButton, backButton, vsyncButton, fpsLimitButton, antiAliasingButton, fullScreenButton;
 
 	bool showDebug, secondPassed;
 	int fps;

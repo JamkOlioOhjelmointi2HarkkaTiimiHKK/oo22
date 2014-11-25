@@ -11,6 +11,10 @@ Button::Button(double x, double y, std::string text, std::function<void()> func,
 	initialize(sf::Vector2f(x, y), func, size, text);
 }
 
+Button::Button(sf::Vector2f position, std::function<void()> func, sf::Vector2f size, std::string text)
+{
+	initialize(position, func, size, text);
+}
 
 void Button::initialize(sf::Vector2f position, std::function<void()> func, sf::Vector2f size, std::string text){
 	function = func;

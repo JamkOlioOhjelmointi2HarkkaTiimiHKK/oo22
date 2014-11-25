@@ -1,37 +1,37 @@
-#include "Play.h"
+#include "PlayState.h"
 
-Play::Play(){
+PlayState::PlayState(){
 	playModeIsActive = true;
 	exitToMenu = true;
 	fps = 0;
 }
-Play::~Play(){
+PlayState::~PlayState(){
 
 }
-bool Play::runPlay(RenderWindow &window)
+bool PlayState::runPlayState(RenderWindow &window)
 {
-	initializePlay();
+	initializePlayState();
 
 	while (playModeIsActive){
 		elapsedTime = secondClock.getElapsedTime();
 		handleControls(window);
-		updatePlay();
-		drawPlay(window);
+		updatePlayState();
+		drawPlayState(window);
 		handleTime();
 	}
 	return exitToMenu;
 }
 
-void Play::initializePlay(){
+void PlayState::initializePlayState(){
 	player.create(200, 200, 32, 64);
 }
 
-void Play::updatePlay(){
+void PlayState::updatePlayState(){
 	player.update(dt);
 	//cout << player.getPosition().x << ", " << dt << endl;
 }
 
-void Play::drawPlay(RenderWindow &window){
+void PlayState::drawPlayState(RenderWindow &window){
 	window.clear(Color::Black);
 
 	player.draw(window);
@@ -44,7 +44,7 @@ void Play::drawPlay(RenderWindow &window){
 
 }
 
-void Play::handleControls(RenderWindow &window){
+void PlayState::handleControls(RenderWindow &window){
 
 	Controls::get()->update(window);
 	if (Controls::get()->kIsReleased(Keyboard::F1)){
@@ -64,7 +64,7 @@ void Play::handleControls(RenderWindow &window){
 	}
 }
 
-void Play::handleTime(){
+void PlayState::handleTime(){
 
 	dt = clock.restart().asSeconds();
 

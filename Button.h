@@ -22,7 +22,9 @@ public:
 	Button(){};
 	Button(sf::Vector2f, std::string, std::function<void()>, sf::Vector2f size = (sf::Vector2f(150, 150)));
 	Button(double x, double y, std::string, std::function<void()>, sf::Vector2f size = (sf::Vector2f(150, 150)));
+	Button(sf::Vector2f, std::function<void()>, sf::Vector2f size = (sf::Vector2f(150, 150)), std::string text = "");
 
+	//editor
 	Button(sf::Vector2f, sf::Vector2f, std::string, std::function<void()>);
 	
 	std::function<void()> function;

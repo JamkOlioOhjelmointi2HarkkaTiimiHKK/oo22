@@ -4,7 +4,7 @@
 #include "player.h"
 using namespace sf;
 
-class Play
+class PlayState
 {
 private:
 	Player player;
@@ -14,13 +14,13 @@ private:
 	int fps;
 	float dt;
 public:
-	Play();
-	~Play();
+	PlayState();
+	~PlayState();
 
-	bool runPlay(RenderWindow &window);
-	void initializePlay();
-	void updatePlay();
-	void drawPlay(RenderWindow &window);
+	bool runPlayState(RenderWindow &window);
+	void initializePlayState();
+	void updatePlayState();
+	void drawPlayState(RenderWindow &window);
 	void handleControls(RenderWindow &window);
 	void handleTime();
 };

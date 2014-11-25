@@ -83,8 +83,8 @@ void StateHandler::loopGame()
 
 		case play:
 		{
-			Play playMode;
-			if (playMode.runPlay(window))
+			PlayState playMode;
+			if (playMode.runPlayState(window))
 				state = menu;
 			else
 				state = exit;
@@ -127,9 +127,7 @@ void StateHandler::runMenu()
 }
 
 void StateHandler::updateMenu(){
-	playButton.update();
-	optionsButton.update();
-	exitButton.update();
+
 	for (int i = 0; i < buttons.size(); ++i)
 	{
 		buttons[i]->update();
@@ -147,9 +145,7 @@ void StateHandler::drawMenu(RenderWindow &window){
 		window.draw(Content::get()->debugText);
 	}
 	window.draw(title);
-	playButton.draw(window);
-	optionsButton.draw(window);
-	exitButton.draw(window);
+
 	for (int i = 0; i < buttons.size(); ++i)
 	{
 		buttons[i]->draw();
@@ -162,16 +158,17 @@ void StateHandler::initializeMenu(){
 	title.setCharacterSize(400);
 	title.setString("OO22");
 	title.setPosition(10, -100);
-	playButton.initialize(Vector2f(35, 400), [&](){state = play; }, menuButtonSize, "Play");
-	optionsButton.initialize(Vector2f(35, 500), [&](){state = options; }, menuButtonSize, "Options");
-	exitButton.initialize(Vector2f(35, 600), [&](){state = exit; }, menuButtonSize, "Exit");
 	
-	buttons.push_back(new Button(sf::Vector2f(100, 50),sf::Vector2f(100, 50), "Edit", [&]()
+	buttons.push_back(new Button(Vector2f(35, 400), [&](){state = play; }, menuButtonSize, "Play"));
+	buttons.push_back(new Button(Vector2f(35, 500), [&](){state = options; }, menuButtonSize, "Options"));
+	buttons.push_back(new Button(Vector2f(35, 600), [&](){state = exit; }, menuButtonSize, "Exit"));
+
+	buttons.push_back(new Button(menuButtonSize, sf::Vector2f(200, 500), "Edit", [&]()
 	{
 		state = edit;
 	}));
 
-	buttons.push_back(new Button(sf::Vector2f(100, 50),sf::Vector2f(500, 50), "merge", [&]()
+	buttons.push_back(new Button(menuButtonSize, sf::Vector2f(200, 600), "merge", [&]()
 	{
 		state = mergeState;
 	}));
@@ -387,6 +384,10 @@ void StateHandler::setState(gameState s){
 #pragma endregion Tools
 StateHandler::~StateHandler()
 {
+	for (int i = 0; i < buttons.size(); ++i)
+	{
+		delete buttons[i];
+	}
 	delete merge;
 	delete editState;
 }
