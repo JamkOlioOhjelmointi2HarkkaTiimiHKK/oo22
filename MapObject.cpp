@@ -3,6 +3,15 @@
 
 MapObject::MapObject()
 {
+	name = "aaaaa";
+	passable=false;
+}
+
+MapObject::MapObject(int x, int y)
+{
+	shape.setPosition(x, y);
+	name = "aaaaa";
+	passable = false;
 }
 
 MapObject::MapObject(MapObject& copy)

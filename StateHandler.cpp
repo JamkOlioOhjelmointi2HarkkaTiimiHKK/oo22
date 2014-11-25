@@ -4,6 +4,8 @@ StateHandler::StateHandler()
 {
 	state = uninitialized;
 
+	editState = new EditorState();
+
 	ifstream lahde(OPTIONS_FILENAME, ios_base::binary);
 	
 	showDebug = true;
@@ -88,7 +90,25 @@ void StateHandler::loopGame()
 				state = exit;
 			break;
 		}
+		case edit:
+		{
+			editState->loop();
+				if (Controls::get()->kIsPressed(sf::Keyboard().Escape))
+				{
+					state = menu;
+				}
+				break;
+		}
+		case mergeState:
+			merge = new Merge();
+			merge->loop();
+			if (Controls::get()->kIsPressed(sf::Keyboard().Escape))
+			{
+				state = menu;
+			}
+			break;
 	}
+	
 }
 
 #pragma region Menu
@@ -110,6 +130,10 @@ void StateHandler::updateMenu(){
 	playButton.update();
 	optionsButton.update();
 	exitButton.update();
+	for (int i = 0; i < buttons.size(); ++i)
+	{
+		buttons[i]->update();
+	}
 	if (titleAnimation < 255){
 		titleAnimation += (4 * dt);
 		title.setColor(Color(255, 255, 255, titleAnimation));
@@ -126,6 +150,10 @@ void StateHandler::drawMenu(RenderWindow &window){
 	playButton.draw(window);
 	optionsButton.draw(window);
 	exitButton.draw(window);
+	for (int i = 0; i < buttons.size(); ++i)
+	{
+		buttons[i]->draw();
+	}
 	window.display();
 }
 void StateHandler::initializeMenu(){
@@ -137,6 +165,16 @@ void StateHandler::initializeMenu(){
 	playButton.initialize(Vector2f(35, 400), [&](){state = play; }, menuButtonSize, "Play");
 	optionsButton.initialize(Vector2f(35, 500), [&](){state = options; }, menuButtonSize, "Options");
 	exitButton.initialize(Vector2f(35, 600), [&](){state = exit; }, menuButtonSize, "Exit");
+	
+	buttons.push_back(new Button(sf::Vector2f(100, 50),sf::Vector2f(100, 50), "Edit", [&]()
+	{
+		state = edit;
+	}));
+
+	buttons.push_back(new Button(sf::Vector2f(100, 50),sf::Vector2f(500, 50), "merge", [&]()
+	{
+		state = mergeState;
+	}));
 }
 #pragma endregion Menu
 
@@ -349,5 +387,6 @@ void StateHandler::setState(gameState s){
 #pragma endregion Tools
 StateHandler::~StateHandler()
 {
-
+	delete merge;
+	delete editState;
 }

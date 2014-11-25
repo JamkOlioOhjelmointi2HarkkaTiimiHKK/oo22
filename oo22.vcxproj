@@ -16,9 +16,12 @@
     <ClCompile Include="character.cpp" />
     <ClCompile Include="Content.cpp" />
     <ClCompile Include="Controls.cpp" />
+    <ClCompile Include="EditorState.cpp" />
     <ClCompile Include="Floor.cpp" />
+    <ClCompile Include="Hitbox.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapObject.cpp" />
+    <ClCompile Include="Merge.cpp" />
     <ClCompile Include="Play.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="StateHandler.cpp" />
@@ -30,9 +33,12 @@
     <ClInclude Include="character.h" />
     <ClInclude Include="Content.h" />
     <ClInclude Include="Controls.h" />
+    <ClInclude Include="EditorState.h" />
     <ClInclude Include="Floor.h" />
     <ClInclude Include="globals.h" />
+    <ClInclude Include="Hitbox.h" />
     <ClInclude Include="MapObject.h" />
+    <ClInclude Include="Merge.h" />
     <ClInclude Include="Play.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="StateHandler.h" />

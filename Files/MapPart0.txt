@@ -1,0 +1,6 @@
+block 256 96
+floor 352 384
+floor 224 384
+floor 32 384
+floor 128 384
+floor 0 416

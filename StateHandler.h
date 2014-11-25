@@ -1,6 +1,6 @@
 /*
-* 15.10.2014 Tein tilakoneen ja annoin enumille mahdolliset tilat
-* Tuomas Kyttä
+* raah, miksei mainmenu ole oma luokkansa? samoin option menu?
+* 
 *
 *
 *
@@ -15,12 +15,22 @@
 #include "Button.h"
 #include "player.h"
 #include "Play.h"
+#include "EditorState.h"
+#include "Merge.h"
 using namespace sf;
+
+class EditorState;
+class Merge;
 
 class StateHandler
 {
 private:
-	enum gameState {uninitialized, menu, options, play, exit};
+	enum gameState { uninitialized, menu, options, play, edit, mergeState, exit };
+
+	std::vector<Button*> buttons;
+
+	EditorState *editState;
+	Merge *merge;
 
 	struct optionValues{
 		bool isVsync;
@@ -29,7 +39,6 @@ private:
 		bool isFullScreen;
 	};
 	optionValues optionsStruct;
-	RenderWindow window;
 	Clock clock, secondClock;
 	Time elapsedTime;
 	Text title;
@@ -68,6 +77,9 @@ public:
 
 	StateHandler();
 	~StateHandler();
+
+	void editStart();
+	void editLoop();
 
 	void startGame();
 	bool exitGame();
