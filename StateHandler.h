@@ -19,6 +19,7 @@ class StateHandler
 {
 private:
 	enum gameState { uninitialized, menu, options, play, edit, mergeState, exit };
+	gameState state;
 
 	std::vector<Button*> buttons;
 
@@ -62,8 +63,6 @@ private:
 
 	void handleControls(RenderWindow &window);
 	void handleTime();
-
-	gameState state;
 	
 public:
 

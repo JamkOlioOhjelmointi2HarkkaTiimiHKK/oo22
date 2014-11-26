@@ -1,5 +1,6 @@
 #pragma once
-#include <SFML\Graphics.hpp>
+#include <fstream>
+#include <SFML/Graphics.hpp>
 #include "Controls.h"
 #include "Content.h"
 #include "globals.h"
@@ -8,25 +9,42 @@ using namespace sf;
 
 class MainMenuState{
 private:
-	enum gameState { uninitialized, menu, options, play, edit, mergeState, exit };
 	Clock clock, secondClock;
 	Time elapsedTime;
 	Text title;
-	std::vector<Button*> buttons;
-	bool showDebug, secondPassed, menuModeIsActive, startPlayState, showOptions;
+	std::vector<Button*> menuButtons, optionButtons;
+	bool showDebug, secondPassed, showOptions, menuModeIsActive;
 	int fps;
 	float dt;
 	float titleAnimation;
 
+	struct optionValues{
+		bool isVsync;
+		int fpsLimit;
+		ContextSettings settings;
+		bool isFullScreen;
+	};
+	optionValues optionsStruct;
+
 public:
+	enum gameState { uninitialized, menu, play, edit, mergeState, exit };
+	gameState state;
+
 	MainMenuState();
 	~MainMenuState();
 
-	bool runMainMenuState();
+	void runMainMenuState();
 	void updateMainMenuState();
 	void drawMainMenuState();
+
 	void updateOptionsMenuState();
 	void drawOptionsMenuState();
+	void changeVsync();
+	void changeFPSLimit();
+	void changeAA();
+	void changeFullScreen();
+	void applyOptionSettings();
+
 	void handleControls();
 	void handleTime();
 };
