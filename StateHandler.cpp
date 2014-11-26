@@ -103,7 +103,7 @@ void StateHandler::loopGame()
 		}
 		case mergeState:
 			
-			merge->loop(dt);
+			merge->loop();
 			if (Controls::get()->kIsPressed(sf::Keyboard().Escape))
 			{
 				state = menu;

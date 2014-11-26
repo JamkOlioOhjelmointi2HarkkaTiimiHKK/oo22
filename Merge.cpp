@@ -50,29 +50,29 @@ Merge::Merge()
 
 }
 
-void Merge::update(float dt)
+void Merge::update()
 {
 	if (Controls::get()->iskeydown(sf::Keyboard::D))
 	{
-		position.x += 100*dt;
+		position.x += 0.5;
 		view.move(position);
 		window.setView(view);
 	}
 	if (Controls::get()->iskeydown(sf::Keyboard::A))
 	{
-		position.x -= 100*dt;
+		position.x -= 0.5;
 		view.move(position);
 		window.setView(view);
 	}
 	if (Controls::get()->iskeydown(sf::Keyboard::S))
 	{
-		position.y += 100* dt;
+		position.y += 0.5;
 		view.move(position);
 		window.setView(view);
 	}
 	if (Controls::get()->iskeydown(sf::Keyboard::W))
 	{
-		position.y -= 100*dt;
+		position.y -= 0.5;
 		view.move(position);
 		window.setView(view);
 	}
@@ -86,9 +86,9 @@ void Merge::draw()
 	}
 }
 
-void Merge::loop(float dt)
+void Merge::loop()
 {
-	update(dt);
+	update();
 	window.clear(sf::Color(0, 0, 0));
 	draw();
 	window.display();
