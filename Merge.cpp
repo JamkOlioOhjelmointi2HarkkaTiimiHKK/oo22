@@ -4,12 +4,15 @@
 Merge::Merge()
 {
 	
-	std::string temp; // m‰‰r‰ mappien m‰‰r‰st‰
+	std::string temp; // m‰‰r‰ mappipalojen m‰‰r‰st‰
+	std::string temp2; //m‰‰r‰ mappien m‰‰r‰st‰
 	facts.open("Files\\facts.txt");
 	getline(facts, temp);
+	getline(facts, temp2);
+	numberOfMap = std::stoi(temp2);
 	facts.close();
 	numberOfPart = 0;
-	numberOfMap = 0;
+	
 
 	for (int i = 0; i < std::stoi(temp) + 1; i++)
 	{		
@@ -47,7 +50,7 @@ Merge::Merge()
 	window.setView(view);
 	position = sf::Vector2f(100, 100);
 
-
+	save(); // temp
 
 }
 
@@ -107,18 +110,23 @@ void Merge::save()
 	}
 
 
-	file.close();
+	file2.close();
 
-	for (unsigned i = 0; i < mapObjects.size(); ++i)
+	std::string temp;
+	facts.open("Files\\facts.txt");
+	getline(facts, temp);
+	getline(facts, temp);
+	std::cout << temp;
+	if (std::stoi(temp) < numberOfMap)
 	{
-		delete mapObjects[i];
+		facts.seekg(3, std::ios_base::beg);
+		facts << numberOfMap;
+		std::cout << temp;
 	}
 
-	mapObjects.clear();
+	facts.close();
+
 	numberOfMap++;
-
-
-
 }
 
 Merge::~Merge()
@@ -127,4 +135,5 @@ Merge::~Merge()
 	{
 		delete mapObjects[i];
 	}
+	mapObjects.clear();
 }

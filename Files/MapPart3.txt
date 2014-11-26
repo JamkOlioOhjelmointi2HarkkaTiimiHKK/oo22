@@ -1,4 +1,6 @@
-floor 224 128
-floor 96 384
+floor 160 288
+floor 0 192
+floor 160 192
 floor 320 288
-floor 96 224
+floor 352 416
+floor 192 416

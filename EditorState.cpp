@@ -158,7 +158,6 @@ void EditorState::save()
 	std::string temp;
 	facts.open("Files\\facts.txt");
 	getline(facts, temp);
-	facts.clear();
 	if (std::stoi(temp) < numberOfPart)
 	{
 		facts.seekg(0,std::ios_base::beg);
