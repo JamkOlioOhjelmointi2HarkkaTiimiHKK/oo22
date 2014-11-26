@@ -48,31 +48,33 @@ Merge::Merge()
 	window.setView(view);
 	position = sf::Vector2f(100, 100);
 
+
+
 }
 
-void Merge::update()
+void Merge::update(float dt)
 {
 	if (Controls::get()->iskeydown(sf::Keyboard::D))
 	{
-		position.x += 0.5;
+		position.x += 50*dt;
 		view.move(position);
 		window.setView(view);
 	}
 	if (Controls::get()->iskeydown(sf::Keyboard::A))
 	{
-		position.x -= 0.5;
+		position.x -= 50*dt;
 		view.move(position);
 		window.setView(view);
 	}
 	if (Controls::get()->iskeydown(sf::Keyboard::S))
 	{
-		position.y += 0.5;
+		position.y += 50*dt;
 		view.move(position);
 		window.setView(view);
 	}
 	if (Controls::get()->iskeydown(sf::Keyboard::W))
 	{
-		position.y -= 0.5;
+		position.y -= 50*dt;
 		view.move(position);
 		window.setView(view);
 	}
@@ -86,14 +88,52 @@ void Merge::draw()
 	}
 }
 
-void Merge::loop()
+void Merge::loop(float dt)
 {
-	update();
+	update(dt);
 	window.clear(sf::Color(0, 0, 0));
 	draw();
 	window.display();
 }
 
+void merge::save()
+{
+
+
+	file.open("Files\\MapPart" + std::to_string(numberOfPart) + ".txt");
+
+	for (unsigned i = 0; i < mapObjects.size(); ++i)
+	{
+		file << mapObjects[i]->getName() << " " << mapObjects[i]->getPos().x - pieceArea.getGlobalBounds().left << " " << mapObjects[i]->getPos().y - pieceArea.getGlobalBounds().top << std::endl;
+	}
+
+
+	file.close();
+
+	for (unsigned i = 0; i < mapObjects.size(); ++i)
+	{
+		delete mapObjects[i];
+	}
+
+	std::string temp;
+	facts.open("Files\\facts.txt");
+	getline(facts, temp);
+	facts.clear();
+	if (std::stoi(temp) < numberOfPart)
+	{
+		facts.seekg(0, std::ios_base::beg);
+		facts << numberOfPart;
+		std::cout << temp;
+	}
+
+	facts.close();
+
+	mapObjects.clear();
+	numberOfPart++;
+
+
+
+}
 
 Merge::~Merge()
 {

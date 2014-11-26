@@ -23,12 +23,12 @@ private:
 
 	sf::View view;
 	
-	void update();
+	void update(float);
 	void draw();
 
 public:
 	Merge();
-	void loop();
+	void loop(float);
 	~Merge();
 };
 

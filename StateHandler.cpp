@@ -73,7 +73,6 @@ void StateHandler::loopGame()
 		case menu:
 		{
 			merge = new Merge();
-			std::cout << "mitä vittua?";
 			runMenu();
 			break;
 		}
@@ -103,7 +102,8 @@ void StateHandler::loopGame()
 		}
 		case mergeState:
 			
-			merge->loop();
+			merge->loop(dt);
+			handleTime();
 			if (Controls::get()->kIsPressed(sf::Keyboard().Escape))
 			{
 				state = menu;
