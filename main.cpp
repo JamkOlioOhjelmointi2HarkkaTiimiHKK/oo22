@@ -2,7 +2,7 @@
 #include "globals.h"
 
 
-sf::RenderWindow window(sf::VideoMode(1024, 768), "Editor");
+sf::RenderWindow window(sf::VideoMode(0, 0), "PotkuStart");
 
 int main()
 {
