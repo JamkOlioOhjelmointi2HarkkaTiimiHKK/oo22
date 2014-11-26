@@ -14,15 +14,18 @@ private:
 	std::vector<MapObject*> mapObjects;
 	std::ifstream file;
 	std::fstream facts;
+	std::ofstream file2;
 	std::string line;
 	std::string name;
 	std::string x;
 	std::string y;
 	sf::Vector2f position;
+
 	int numberOfPart;
+	int numberOfMap;
 
 	sf::View view;
-	
+	void save();
 	void update(float);
 	void draw();
 

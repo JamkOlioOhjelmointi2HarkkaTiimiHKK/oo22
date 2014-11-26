@@ -4,16 +4,15 @@
 Merge::Merge()
 {
 	
-	std::string temp;
+	std::string temp; // m‰‰r‰ mappien m‰‰r‰st‰
 	facts.open("Files\\facts.txt");
 	getline(facts, temp);
 	facts.close();
 	numberOfPart = 0;
-
+	numberOfMap = 0;
 
 	for (int i = 0; i < std::stoi(temp) + 1; i++)
-	{
-		
+	{		
 		for (int xAkseli = 0; xAkseli < 2; xAkseli++)
 		{
 			for (int yAkseli = 0; yAkseli < 2; yAkseli++)
@@ -96,15 +95,15 @@ void Merge::loop(float dt)
 	window.display();
 }
 
-void merge::save()
+void Merge::save()
 {
 
 
-	file.open("Files\\MapPart" + std::to_string(numberOfPart) + ".txt");
+	file2.open("Files\\Maps\\Map" + std::to_string(numberOfMap) + ".txt");
 
 	for (unsigned i = 0; i < mapObjects.size(); ++i)
 	{
-		file << mapObjects[i]->getName() << " " << mapObjects[i]->getPos().x - pieceArea.getGlobalBounds().left << " " << mapObjects[i]->getPos().y - pieceArea.getGlobalBounds().top << std::endl;
+		file2 << mapObjects[i]->getName() << " " << mapObjects[i]->getPos().x  << " " << mapObjects[i]->getPos().y<< std::endl;
 	}
 
 
@@ -115,21 +114,8 @@ void merge::save()
 		delete mapObjects[i];
 	}
 
-	std::string temp;
-	facts.open("Files\\facts.txt");
-	getline(facts, temp);
-	facts.clear();
-	if (std::stoi(temp) < numberOfPart)
-	{
-		facts.seekg(0, std::ios_base::beg);
-		facts << numberOfPart;
-		std::cout << temp;
-	}
-
-	facts.close();
-
 	mapObjects.clear();
-	numberOfPart++;
+	numberOfMap++;
 
 
 
