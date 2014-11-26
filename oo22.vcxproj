@@ -17,6 +17,7 @@
     <ClCompile Include="Content.cpp" />
     <ClCompile Include="Controls.cpp" />
     <ClCompile Include="EditorState.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Floor.cpp" />
     <ClCompile Include="Hitbox.cpp" />
     <ClCompile Include="main.cpp" />
@@ -35,6 +36,7 @@
     <ClInclude Include="Content.h" />
     <ClInclude Include="Controls.h" />
     <ClInclude Include="EditorState.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="Floor.h" />
     <ClInclude Include="globals.h" />
     <ClInclude Include="Hitbox.h" />
@@ -50,6 +52,8 @@
     <Font Include="res\calibri.ttf" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="res\janis.jpg" />
+    <Image Include="res\janis.png" />
     <Image Include="res\player.png" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

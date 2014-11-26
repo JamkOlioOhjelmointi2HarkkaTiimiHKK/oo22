@@ -2,12 +2,14 @@
 #include <SFML\Graphics.hpp>
 #include "StateHandler.h"
 #include "player.h"
+#include "Enemy.h"
 using namespace sf;
 
 class PlayState
 {
 private:
 	Player player;
+	Enemy enemy;
 	Clock clock, secondClock;
 	Time elapsedTime;
 	bool showDebug, playModeIsActive, exitToMenu, secondPassed;

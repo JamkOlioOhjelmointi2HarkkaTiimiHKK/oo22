@@ -24,10 +24,12 @@ bool PlayState::runPlayState(RenderWindow &window)
 
 void PlayState::initializePlayState(){
 	player.create(200, 200, 32, 64);
+	enemy.create(400, 400, 32, 64);
 }
 
 void PlayState::updatePlayState(){
 	player.update(dt);
+	enemy.update(dt);
 	//cout << player.getPosition().x << ", " << dt << endl;
 }
 
@@ -39,6 +41,7 @@ void PlayState::drawPlayState(RenderWindow &window){
 		window.draw(Content::get()->debugText);
 		player.drawHitboxes(window);
 	}
+	enemy.draw(window);
 	
 	window.display();
 

@@ -69,6 +69,9 @@
     <ClCompile Include="EditorState.cpp">
       <Filter>MapEditor</Filter>
     </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="character.h">
@@ -119,6 +122,9 @@
     <ClInclude Include="Merge.h">
       <Filter>MapEditor</Filter>
     </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Font Include="res\calibri.ttf">
@@ -127,6 +133,12 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\player.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\janis.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\janis.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
