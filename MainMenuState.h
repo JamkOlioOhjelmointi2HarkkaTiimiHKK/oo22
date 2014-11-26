@@ -1,9 +1,14 @@
 #pragma once
 #include <SFML\Graphics.hpp>
-#include "StateHandler.h"
+#include "Controls.h"
+#include "Content.h"
+#include "globals.h"
+#include "Button.h"
+using namespace sf;
 
 class MainMenuState{
 private:
+	enum gameState { uninitialized, menu, options, play, edit, mergeState, exit };
 	Clock clock, secondClock;
 	Time elapsedTime;
 	Text title;
@@ -12,6 +17,7 @@ private:
 	int fps;
 	float dt;
 	float titleAnimation;
+
 public:
 	MainMenuState();
 	~MainMenuState();
