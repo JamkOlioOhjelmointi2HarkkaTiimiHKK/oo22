@@ -180,7 +180,7 @@ void MainMenuState::changeFPSLimit(){
 	if (optionsStruct.fpsLimit != 0)
 		fpsLimitString = "FPS limit: " + std::to_string(optionsStruct.fpsLimit);
 	else
-		fpsLimitString = "FPS limit: Unlimited";
+		fpsLimitString = "FPS limit: No cap";
 
 	optionButtons[3]->buttonText.setString(fpsLimitString);
 }
