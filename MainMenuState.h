@@ -23,7 +23,6 @@ public:
 	~MainMenuState();
 
 	bool runMainMenuState();
-	void initializeMainMenuState();
 	void updateMainMenuState();
 	void drawMainMenuState();
 	void updateOptionsMenuState();

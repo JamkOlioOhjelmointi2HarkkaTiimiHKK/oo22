@@ -31,7 +31,6 @@ MainMenuState::~MainMenuState(){
 }
 
 bool MainMenuState::runMainMenuState(){
-	initializeMainMenuState();
 
 	while (menuModeIsActive){
 		elapsedTime = secondClock.getElapsedTime();
