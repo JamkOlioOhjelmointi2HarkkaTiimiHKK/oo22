@@ -22,6 +22,7 @@
     <ClCompile Include="Hitbox.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuState.cpp" />
+    <ClCompile Include="Map.cpp" />
     <ClCompile Include="MapObject.cpp" />
     <ClCompile Include="Merge.cpp" />
     <ClCompile Include="PlayState.cpp" />
@@ -41,6 +42,7 @@
     <ClInclude Include="globals.h" />
     <ClInclude Include="Hitbox.h" />
     <ClInclude Include="MainMenuState.h" />
+    <ClInclude Include="Map.h" />
     <ClInclude Include="MapObject.h" />
     <ClInclude Include="Merge.h" />
     <ClInclude Include="PlayState.h" />
