@@ -43,10 +43,39 @@ Merge::Merge()
 			}
 		}
 	}
+
+	view.reset(sf::FloatRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT));
+	window.setView(view);
+	position = sf::Vector2f(100, 100);
+
 }
 
-void Merge::update()
+void Merge::update(float dt)
 {
+	if (Controls::get()->iskeydown(sf::Keyboard::D))
+	{
+		position.x += 100*dt;
+		view.move(position);
+		window.setView(view);
+	}
+	if (Controls::get()->iskeydown(sf::Keyboard::A))
+	{
+		position.x -= 100*dt;
+		view.move(position);
+		window.setView(view);
+	}
+	if (Controls::get()->iskeydown(sf::Keyboard::S))
+	{
+		position.y += 100* dt;
+		view.move(position);
+		window.setView(view);
+	}
+	if (Controls::get()->iskeydown(sf::Keyboard::W))
+	{
+		position.y -= 100*dt;
+		view.move(position);
+		window.setView(view);
+	}
 
 }
 void Merge::draw()
@@ -57,9 +86,9 @@ void Merge::draw()
 	}
 }
 
-void Merge::loop()
+void Merge::loop(float dt)
 {
-	update();
+	update(dt);
 	window.clear(sf::Color(0, 0, 0));
 	draw();
 	window.display();

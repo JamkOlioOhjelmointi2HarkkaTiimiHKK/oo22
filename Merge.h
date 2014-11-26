@@ -4,6 +4,7 @@
 #include <fstream>
 #include "Block.h"
 #include "Floor.h"
+#include "Controls.h"
 
 class MapObject;
 
@@ -17,14 +18,17 @@ private:
 	std::string name;
 	std::string x;
 	std::string y;
+	sf::Vector2f position;
 	int numberOfPart;
 
-	void update();
+	sf::View view;
+	
+	void update(float);
 	void draw();
 
 public:
 	Merge();
-	void loop();
+	void loop(float);
 	~Merge();
 };
 

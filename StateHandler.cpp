@@ -5,6 +5,7 @@ StateHandler::StateHandler()
 	state = uninitialized;
 
 	editState = new EditorState();
+	
 
 	ifstream lahde(OPTIONS_FILENAME, ios_base::binary);
 	
@@ -46,7 +47,6 @@ void StateHandler::startGame()
 	{			
 		loopGame();
 	}
-
 	window.close();
 }
 
@@ -72,6 +72,8 @@ void StateHandler::loopGame()
 	{
 		case menu:
 		{
+			merge = new Merge();
+			std::cout << "mitä vittua?";
 			runMenu();
 			break;
 		}
@@ -100,8 +102,8 @@ void StateHandler::loopGame()
 				break;
 		}
 		case mergeState:
-			merge = new Merge();
-			merge->loop();
+			
+			merge->loop(dt);
 			if (Controls::get()->kIsPressed(sf::Keyboard().Escape))
 			{
 				state = menu;

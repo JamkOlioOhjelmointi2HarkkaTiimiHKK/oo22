@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="mapObjects">
+      <UniqueIdentifier>{53a21aba-2b2c-44f6-a071-2269e56770df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MapEditor">
+      <UniqueIdentifier>{5fc89205-cb4b-42cc-8e16-c9b80b25fdf1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="character.cpp">
@@ -39,22 +45,7 @@
     <ClCompile Include="StateHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Block.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Floor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MapObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EditorState.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Hitbox.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Merge.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PlayState.cpp">
@@ -62,6 +53,21 @@
     </ClCompile>
     <ClCompile Include="MainMenuState.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Block.cpp">
+      <Filter>mapObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Floor.cpp">
+      <Filter>mapObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="MapObject.cpp">
+      <Filter>mapObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Merge.cpp">
+      <Filter>MapEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorState.cpp">
+      <Filter>MapEditor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -89,22 +95,7 @@
     <ClInclude Include="Button.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Block.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Floor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MapObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EditorState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Hitbox.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Merge.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PlayState.h">
@@ -112,6 +103,21 @@
     </ClInclude>
     <ClInclude Include="MainMenuState.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Floor.h">
+      <Filter>mapObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Block.h">
+      <Filter>mapObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="MapObject.h">
+      <Filter>mapObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorState.h">
+      <Filter>MapEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="Merge.h">
+      <Filter>MapEditor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
