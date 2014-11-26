@@ -1,11 +1,3 @@
-/*
-* raah, miksei mainmenu ole oma luokkansa? samoin option menu?
-* 
-* Tulee olemaan. -Arttu
-*
-*
-* 
-*/
 #pragma once
 #include <fstream>
 #include <SFML/Graphics.hpp>
@@ -14,6 +6,7 @@
 #include "globals.h"
 #include "Button.h"
 #include "player.h"
+#include "MainMenuState.h"
 #include "PlayState.h"
 #include "EditorState.h"
 #include "Merge.h"

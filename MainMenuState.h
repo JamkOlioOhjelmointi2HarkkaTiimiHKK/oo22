@@ -4,14 +4,24 @@
 
 class MainMenuState{
 private:
+	Clock clock, secondClock;
+	Time elapsedTime;
+	Text title;
 	std::vector<Button*> buttons;
-	bool showDebug, secondPassed;
-
+	bool showDebug, secondPassed, menuModeIsActive, startPlayState, showOptions;
+	int fps;
+	float dt;
+	float titleAnimation;
 public:
 	MainMenuState();
 	~MainMenuState();
 
-	void runMainMenuState();
+	bool runMainMenuState();
+	void initializeMainMenuState();
 	void updateMainMenuState();
 	void drawMainMenuState();
+	void updateOptionsMenuState();
+	void drawOptionsMenuState();
+	void handleControls();
+	void handleTime();
 };
