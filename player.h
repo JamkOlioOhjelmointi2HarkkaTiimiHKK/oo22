@@ -5,6 +5,7 @@
 class Player:public Character{
 public:
 	Player();
+	float jumpstart;
 	void update(float dt);
 	void create(float posX, float posY, float sizeX, float sizeY);
 	~Player();

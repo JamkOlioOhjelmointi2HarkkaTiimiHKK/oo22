@@ -23,23 +23,29 @@ void Player::update(float dt){
 
 
 	if (Controls::get()->iskeydown(sf::Keyboard::Space)){
-		if (!recentlyjumped){
+		if (!falling){
+			jumpstart = sprite.getPosition().y;
+		}
+
 			if (this->DY == 0){
-				if (this->velocityY == 0)
+				if (this->velocityY == 0){
 					this->setDY(-1);
+
+				}
 				falling = true;
 			}
-			if (this->velocityY < 500 && this->DY == -1){
-				this->velocityY = this->velocityY + 50;
-
+			if (!recentlyjumped){
+				if (this->velocityY < 500 && this->DY == -1){
+					this->velocityY = 500;
+				}
 			}
-			if (velocityY == 500)
-				recentlyjumped = true;
-		}
+			if ((jumpstart - sprite.getPosition().y > 100)){
+ 				recentlyjumped = true;
+			}
 		
 	}
 		//if (Controls::get()->kIsReleased(sf::Keyboard::Space)){
-	if (falling && !Controls::get()->iskeydown(sf::Keyboard::Space)){
+	if (falling){
 				if (this->DY == -1)
 				this->velocityY = this->velocityY - 50;
 				if (this->velocityY==0)
