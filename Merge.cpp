@@ -14,7 +14,7 @@ Merge::Merge()
 	numberOfPart = Utility::random(0, std::stoi(temp));
 
 
-		for (int xAkseli = 0; xAkseli < 2; xAkseli++)
+		for (int xAkseli = 0; xAkseli < 4; xAkseli++)
 		{
 			for (int yAkseli = 0; yAkseli < 2; yAkseli++)
 			{
@@ -45,7 +45,7 @@ Merge::Merge()
 	window.setView(view);
 	position = sf::Vector2f(100, 100);
 
-	save(); // temp
+	save(); // temp. tehään nappulat
 
 }
 
@@ -111,7 +111,6 @@ void Merge::save()
 	facts.open("Files\\facts.txt");
 	getline(facts, temp);
 	getline(facts, temp);
-	std::cout << temp;
 	if (std::stoi(temp) < numberOfMap)
 	{
 		facts.seekg(3, std::ios_base::beg);
