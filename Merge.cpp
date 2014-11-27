@@ -4,23 +4,20 @@
 Merge::Merge()
 {
 	
-	std::string temp; // m‰‰r‰ mappipalojen m‰‰r‰st‰
+	std::string temp; // m‰‰r‰ mappipalojen m‰‰r‰st‰. helvetin hienot "temp" muuttujat
 	std::string temp2; //m‰‰r‰ mappien m‰‰r‰st‰
 	facts.open("Files\\facts.txt");
 	getline(facts, temp);
 	getline(facts, temp2);
 	numberOfMap = std::stoi(temp2);
 	facts.close();
-	numberOfPart = 0;
-	
+	numberOfPart = Utility::random(0, std::stoi(temp));
 
-	for (int i = 0; i < std::stoi(temp) + 1; i++)
-	{		
+
 		for (int xAkseli = 0; xAkseli < 2; xAkseli++)
 		{
 			for (int yAkseli = 0; yAkseli < 2; yAkseli++)
 			{
-
 				file.open("Files\\MapPart" + std::to_string(numberOfPart) + ".txt");
 				while (getline(file, line))
 				{
@@ -30,7 +27,6 @@ Merge::Merge()
 					x = line.substr(temp + 1, temp2 - temp - 1);
 					int temp3 = line.find("\n", temp2 + 1);
 					y = line.substr(temp2 + 1, temp3 - temp2 - 1);
-
 					if (name.compare("block") == 0)
 					{
 						mapObjects.push_back(new Block(std::stoi(x) + xAkseli * 512, std::stoi(y) + yAkseli * 512));
@@ -40,11 +36,10 @@ Merge::Merge()
 						mapObjects.push_back(new Floor(std::stoi(x) + xAkseli * 512, std::stoi(y)+yAkseli * 512));
 					}
 				}
-				numberOfPart++;
+				numberOfPart = Utility::random(0, std::stoi(temp));
 				file.close();
 			}
 		}
-	}
 
 	view.reset(sf::FloatRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT));
 	window.setView(view);
@@ -121,7 +116,6 @@ void Merge::save()
 	{
 		facts.seekg(3, std::ios_base::beg);
 		facts << numberOfMap;
-		std::cout << temp;
 	}
 
 	facts.close();

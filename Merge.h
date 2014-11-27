@@ -5,6 +5,7 @@
 #include "Block.h"
 #include "Floor.h"
 #include "Controls.h"
+#include "Utility.h"
 
 class MapObject;
 
