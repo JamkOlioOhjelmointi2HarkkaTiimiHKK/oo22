@@ -32,7 +32,7 @@ void Character::draw(){
 	window.draw(sprite);
 }
 void Character::drawHitboxes(){
-	hitbox.draw(window);
+	hitbox.draw();
 }
 
 void Character::createCharacter(sf::Vector2f position, sf::Vector2f size){

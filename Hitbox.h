@@ -9,10 +9,12 @@ public:
 	~Hitbox();
 	sf::RectangleShape legHitbox;
 	sf::RectangleShape bodyHitbox;
+	sf::RectangleShape bodyLeftHitbox;
+	sf::RectangleShape bodyRightHitbox;
 	sf::RectangleShape headHitbox;
 	void initializeHitBoxes(sf::Sprite sprite, float sizeX, float sizeY);
 	void update(sf::Sprite sprite);
-	void draw(sf::RenderWindow &window);
+	void draw();
 
 };
 

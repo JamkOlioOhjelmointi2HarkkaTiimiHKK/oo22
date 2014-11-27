@@ -2,6 +2,7 @@
 
 PlayState::PlayState(){
 	playModeIsActive = true;
+	showDebug = true;
 	exitToMenu = true;
 	fps = 0;
 	mapPtr = &map;
