@@ -28,10 +28,10 @@ void Character::move(float dt){
 	sprite.setPosition(sprite.getPosition().x + (DX * (velocityX * dt)), sprite.getPosition().y + (DY * (velocityY * dt)));
 }
 
-void Character::draw(sf::RenderWindow &window){
+void Character::draw(){
 	window.draw(sprite);
 }
-void Character::drawHitboxes(sf::RenderWindow &window){
+void Character::drawHitboxes(){
 	hitbox.draw(window);
 }
 

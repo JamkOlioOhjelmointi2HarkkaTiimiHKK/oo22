@@ -7,7 +7,6 @@
 class Map
 {
 private:
-	std::vector<MapObject*> mapObjects;
 
 	std::ifstream file;
 	std::fstream facts;
@@ -22,6 +21,7 @@ private:
 
 
 public:
+	std::vector<MapObject*> mapObjects;
 	Map();
 	void update();
 	void draw();

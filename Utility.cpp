@@ -17,6 +17,11 @@ bool Utility::boxHit(const sf::IntRect &box1, const sf::IntRect &box2)
 	return box1.intersects(box2); 
 }
 
+bool Utility::boxHit(sf::RectangleShape box1, sf::RectangleShape box2)
+{
+	return box1.getGlobalBounds().intersects(box2.getGlobalBounds());
+}
+
 bool Utility::circleHit(const float rad1, const float rad2, const float dist)
 {
 	return rad1 + rad2 >= dist;

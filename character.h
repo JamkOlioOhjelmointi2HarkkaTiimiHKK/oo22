@@ -18,8 +18,8 @@ public:
 	~Character();
 	void initializeCharacter(float posX, float posY, float sizeX, float sizeY);
 	void move(float dt);
-	void draw(sf::RenderWindow &window);
-	void drawHitboxes(sf::RenderWindow &window);
+	void draw();
+	void drawHitboxes();
 	void createCharacter(float posX, float posY, float sizeX, float sizeY);
 	void createCharacter(sf::Vector2f position, sf::Vector2f size);
 	void setDirection(int DX, int DY);

@@ -3,13 +3,13 @@
 #include "globals.h"
 #include "SFML\Graphics.hpp"
 class Hitbox{
-protected:
-	sf::RectangleShape legHitbox;
-	sf::RectangleShape bodyHitbox;
-	sf::RectangleShape headHitbox;
+
 public:
 	Hitbox();
 	~Hitbox();
+	sf::RectangleShape legHitbox;
+	sf::RectangleShape bodyHitbox;
+	sf::RectangleShape headHitbox;
 	void initializeHitBoxes(sf::Sprite sprite, float sizeX, float sizeY);
 	void update(sf::Sprite sprite);
 	void draw(sf::RenderWindow &window);

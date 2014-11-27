@@ -12,6 +12,7 @@ private:
 	Player player;
 	Enemy enemy;
 	Map map;
+	Map *mapPtr;
 	Clock clock, secondClock;
 	Time elapsedTime;
 	bool showDebug, playModeIsActive, exitToMenu, secondPassed;

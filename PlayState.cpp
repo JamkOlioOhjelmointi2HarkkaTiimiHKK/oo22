@@ -4,6 +4,7 @@ PlayState::PlayState(){
 	playModeIsActive = true;
 	exitToMenu = true;
 	fps = 0;
+	mapPtr = &map;
 }
 PlayState::~PlayState(){
 
@@ -28,21 +29,20 @@ void PlayState::initializePlayState(){
 }
 
 void PlayState::updatePlayState(){
-	player.update(dt);
+	player.update(dt, *mapPtr);
 	enemy.update(dt);
 	map.update(); // dt???
-	//cout << player.getPosition().x << ", " << dt << endl;
 }
 
 void PlayState::drawPlayState(){
 	window.clear(Color::Black);
 
-	player.draw(window);
+	player.draw();
 	if (showDebug){
 		window.draw(Content::get()->debugText);
-		player.drawHitboxes(window);
+		player.drawHitboxes();
 	}
-	enemy.draw(window);
+	enemy.draw();
 	map.draw(); // dt???
 	window.display();
 
