@@ -8,15 +8,15 @@ PlayState::PlayState(){
 PlayState::~PlayState(){
 
 }
-bool PlayState::runPlayState(RenderWindow &window)
+bool PlayState::runPlayState()
 {
 	initializePlayState();
 
 	while (playModeIsActive){
 		elapsedTime = secondClock.getElapsedTime();
-		handleControls(window);
+		handleControls();
 		updatePlayState();
-		drawPlayState(window);
+		drawPlayState();
 		handleTime();
 	}
 	return exitToMenu;
@@ -33,7 +33,7 @@ void PlayState::updatePlayState(){
 	//cout << player.getPosition().x << ", " << dt << endl;
 }
 
-void PlayState::drawPlayState(RenderWindow &window){
+void PlayState::drawPlayState(){
 	window.clear(Color::Black);
 
 	player.draw(window);
@@ -47,7 +47,7 @@ void PlayState::drawPlayState(RenderWindow &window){
 
 }
 
-void PlayState::handleControls(RenderWindow &window){
+void PlayState::handleControls(){
 
 	Controls::get()->update(window);
 	if (Controls::get()->kIsReleased(Keyboard::F1)){

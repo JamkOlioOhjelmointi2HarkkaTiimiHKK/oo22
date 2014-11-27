@@ -67,7 +67,7 @@ void StateHandler::loopGame()
 		case play:
 		{
 			PlayState playMode;
-			if (playMode.runPlayState(window))
+			if (playMode.runPlayState())
 				state = menu;
 			else
 				state = exit;

@@ -19,10 +19,10 @@ public:
 	PlayState();
 	~PlayState();
 
-	bool runPlayState(RenderWindow &window);
+	bool runPlayState();
 	void initializePlayState();
 	void updatePlayState();
-	void drawPlayState(RenderWindow &window);
-	void handleControls(RenderWindow &window);
+	void drawPlayState();
+	void handleControls();
 	void handleTime();
 };
