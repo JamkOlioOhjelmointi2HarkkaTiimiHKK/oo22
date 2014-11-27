@@ -14,7 +14,7 @@ Merge::Merge()
 	numberOfPart = Utility::random(0, std::stoi(temp));
 
 
-		for (int xAkseli = 0; xAkseli < 4; xAkseli++)
+		for (int xAkseli = 0; xAkseli < 6; xAkseli++)
 		{
 			for (int yAkseli = 0; yAkseli < 2; yAkseli++)
 			{

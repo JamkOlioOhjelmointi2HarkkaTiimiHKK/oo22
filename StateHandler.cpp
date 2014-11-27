@@ -42,10 +42,11 @@ void StateHandler::loopGame()
 	{
 		case menu:
 		{
-			merge = new Merge();
+			
 			MainMenuState menuMode;
 			menuMode.runMainMenuState();
 			MainMenuState::gameState result = menuMode.state;
+			merge = new Merge();
 			switch (result)
 			{
 			case MainMenuState::play:
