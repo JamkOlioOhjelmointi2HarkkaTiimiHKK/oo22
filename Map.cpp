@@ -3,7 +3,6 @@
 
 Map::Map()
 {
-
 	numberOfMap = 0;
 
 	file.open("Files\\Maps\\MapPart" + std::to_string(numberOfMap) + ".txt");
@@ -25,8 +24,6 @@ Map::Map()
 			mapObjects.push_back(new Floor(std::stoi(x), std::stoi(y)));
 		}
 	}
-
-
 }
 
 void Map::update()
