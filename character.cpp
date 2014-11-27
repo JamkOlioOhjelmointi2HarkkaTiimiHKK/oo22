@@ -16,9 +16,11 @@ void Character::initializeCharacter(float posX, float posY, float sizeX, float s
 	this->sizeX = sizeX;
 	this->sizeY = sizeY;
 	DX = DY = 0;
-	velocityX = velocityY = 500;
+	velocityX = 500;
+	velocityY = 0;
 	sprite.setOrigin(sf::Vector2f(sizeX / 2, sizeY / 2));
-	falling = true;
+	falling = false;
+	recentlyjumped = false;
 	hitbox.initializeHitBoxes(sprite, sizeX, sizeY);
 }
 
