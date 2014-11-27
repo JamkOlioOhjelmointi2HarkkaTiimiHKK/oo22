@@ -11,6 +11,7 @@ protected:
 	float sizeX, sizeY;
 	sf::Sprite sprite;
 	bool falling;
+	bool recentlyjumped;
 	Hitbox hitbox;
 public:
 	Character();

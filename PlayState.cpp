@@ -23,7 +23,7 @@ bool PlayState::runPlayState()
 }
 
 void PlayState::initializePlayState(){
-	player.create(200, 200, 32, 64);
+	player.create(350, 350, 32, 64);
 	enemy.create(400, 400, 32, 64);
 }
 
