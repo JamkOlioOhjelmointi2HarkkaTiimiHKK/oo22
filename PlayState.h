@@ -3,6 +3,7 @@
 #include "StateHandler.h"
 #include "player.h"
 #include "Enemy.h"
+#include "Map.h"
 using namespace sf;
 
 class PlayState
@@ -10,6 +11,7 @@ class PlayState
 private:
 	Player player;
 	Enemy enemy;
+	Map map;
 	Clock clock, secondClock;
 	Time elapsedTime;
 	bool showDebug, playModeIsActive, exitToMenu, secondPassed;

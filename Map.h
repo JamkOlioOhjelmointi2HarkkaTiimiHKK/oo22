@@ -20,10 +20,11 @@ private:
 
 	sf::View view;
 
-	void update();
-	void draw();
+
 public:
 	Map();
+	void update();
+	void draw();
 	~Map();
 };
 

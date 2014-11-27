@@ -1,4 +1,0 @@
-block 0 0
-block 480 0
-block 480 480
-block 0 480

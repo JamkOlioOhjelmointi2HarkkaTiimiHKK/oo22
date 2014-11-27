@@ -5,7 +5,7 @@ Map::Map()
 {
 	numberOfMap = 0;
 
-	file.open("Files\\Maps\\MapPart" + std::to_string(numberOfMap) + ".txt");
+	file.open("Files\\Maps\\Map" + std::to_string(numberOfMap) + ".txt");
 	while (getline(file, line))
 	{
 		int temp = line.find(" ");

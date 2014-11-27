@@ -1,8 +1,0 @@
-block 128 160
-block 160 160
-block 256 160
-block 288 160
-block 128 256
-block 160 256
-block 256 256
-block 288 256

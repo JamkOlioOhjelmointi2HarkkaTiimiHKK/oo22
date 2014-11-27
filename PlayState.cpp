@@ -30,6 +30,7 @@ void PlayState::initializePlayState(){
 void PlayState::updatePlayState(){
 	player.update(dt);
 	enemy.update(dt);
+	map.update(); // dt???
 	//cout << player.getPosition().x << ", " << dt << endl;
 }
 
@@ -42,7 +43,7 @@ void PlayState::drawPlayState(){
 		player.drawHitboxes(window);
 	}
 	enemy.draw(window);
-	
+	map.draw(); // dt???
 	window.display();
 
 }
