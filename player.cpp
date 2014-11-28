@@ -32,9 +32,9 @@ void Player::updateMovement(){
 			this->setFacingDirection(false);
 		}
 		if (DX == 1){
-			this->velocityX -= 50;
 			if (velocityX == 0)
 				this->setDX(0);
+			this->velocityX -= 50;
 		}
 	}
 	else if (Controls::get()->iskeydown(sf::Keyboard::D)){
@@ -46,9 +46,9 @@ void Player::updateMovement(){
 			this->setFacingDirection(true);
 		}
 		if (DX == -1){
-			this->velocityX -= 50;
 			if (this->velocityX == 0)
 				this->setDX(0);
+			this->velocityX -= 50;
 		}
 	}
 	else{

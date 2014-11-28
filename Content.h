@@ -18,7 +18,8 @@ private:
 public:
 	~Content(void);
 	sf::Texture playerTexture;
-	sf::Texture enemyTexture;
+	sf::Texture janisTexture;
+	sf::Texture ghostTexture;
 	sf::Texture backgroundTexture;
 	sf::Font calibri;
 	sf::Font font; // Tuomas K‰ytt‰‰ t‰t‰

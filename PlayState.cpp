@@ -26,12 +26,14 @@ bool PlayState::runPlayState()
 
 void PlayState::initializePlayState(){
 	player.create(350, 350, 32, 64);
-	enemy.create(400, 400, 32, 64);
+	enemy1.create(400, 400, 0);
+	enemy2.create(600, 400, 1);
 }
 
 void PlayState::updatePlayState(){
 	player.update(dt, *mapPtr);
-	enemy.update(dt);
+	enemy1.update(dt);
+	enemy2.update(dt);
 	map.update(); // dt???
 }
 
@@ -43,7 +45,8 @@ void PlayState::drawPlayState(){
 		window.draw(Content::get()->debugText);
 		player.drawHitboxes();
 	}
-	enemy.draw();
+	enemy1.draw();
+	enemy2.draw();
 	map.draw(); // dt???
 	window.display();
 

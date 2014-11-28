@@ -5,8 +5,9 @@
 class Enemy :public Character{
 public:
 	Enemy();
+	float sizeX, sizeY;
 	void update(float dt);
-	void create(float posX, float posY, float sizeX, float sizeY);
+	void create(float posX, float posY, int type);
 	~Enemy();
 };
 #endif;

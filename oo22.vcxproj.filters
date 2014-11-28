@@ -168,5 +168,8 @@
     <Image Include="res\janis.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="res\ghost.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

@@ -13,9 +13,26 @@ void Enemy::update(float dt){
 	hitbox.update(sprite);
 }
 
-void Enemy::create(float posX, float posY, float sizeX, float sizeY){
-	this->createCharacter(posX, posY, sizeX, sizeY);
-	this->sprite.setTexture(Content::get()->enemyTexture);
+void Enemy::create(float posX, float posY, int type){
+	switch (type){
+	case 0:
+		sizeX = 32;
+		sizeY = 64;
+		this->createCharacter(posX, posY, sizeX, sizeY);
+		this->sprite.setTexture(Content::get()->janisTexture);
+		break;
+	case 1:
+		sizeX = 40;
+		sizeY = 40;
+		this->createCharacter(posX, posY, sizeX, sizeY);
+		this->sprite.setTexture(Content::get()->ghostTexture);
+		break;
+	default:
+		break;
+	}
+	/*this->createCharacter(posX, posY, sizeX, sizeY);
+	
+	this->sprite.setTexture(Content::get()->enemyTexture);*/
 	//this->setTexture(&Content::get()->playerTexture);
 }
 Enemy::~Enemy(){

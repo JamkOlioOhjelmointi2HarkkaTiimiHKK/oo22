@@ -8,7 +8,8 @@ Content::Content(void) //ladataan sisältö
 	if (!playerTexture.loadFromFile("res/player.png")){
 		printf("Error: Player texture not found!\n");
 	}
-	enemyTexture.loadFromFile("res/janis.png");
+	janisTexture.loadFromFile("res/janis.png");
+	ghostTexture.loadFromFile("res/ghost.png");
 	if (!calibri.loadFromFile("res/calibri.ttf")){
 		printf("Error: Calibri font not found!\n");
 	}

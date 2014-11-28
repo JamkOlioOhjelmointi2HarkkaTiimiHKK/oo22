@@ -10,7 +10,8 @@ class PlayState
 {
 private:
 	Player player;
-	Enemy enemy;
+	Enemy enemy1;
+	Enemy enemy2;
 	Map map;
 	Map *mapPtr;
 	Clock clock, secondClock;
