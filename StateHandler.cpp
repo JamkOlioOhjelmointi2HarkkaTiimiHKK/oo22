@@ -46,7 +46,9 @@ void StateHandler::loopGame()
 			MainMenuState menuMode;
 			menuMode.runMainMenuState();
 			MainMenuState::gameState result = menuMode.state;
+
 			merge = new Merge();
+
 			switch (result)
 			{
 			case MainMenuState::play:

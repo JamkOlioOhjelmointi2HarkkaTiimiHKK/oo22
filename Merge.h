@@ -15,7 +15,9 @@ class MapObject;
 class Merge
 {
 private:
+
 	std::vector<MapObject*> mapObjects;
+	std::vector<std::vector<MapObject*>>parts;
 	std::ifstream file;
 	std::fstream facts;
 	std::ofstream file2;

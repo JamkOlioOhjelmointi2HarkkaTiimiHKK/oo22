@@ -12,8 +12,6 @@ SpawnEnemy::SpawnEnemy()
 SpawnEnemy::SpawnEnemy(int x, int y) :MapObject(x, y)
 {
 	name = "spawE";
-	//shape.setSize(sf::Vector2f(32, 32));
-	//shape.setFillColor(sf::Color().Blue);
 	passable = true;
 }
 

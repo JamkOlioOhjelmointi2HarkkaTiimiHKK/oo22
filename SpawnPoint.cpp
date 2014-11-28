@@ -12,8 +12,6 @@ SpawnPoint::SpawnPoint()
 SpawnPoint::SpawnPoint(int x, int y) :MapObject(x, y)
 {
 	name = "spawP";
-	//shape.setSize(sf::Vector2f(32, 32));
-
 	passable = true;
 }
 
