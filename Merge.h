@@ -4,6 +4,9 @@
 #include <fstream>
 #include "Block.h"
 #include "Floor.h"
+#include "Ladder.h"
+#include "SpawnPoint.h"
+#include "SpawnEnemy.h"
 #include "Controls.h"
 #include "Utility.h"
 

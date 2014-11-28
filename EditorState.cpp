@@ -1,6 +1,9 @@
 #include "EditorState.h"
 #include "Block.h"
 #include "Floor.h"
+#include "SpawnPoint.h"
+#include "SpawnEnemy.h"
+#include "Ladder.h"
 
 EditorState::EditorState()
 {	
@@ -26,21 +29,40 @@ EditorState::EditorState()
 		gridLines.push_back(sf::Vertex(sf::Vector2f(pieceArea.getGlobalBounds().left + 1 + pieceArea.getGlobalBounds().width, pieceArea.getGlobalBounds().top + i * 32)));
 	}
 #pragma endregion
-	//Nappulat 
+
 	
+#pragma region Nappulat
 	buttons.push_back(new Button(sf::Vector2f(100, 50), sf::Vector2f(800, 170), "block", [&]()
 	{
 		resetSelectedObject();
 		selectedObject = new Block();
 	}));
 	
-	buttons.push_back(new Button(sf::Vector2f(100, 50), sf::Vector2f(800, 270), "floor", [&]()
+	buttons.push_back(new Button(sf::Vector2f(100, 50), sf::Vector2f(950, 170), "floor", [&]()
 	{
 		resetSelectedObject();
 		selectedObject = new Floor();
 	}));
 
-	buttons.push_back(new Button(sf::Vector2f(100, 50), sf::Vector2f(800, 370), "save", [&]()
+	buttons.push_back(new Button(sf::Vector2f(100, 50), sf::Vector2f(800, 370), "spawnP", [&]()
+	{
+		resetSelectedObject();
+		selectedObject = new SpawnPoint();
+	}));
+
+	buttons.push_back(new Button(sf::Vector2f(100, 50), sf::Vector2f(950, 370), "spawnE", [&]()
+	{
+		resetSelectedObject();
+		selectedObject = new SpawnEnemy();
+	}));
+
+	buttons.push_back(new Button(sf::Vector2f(100, 50), sf::Vector2f(800, 270), "Ladder", [&]()
+	{
+		resetSelectedObject();
+		selectedObject = new Ladder();
+	}));
+
+	buttons.push_back(new Button(sf::Vector2f(100, 50), sf::Vector2f(800, 470), "save", [&]()
 	{
 		save();
 
@@ -67,6 +89,7 @@ EditorState::EditorState()
 				numberOfPart--;
 		}
 	}));
+#pragma endregion
 }
 
 bool EditorState::checkValid()

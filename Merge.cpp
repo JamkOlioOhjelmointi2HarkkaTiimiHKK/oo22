@@ -27,6 +27,7 @@ Merge::Merge()
 					x = line.substr(temp + 1, temp2 - temp - 1);
 					int temp3 = line.find("\n", temp2 + 1);
 					y = line.substr(temp2 + 1, temp3 - temp2 - 1);
+#pragma region vertailu
 					if (name.compare("block") == 0)
 					{
 						mapObjects.push_back(new Block(std::stoi(x) + xAkseli * 512, std::stoi(y) + yAkseli * 512));
@@ -35,6 +36,19 @@ Merge::Merge()
 					{
 						mapObjects.push_back(new Floor(std::stoi(x) + xAkseli * 512, std::stoi(y)+yAkseli * 512));
 					}
+					else if (name.compare("ladde") == 0)
+					{
+						mapObjects.push_back(new Ladder(std::stoi(x) + xAkseli * 512, std::stoi(y) + yAkseli * 512));
+					}
+					else if (name.compare("spawP") == 0)
+					{
+						mapObjects.push_back(new SpawnPoint(std::stoi(x) + xAkseli * 512, std::stoi(y) + yAkseli * 512));
+					}
+					else if (name.compare("spawE") == 0)
+					{
+						mapObjects.push_back(new SpawnEnemy(std::stoi(x) + xAkseli * 512, std::stoi(y) + yAkseli * 512));
+					}
+#pragma endregion
 				}
 				numberOfPart = Utility::random(0, std::stoi(temp));
 				file.close();

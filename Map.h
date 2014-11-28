@@ -3,6 +3,9 @@
 #include <fstream>
 #include "Block.h"
 #include "Floor.h"
+#include "Ladder.h"
+#include "SpawnPoint.h"
+#include "SpawnEnemy.h"
 #pragma once
 class Map
 {

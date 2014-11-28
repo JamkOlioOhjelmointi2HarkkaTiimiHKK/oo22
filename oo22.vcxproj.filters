@@ -78,6 +78,15 @@
     <ClCompile Include="Hitbox.cpp">
       <Filter>Character</Filter>
     </ClCompile>
+    <ClCompile Include="SpawnPoint.cpp">
+      <Filter>mapObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="SpawnEnemy.cpp">
+      <Filter>mapObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Ladder.cpp">
+      <Filter>mapObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="globals.h">
@@ -133,6 +142,15 @@
     </ClInclude>
     <ClInclude Include="Hitbox.h">
       <Filter>Character</Filter>
+    </ClInclude>
+    <ClInclude Include="SpawnPoint.h">
+      <Filter>mapObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="SpawnEnemy.h">
+      <Filter>mapObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Ladder.h">
+      <Filter>mapObjects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
