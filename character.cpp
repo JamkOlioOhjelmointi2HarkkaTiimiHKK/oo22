@@ -16,7 +16,7 @@ void Character::initializeCharacter(float posX, float posY, float sizeX, float s
 	this->sizeX = sizeX;
 	this->sizeY = sizeY;
 	DX = DY = 0;
-	velocityX = 500;
+	velocityX = 0;
 	velocityY = 0;
 	sprite.setOrigin(sf::Vector2f(sizeX / 2, sizeY / 2));
 	falling = false;

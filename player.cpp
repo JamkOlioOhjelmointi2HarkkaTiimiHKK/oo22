@@ -19,17 +19,42 @@ void Player::update(float dt, Map &ptr){
 }
 void Player::updateMovement(){
 	if ((Controls::get()->iskeydown(sf::Keyboard::A)) && (Controls::get()->iskeydown(sf::Keyboard::D))){
-		this->setDX(0);
+		if (velocityX != 0)
+			velocityX -= 50;
+		else
+			this->setDX(0);
 	}
 	else if (Controls::get()->iskeydown(sf::Keyboard::A)){
-		this->setDX(-1);
-		this->setFacingDirection(false);
+		if (DX <= 0){
+			this->setDX(-1);
+			if (this->velocityX < 500)
+				this->velocityX += 50;
+			this->setFacingDirection(false);
+		}
+		if (DX == 1){
+			this->velocityX -= 50;
+			if (velocityX == 0)
+				this->setDX(0);
+		}
 	}
 	else if (Controls::get()->iskeydown(sf::Keyboard::D)){
-		this->setDX(1);
-		this->setFacingDirection(true);
+		
+		if (DX >= 0){
+			this->setDX(1);
+			if (this->velocityX < 500)
+				this->velocityX += 50;
+			this->setFacingDirection(true);
+		}
+		if (DX == -1){
+			this->velocityX -= 50;
+			if (this->velocityX == 0)
+				this->setDX(0);
+		}
 	}
 	else{
+		if (velocityX != 0)
+			velocityX -= 50;
+		else
 		this->setDX(0);
 	}
 
