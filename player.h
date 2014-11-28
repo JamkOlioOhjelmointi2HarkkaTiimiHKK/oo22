@@ -14,7 +14,8 @@ public:
 	void updateMovement();
 	void jump();
 	void applyGravity();
-	void checkCollision(Map &ptr);
+	void checkLegCollision(Map &ptr);
+	void checkBodyCollision(Map &ptr);
 	~Player();
 };
 #endif;

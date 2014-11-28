@@ -10,8 +10,9 @@ void Player::create(float posX, float posY, float sizeX, float sizeY){
 }
 void Player::update(float dt, Map &ptr){
 	
-	checkCollision(ptr);
+	checkLegCollision(ptr);
 	updateMovement();
+	checkBodyCollision(ptr);
 	applyGravity();
 	this->move(dt);
 	hitbox.update(sprite);
@@ -71,33 +72,46 @@ void Player::applyGravity(){
 	}
 }
 
-void Player::checkCollision(Map &ptr){
-
+void Player::checkLegCollision(Map &ptr){
 	for (int i = 0; i < ptr.mapObjects.size(); i++){
 		if (Utility::boxHit(this->hitbox.legHitbox, ptr.mapObjects[i]->shape)){
 			falling = false;
 			this->setDY(0);
 			this->velocityY = 0;
 			recentlyjumped = false;
-			sprite.setPosition(sprite.getPosition().x, ptr.mapObjects[i]->getPos().y - this->sizeY/2 + 1);
+			sprite.setPosition(sprite.getPosition().x, ptr.mapObjects[i]->getPos().y - this->sizeY / 2 + 1);
 			this->legHitbocCollides = true;
-		}
-		
-		if (Utility::boxHit(this->hitbox.bodyLeftHitbox, ptr.mapObjects[i]->shape)){
-			this->velocityX = 0;
-			sprite.setPosition(ptr.mapObjects[i]->getPos().x + ptr.mapObjects[i]->getSize().x + this->sizeX/2, sprite.getPosition().y);
-			this->bodyLeftHitbocCollides = true;
 		}
 	}
 	if (!this->legHitbocCollides){
 		falling = true;
 	}
-	if (!this->bodyLeftHitbocCollides){
+
+	this->legHitbocCollides = false;
+
+}
+void Player::checkBodyCollision(Map &ptr){
+	for (int i = 0; i < ptr.mapObjects.size(); i++){
+
+		if (Utility::boxHit(this->hitbox.bodyLeftHitbox, ptr.mapObjects[i]->shape)){
+			this->velocityX = 0;
+			sprite.setPosition(ptr.mapObjects[i]->getPos().x + ptr.mapObjects[i]->getSize().x + this->sizeX / 2 - 1, sprite.getPosition().y);
+			this->bodyLeftHitbocCollides = true;
+		}
+
+		if (Utility::boxHit(this->hitbox.bodyRightHitbox, ptr.mapObjects[i]->shape)){
+			this->velocityX = 0;
+			sprite.setPosition(ptr.mapObjects[i]->getPos().x - this->sizeX / 2 + 1, sprite.getPosition().y);
+			this->bodyRightHitbocCollides = true;
+		}
+	}
+
+	if ((!this->bodyLeftHitbocCollides || this->DX != -1) && (!this->bodyRightHitbocCollides || this->DX != 1)){
 		this->velocityX = 500;
 	}
 
-	this->legHitbocCollides = false;
 	this->bodyLeftHitbocCollides = false;
+	this->bodyRightHitbocCollides = false;
 }
 Player::~Player(){
 
