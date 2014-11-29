@@ -17,8 +17,11 @@ public:
 	void checkLegCollision(Map &ptr,sf::View);
 	void checkBodyCollision(Map &ptr, sf::View);
 
-	int halfScreenX = SCREEN_WIDTH / 2;
+	sf::Sprite getSprite();
+
 	int halfscreenY = SCREEN_HEIGHT / 2;
+	int halfScreenX = SCREEN_WIDTH / 2;
+
 	~Player();
 };
 #endif;

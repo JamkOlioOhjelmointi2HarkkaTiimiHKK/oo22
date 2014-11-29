@@ -12,12 +12,17 @@ void Player::update(float dt, Map &ptr,sf::View view){
 	
 	checkLegCollision(ptr,view);
 	updateMovement();
+	
 	checkBodyCollision(ptr, view);
 	applyGravity();
 	this->move(dt);
 	hitbox.update(sprite);
+
+
 }
 void Player::updateMovement(){
+	velocityX = 0; //ei liukastella, tämä on sitten purkkaa.
+
 	if ((Controls::get()->iskeydown(sf::Keyboard::A)) && (Controls::get()->iskeydown(sf::Keyboard::D))){
 		if (velocityX != 0)
 			velocityX -= 50;
@@ -57,7 +62,6 @@ void Player::updateMovement(){
 		else
 		this->setDX(0);
 	}
-
 
 	if (Controls::get()->iskeydown(sf::Keyboard::Space)){
 		jump();
@@ -101,7 +105,7 @@ void Player::checkLegCollision(Map &ptr,sf::View view){
 
 
 	for (int i = 0; i < ptr.mapObjects.size(); i++){
-		if (ptr.mapObjects[i]->getPos().x - view.getCenter().x < halfScreenX && ptr.mapObjects[i]->getPos().y - view.getCenter().y < halfscreenY)
+		if (std::pow(ptr.mapObjects[i]->getPos().x - view.getCenter().x, 2) - 350 < std::pow(halfScreenX, 2) && std::pow(ptr.mapObjects[i]->getPos().y - view.getCenter().y, 2) - 350 < std::pow(halfscreenY, 2))
 		if (Utility::boxHit(this->hitbox.legHitbox, ptr.mapObjects[i]->shape)){
 			falling = false;
 			this->setDY(0);
@@ -120,7 +124,7 @@ void Player::checkLegCollision(Map &ptr,sf::View view){
 }
 void Player::checkBodyCollision(Map &ptr,sf::View view){
 	for (int i = 0; i < ptr.mapObjects.size(); i++){
-		if (ptr.mapObjects[i]->getPos().x - view.getCenter().x < halfScreenX && ptr.mapObjects[i]->getPos().y - view.getCenter().y < halfscreenY)
+		if (std::pow(ptr.mapObjects[i]->getPos().x - view.getCenter().x, 2) - 350 < std::pow(halfScreenX, 2) && std::pow(ptr.mapObjects[i]->getPos().y - view.getCenter().y, 2) - 350 < std::pow(halfscreenY, 2))
 		{
 
 			if (Utility::boxHit(this->hitbox.bodyLeftHitbox, ptr.mapObjects[i]->shape)){
@@ -144,6 +148,12 @@ void Player::checkBodyCollision(Map &ptr,sf::View view){
 	this->bodyLeftHitbocCollides = false;
 	this->bodyRightHitbocCollides = false;
 }
+
+sf::Sprite Player::getSprite()
+{
+	return sprite;
+}
+
 Player::~Player(){
 
 }

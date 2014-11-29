@@ -13,9 +13,7 @@ private:
 
 	std::ifstream file;
 	std::fstream facts;
-
 	std::string name,line,x,y;
-
 
 	int numberOfMap, halfScreenX, halfscreenY;
 

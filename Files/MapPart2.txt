@@ -1,6 +1,8 @@
-floor 64 448
-floor 224 352
-floor 352 192
-floor 32 96
-floor 32 256
+floor 0 480
+floor 160 480
+floor 320 480
 floor 352 480
+block 192 448
+block 192 416
+block 224 416
+block 224 448

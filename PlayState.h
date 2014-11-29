@@ -20,6 +20,9 @@ private:
 	int fps;
 	float dt;
 	sf::View view;
+
+	int halfscreenY = SCREEN_HEIGHT / 2;
+	int halfScreenX = SCREEN_WIDTH / 2;
 public:
 	PlayState();
 	~PlayState();

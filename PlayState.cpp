@@ -16,7 +16,6 @@ PlayState::~PlayState(){
 bool PlayState::runPlayState()
 {
 	initializePlayState();
-
 	while (playModeIsActive){
 		elapsedTime = secondClock.getElapsedTime();
 		handleControls();
@@ -36,13 +35,12 @@ void PlayState::initializePlayState(){
 void PlayState::updatePlayState(){
 	player.update(dt, *mapPtr,view);
 
-	//view.move(player.getMovementX(), player.getMovementY());
-
+	view.reset(sf::FloatRect(player.getSprite().getPosition().x - halfScreenX, player.getSprite().getPosition().y - halfscreenY, SCREEN_WIDTH, SCREEN_HEIGHT));
 	window.setView(view);
 
 	enemy1.update(dt);
 	enemy2.update(dt);
-	map.update(); // dt???
+	map.update();
 }
 
 void PlayState::drawPlayState(){

@@ -27,7 +27,5 @@ public:
 	void setFacingDirection(bool facingLeft);
 	void setDX(int DX);
 	void setDY(int DY);
-	float getMovementX();
-	float getMovementY();
 };
 #endif;

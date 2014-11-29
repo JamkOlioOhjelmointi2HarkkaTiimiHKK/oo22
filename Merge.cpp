@@ -142,6 +142,14 @@ void Merge::update(float dt)
 	{
 		position.y -= 500*dt;
 	}
+	if (Controls::get()->mIsPressed(sf::Mouse::Button::Right))
+	{
+		view.zoom(2);
+	}
+	if (Controls::get()->mIsPressed(sf::Mouse::Button::Left))
+	{
+		view.zoom(0.5);
+	}
 	view.move(position);
 	window.setView(view);
 
@@ -151,8 +159,9 @@ void Merge::draw()
 	int temp = mapObjects.size();
 
 	for (unsigned i = 0; i < temp; ++i)
-	{
-		if (mapObjects[i]->getPos().x-view.getCenter().x < halfScreenX && mapObjects[i]->getPos().y-view.getCenter().y < halfscreenY)
+	{	
+		//if (std::pow(mapObjects[i]->getPos().x - view.getCenter().x,2)-350*70 < std::pow(halfScreenX,2) && std::pow(mapObjects[i]->getPos().y-view.getCenter().y,2)-350*70 < std::pow(halfscreenY,2))
+		if (mapObjects[i]->getPos().x - view.getCenter().x < halfScreenX && mapObjects[i]->getPos().y-view.getCenter().y < halfscreenY)
 		window.draw(mapObjects[i]->shape);
 	}
 }

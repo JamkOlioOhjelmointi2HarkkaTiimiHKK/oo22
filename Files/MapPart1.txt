@@ -1,7 +1,4 @@
-block 160 256
-block 160 224
-block 192 224
-block 192 256
-floor 64 480
-floor 320 480
-ladde 224 224
+floor 32 480
+floor 192 480
+floor 0 480
+floor 352 480
