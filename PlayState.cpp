@@ -35,6 +35,11 @@ void PlayState::initializePlayState(){
 
 void PlayState::updatePlayState(){
 	player.update(dt, *mapPtr,view);
+
+	//view.move(player.getMovementX(), player.getMovementY());
+
+	window.setView(view);
+
 	enemy1.update(dt);
 	enemy2.update(dt);
 	map.update(); // dt???
@@ -52,7 +57,6 @@ void PlayState::drawPlayState(){
 	enemy2.draw();
 	map.draw(view);
 	window.display();
-
 }
 
 void PlayState::handleControls(){

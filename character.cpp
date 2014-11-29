@@ -63,3 +63,12 @@ void Character::setDX(int dx){
 void Character::setDY(int dy){
 	this->DY = dy;
 }
+
+float Character::getMovementX()
+{
+	return velocityX;
+}
+float Character::getMovementY()
+{
+	return velocityY;
+}

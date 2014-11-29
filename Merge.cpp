@@ -123,21 +123,24 @@ Merge::Merge()
 
 void Merge::update(float dt)
 {
+	position.x = 0;
+	position.y = 0;
+
 	if (Controls::get()->iskeydown(sf::Keyboard::D))
 	{
-		position.x += 50*dt;
+		position.x += 500*dt;
 	}
 	if (Controls::get()->iskeydown(sf::Keyboard::A))
 	{
-		position.x -= 50*dt;
+		position.x -= 500*dt;
 	}
 	if (Controls::get()->iskeydown(sf::Keyboard::S))
 	{
-		position.y += 50*dt;
+		position.y += 500*dt;
 	}
 	if (Controls::get()->iskeydown(sf::Keyboard::W))
 	{
-		position.y -= 50*dt;
+		position.y -= 500*dt;
 	}
 	view.move(position);
 	window.setView(view);
