@@ -19,6 +19,7 @@ private:
 	bool showDebug, playModeIsActive, exitToMenu, secondPassed;
 	int fps;
 	float dt;
+	sf::View view;
 public:
 	PlayState();
 	~PlayState();

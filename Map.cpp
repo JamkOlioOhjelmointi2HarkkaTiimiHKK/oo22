@@ -3,7 +3,6 @@
 
 Map::Map()
 {
-
 	halfScreenX = SCREEN_WIDTH / 2;
 	halfscreenY = SCREEN_HEIGHT / 2;
 
@@ -43,8 +42,7 @@ Map::Map()
 #pragma endregion
 	}
 
-	view.reset(sf::FloatRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT));
-	window.setView(view);
+
 }
 
 void Map::update()
@@ -52,7 +50,7 @@ void Map::update()
 
 }
 
-void Map::draw()
+void Map::draw(sf::View view)
 {
 	for (unsigned i = 0; i < mapObjects.size(); ++i)
 	{

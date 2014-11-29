@@ -6,6 +6,9 @@ PlayState::PlayState(){
 	exitToMenu = true;
 	fps = 0;
 	mapPtr = &map;
+
+	view.reset(sf::FloatRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT));
+	window.setView(view);
 }
 PlayState::~PlayState(){
 
@@ -31,7 +34,7 @@ void PlayState::initializePlayState(){
 }
 
 void PlayState::updatePlayState(){
-	player.update(dt, *mapPtr);
+	player.update(dt, *mapPtr,view);
 	enemy1.update(dt);
 	enemy2.update(dt);
 	map.update(); // dt???
@@ -47,7 +50,7 @@ void PlayState::drawPlayState(){
 	}
 	enemy1.draw();
 	enemy2.draw();
-	map.draw(); // dt???
+	map.draw(view);
 	window.display();
 
 }

@@ -19,14 +19,11 @@ private:
 
 	int numberOfMap, halfScreenX, halfscreenY;
 
-	sf::View view;
-
-
 public:
 	std::vector<MapObject*> mapObjects;
 	Map();
 	void update();
-	void draw();
+	void draw(sf::View);
 	~Map();
 };
 

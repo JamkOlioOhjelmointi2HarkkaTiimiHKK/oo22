@@ -8,11 +8,11 @@ void Player::create(float posX, float posY, float sizeX, float sizeY){
 	this->createCharacter(posX, posY, sizeX, sizeY);
 	this->sprite.setTexture(Content::get()->playerTexture);
 }
-void Player::update(float dt, Map &ptr){
+void Player::update(float dt, Map &ptr,sf::View view){
 	
-	checkLegCollision(ptr);
+	checkLegCollision(ptr,view);
 	updateMovement();
-	checkBodyCollision(ptr);
+	checkBodyCollision(ptr, view);
 	applyGravity();
 	this->move(dt);
 	hitbox.update(sprite);
@@ -97,8 +97,11 @@ void Player::applyGravity(){
 	}
 }
 
-void Player::checkLegCollision(Map &ptr){
+void Player::checkLegCollision(Map &ptr,sf::View view){
+
+
 	for (int i = 0; i < ptr.mapObjects.size(); i++){
+		if (ptr.mapObjects[i]->getPos().x - view.getCenter().x < halfScreenX && ptr.mapObjects[i]->getPos().y - view.getCenter().y < halfscreenY)
 		if (Utility::boxHit(this->hitbox.legHitbox, ptr.mapObjects[i]->shape)){
 			falling = false;
 			this->setDY(0);
@@ -115,19 +118,22 @@ void Player::checkLegCollision(Map &ptr){
 	this->legHitbocCollides = false;
 
 }
-void Player::checkBodyCollision(Map &ptr){
+void Player::checkBodyCollision(Map &ptr,sf::View view){
 	for (int i = 0; i < ptr.mapObjects.size(); i++){
+		if (ptr.mapObjects[i]->getPos().x - view.getCenter().x < halfScreenX && ptr.mapObjects[i]->getPos().y - view.getCenter().y < halfscreenY)
+		{
 
-		if (Utility::boxHit(this->hitbox.bodyLeftHitbox, ptr.mapObjects[i]->shape)){
-			this->velocityX = 0;
-			sprite.setPosition(ptr.mapObjects[i]->getPos().x + ptr.mapObjects[i]->getSize().x + this->sizeX / 2 - 1, sprite.getPosition().y);
-			this->bodyLeftHitbocCollides = true;
-		}
+			if (Utility::boxHit(this->hitbox.bodyLeftHitbox, ptr.mapObjects[i]->shape)){
+				this->velocityX = 0;
+				sprite.setPosition(ptr.mapObjects[i]->getPos().x + ptr.mapObjects[i]->getSize().x + this->sizeX / 2 - 1, sprite.getPosition().y);
+				this->bodyLeftHitbocCollides = true;
+			}
 
-		if (Utility::boxHit(this->hitbox.bodyRightHitbox, ptr.mapObjects[i]->shape)){
-			this->velocityX = 0;
-			sprite.setPosition(ptr.mapObjects[i]->getPos().x - this->sizeX / 2 + 1, sprite.getPosition().y);
-			this->bodyRightHitbocCollides = true;
+			if (Utility::boxHit(this->hitbox.bodyRightHitbox, ptr.mapObjects[i]->shape)){
+				this->velocityX = 0;
+				sprite.setPosition(ptr.mapObjects[i]->getPos().x - this->sizeX / 2 + 1, sprite.getPosition().y);
+				this->bodyRightHitbocCollides = true;
+			}
 		}
 	}
 
