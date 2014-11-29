@@ -14,11 +14,10 @@ private:
 	std::ifstream file;
 	std::fstream facts;
 
-	std::string name,line;
-	std::string x;
-	std::string y;
+	std::string name,line,x,y;
 
-	int numberOfMap;
+
+	int numberOfMap, halfScreenX, halfscreenY;
 
 	sf::View view;
 

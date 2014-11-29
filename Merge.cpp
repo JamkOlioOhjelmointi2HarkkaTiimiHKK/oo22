@@ -3,16 +3,16 @@
 
 Merge::Merge()
 {
-	
-	std::string temp; // m‰‰r‰ mappipalojen m‰‰r‰st‰. helvetin hienot "temp" muuttujat
-	std::string temp2; //m‰‰r‰ mappien m‰‰r‰st‰
+	halfScreenX = SCREEN_WIDTH / 2;
+	halfscreenY = SCREEN_HEIGHT / 2;
+
 	facts.open("Files\\facts.txt");
-	getline(facts, temp);
-	getline(facts, temp2);
-	numberOfMap = std::stoi(temp2);
-	//numberOfPart = std::stoi(temp);//t‰m‰ pit‰‰ korvata jos haluaa vanhan
+	getline(facts, howManuMapParts);
+	getline(facts, howManyMaps);
+	numberOfMap = std::stoi(howManyMaps);
+	numberOfPart = std::stoi(howManuMapParts);//t‰m‰ pit‰‰ korvata jos haluaa vanhan
 	facts.close();
-	/*
+	
 	for (int i = 0; i < numberOfPart+1; i++)
 	{
 		file.open("Files\\MapPart" + std::to_string(i) + ".txt");
@@ -27,55 +27,48 @@ Merge::Merge()
 #pragma region vertailu
 			if (name.compare("block") == 0)
 			{
-				mapObjects.push_back(new Block(std::stoi(x), std::stoi(y)));
+				partObjects.push_back(new Block(std::stoi(x), std::stoi(y)));
 			}
 			else if (name.compare("floor") == 0)
 			{
-				mapObjects.push_back(new Floor(std::stoi(x), std::stoi(y)));
+				partObjects.push_back(new Floor(std::stoi(x), std::stoi(y)));
 			}
 			else if (name.compare("ladde") == 0)
 			{
-				mapObjects.push_back(new Ladder(std::stoi(x), std::stoi(y)));
+				partObjects.push_back(new Ladder(std::stoi(x), std::stoi(y)));
 			}
 			else if (name.compare("spawP") == 0)
 			{
-				mapObjects.push_back(new SpawnPoint(std::stoi(x), std::stoi(y)));
+				partObjects.push_back(new SpawnPoint(std::stoi(x), std::stoi(y)));
 			}
 			else if (name.compare("spawE") == 0)
 			{
-				mapObjects.push_back(new SpawnEnemy(std::stoi(x), std::stoi(y)));
+				partObjects.push_back(new SpawnEnemy(std::stoi(x), std::stoi(y)));
 			}
 #pragma endregion
 		}
-		parts.push_back(mapObjects);
+		parts.push_back(partObjects);
 		file.close();
-		mapObjects.clear();
+		partObjects.clear();
 	}
 	
-	for (int xAkseli = 0; xAkseli < 2; xAkseli++)
-	{
-		
-		for (int yAkseli = 0; yAkseli < 1; yAkseli++)
+	for (int xAkseli = 0; xAkseli < 9; xAkseli++)
+	{		
+		for (int yAkseli = 0; yAkseli < 9; yAkseli++)
 		{
+			//t‰m‰ on v‰‰rin se muokkaa
 			std::vector<MapObject*> kamikaze = parts[Utility::random(0, parts.size() - 1)];
 			for (unsigned i = 0; i < kamikaze.size(); i++)
 			{
+				MapObject* temp = new MapObject(*kamikaze[i]);
 				sf::Vector2f tempposition(kamikaze[i]->getPos().x+xAkseli*512, kamikaze[i]->getPos().y+yAkseli*512);
-				kamikaze[i]->setPos(tempposition);
-				
-				std::cout << kamikaze[i]->getPos().x << std::endl;
-				
-				mapObjects.push_back(kamikaze[i]);			
+				temp->setPos(tempposition);								
+				mapObjects.push_back(temp);
 			}
 		}
 	}
-
-	for (unsigned i = 0; i < mapObjects.size(); i++)
-	{
-		std::cout << mapObjects[i]->getName() << " "<<mapObjects[i]->getPos().x << " "<< mapObjects[i]->getPos().y<<std::endl;
-	}
-	*/
 	
+	/*
 	numberOfPart = Utility::random(0, std::stoi(temp));
 
 
@@ -119,7 +112,7 @@ Merge::Merge()
 				file.close();
 			}
 		}
-		
+		*/
 
 	view.reset(sf::FloatRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT));
 	window.setView(view);
@@ -152,8 +145,11 @@ void Merge::update(float dt)
 }
 void Merge::draw()
 {
-	for (unsigned i = 0; i < mapObjects.size(); ++i)
+	int temp = mapObjects.size();
+
+	for (unsigned i = 0; i < temp; ++i)
 	{
+		if (mapObjects[i]->getPos().x-view.getCenter().x < halfScreenX && mapObjects[i]->getPos().y-view.getCenter().y < halfscreenY)
 		window.draw(mapObjects[i]->shape);
 	}
 }
@@ -180,9 +176,9 @@ void Merge::save()
 	std::string temp;
 	facts.open("Files\\facts.txt");
 	getline(facts, temp);
-	getline(facts, temp);
+	getline(facts, howManyMaps);
 
-	if (std::stoi(temp) < numberOfMap)
+	if (std::stoi(howManyMaps) < numberOfMap)
 	{
 		facts.seekg(3, std::ios_base::beg);
 		facts << numberOfMap;
@@ -202,12 +198,8 @@ Merge::~Merge()
 	mapObjects.clear();
 
 	for (unsigned i = 0; i < parts.size(); ++i)
+	for (unsigned i = 0; i < partObjects.size(); ++i)
 	{
-		std::vector<MapObject*> kamikaze = parts[i];
-		for (unsigned u = 0; u < kamikaze.size(); ++i)
-		{
-			delete kamikaze[i];
-		}
+		delete partObjects[i];
 	}
-
 }

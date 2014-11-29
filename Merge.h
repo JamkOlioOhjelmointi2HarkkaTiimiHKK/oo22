@@ -17,18 +17,15 @@ class Merge
 private:
 
 	std::vector<MapObject*> mapObjects;
+	std::vector<MapObject*> partObjects;
 	std::vector<std::vector<MapObject*>>parts;
 	std::ifstream file;
 	std::fstream facts;
 	std::ofstream file2;
-	std::string line;
-	std::string name;
-	std::string x;
-	std::string y;
+	std::string line,name,x,y,howManyMaps,howManuMapParts;
 	sf::Vector2f position;
 
-	int numberOfPart;
-	int numberOfMap;
+	int numberOfPart, numberOfMap, halfScreenX, halfscreenY;
 
 	sf::View view;
 	void save();

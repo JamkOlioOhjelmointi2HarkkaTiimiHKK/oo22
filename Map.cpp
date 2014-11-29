@@ -3,6 +3,10 @@
 
 Map::Map()
 {
+
+	halfScreenX = SCREEN_WIDTH / 2;
+	halfscreenY = SCREEN_HEIGHT / 2;
+
 	numberOfMap = 0;
 
 	file.open("Files\\Maps\\Map" + std::to_string(numberOfMap) + ".txt");
@@ -38,6 +42,9 @@ Map::Map()
 					}
 #pragma endregion
 	}
+
+	view.reset(sf::FloatRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT));
+	window.setView(view);
 }
 
 void Map::update()
@@ -49,6 +56,7 @@ void Map::draw()
 {
 	for (unsigned i = 0; i < mapObjects.size(); ++i)
 	{
+		if (mapObjects[i]->getPos().x - view.getCenter().x < halfScreenX && mapObjects[i]->getPos().y - view.getCenter().y < halfscreenY)
 		window.draw(mapObjects[i]->shape);
 	}
 }

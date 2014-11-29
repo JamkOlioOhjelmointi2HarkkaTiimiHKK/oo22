@@ -1,0 +1,6 @@
+floor 64 448
+floor 224 352
+floor 352 192
+floor 32 96
+floor 32 256
+floor 352 480

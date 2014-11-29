@@ -7,6 +7,7 @@ class MapObject
 protected:
 	
 	std::string name;
+	
 public:
 	sf::RectangleShape shape;
 	MapObject();
