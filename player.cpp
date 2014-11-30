@@ -10,15 +10,11 @@ void Player::create(float posX, float posY, float sizeX, float sizeY){
 }
 void Player::update(float dt, Map &ptr,sf::View view){
 	
-	checkLegCollision(ptr,view);
 	updateMovement();
-	
-	checkBodyCollision(ptr, view);
 	applyGravity();
 	this->move(dt);
 	hitbox.update(sprite);
-
-
+	checkCollision(ptr, view);
 }
 void Player::updateMovement(){
 
@@ -99,42 +95,50 @@ void Player::applyGravity(){
 	}
 }
 
-void Player::checkLegCollision(Map &ptr,sf::View view){
-
-
-	for (int i = 0; i < ptr.mapObjects.size(); i++){
-		if (std::pow(ptr.mapObjects[i]->getPos().x - view.getCenter().x, 2) - 350 < std::pow(halfScreenX, 2) && std::pow(ptr.mapObjects[i]->getPos().y - view.getCenter().y, 2) - 350 < std::pow(halfscreenY, 2))
-		if (Utility::boxHit(this->hitbox.legHitbox, ptr.mapObjects[i]->shape)){
-			falling = false;
-			this->setDY(0);
-			this->velocityY = 0;
-			recentlyjumped = false;
-			sprite.setPosition(sprite.getPosition().x, ptr.mapObjects[i]->getPos().y - this->sizeY / 2 + 1);
-			this->legHitbocCollides = true;
-		}
-	}
-	if (!this->legHitbocCollides){
-		falling = true;
-	}
+void Player::checkCollision(Map &ptr, sf::View view){
 
 	this->legHitbocCollides = false;
+	this->bodyLeftHitbocCollides = false;
+	this->bodyRightHitbocCollides = false;
 
-}
-void Player::checkBodyCollision(Map &ptr,sf::View view){
+	bool legHitboxPriority = false;
+
 	for (int i = 0; i < ptr.mapObjects.size(); i++){
 		if (std::pow(ptr.mapObjects[i]->getPos().x - view.getCenter().x, 2) - 350 < std::pow(halfScreenX, 2) && std::pow(ptr.mapObjects[i]->getPos().y - view.getCenter().y, 2) - 350 < std::pow(halfscreenY, 2))
 		{
+			if (!ptr.mapObjects[i]->passable){
 
-			if (Utility::boxHit(this->hitbox.bodyLeftHitbox, ptr.mapObjects[i]->shape)){
-				sprite.setPosition(ptr.mapObjects[i]->getPos().x + ptr.mapObjects[i]->getSize().x + this->sizeX / 2 - 1, sprite.getPosition().y);
-				this->bodyLeftHitbocCollides = true;
-			}
+				if (Utility::boxHit(this->hitbox.legHitbox, ptr.mapObjects[i]->shape)){
+					if (falling){
+						sprite.setPosition(sprite.getPosition().x, ptr.mapObjects[i]->getPos().y - this->sizeY / 2 + 1);
+						legHitboxPriority = true;
+					}
+					this->legHitbocCollides = true;
+				}
 
-			if (Utility::boxHit(this->hitbox.bodyRightHitbox, ptr.mapObjects[i]->shape)){
-				sprite.setPosition(ptr.mapObjects[i]->getPos().x - this->sizeX / 2 + 1, sprite.getPosition().y);
-				this->bodyRightHitbocCollides = true;
+				if (Utility::boxHit(this->hitbox.bodyLeftHitbox, ptr.mapObjects[i]->shape)){
+					if (!legHitboxPriority)
+						sprite.setPosition(ptr.mapObjects[i]->getPos().x + ptr.mapObjects[i]->getSize().x + this->sizeX / 2 - 1, sprite.getPosition().y);
+					this->bodyLeftHitbocCollides = true;
+				}
+
+				else if (Utility::boxHit(this->hitbox.bodyRightHitbox, ptr.mapObjects[i]->shape)){
+					if (!legHitboxPriority)
+						sprite.setPosition(ptr.mapObjects[i]->getPos().x - this->sizeX / 2 + 1, sprite.getPosition().y);
+					this->bodyRightHitbocCollides = true;
+				}
 			}
 		}
+	}
+
+	if (this->legHitbocCollides){
+		falling = false;
+		this->setDY(0);
+		this->velocityY = 0;
+		recentlyjumped = false;
+	}
+	else{
+		falling = true;
 	}
 
 	if ((this->DX == -1 && this->bodyLeftHitbocCollides) || (this->DX == 1 && this->bodyRightHitbocCollides)){
@@ -142,9 +146,10 @@ void Player::checkBodyCollision(Map &ptr,sf::View view){
 		this->velocityX = 0;
 	}
 
+	if (this->legHitbocCollides || this->bodyLeftHitbocCollides || this->bodyRightHitbocCollides){
+		hitbox.update(sprite);
+	}
 
-	this->bodyLeftHitbocCollides = false;
-	this->bodyRightHitbocCollides = false;
 }
 
 sf::Sprite Player::getSprite()

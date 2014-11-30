@@ -14,8 +14,7 @@ public:
 	void updateMovement();
 	void jump();
 	void applyGravity();
-	void checkLegCollision(Map &ptr,sf::View);
-	void checkBodyCollision(Map &ptr, sf::View);
+	void checkCollision(Map &ptr, sf::View);
 
 	void acceleratePlayerX();
 	void deceleratePlayerX();
