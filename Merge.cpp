@@ -58,16 +58,6 @@ Merge::Merge()
 	view.reset(sf::FloatRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT));
 	window.setView(view);
 
-	buttons.push_back(new Button(sf::Vector2f(100, 50), sf::Vector2f(800, 470), "save", [&]()
-	{
-		save();
-
-	}));
-	buttons.push_back(new Button(sf::Vector2f(100, 50), sf::Vector2f(950, 470), "reShufle", [&]()
-	{
-		openAndBuild();
-
-	}));
 }
 
 void Merge::openAndBuild()
@@ -160,6 +150,14 @@ void Merge::update(float dt)
 	{
 		position.y -= 500*dt;
 	}
+	if (Controls::get()->kIsPressed(sf::Keyboard::Z))
+	{
+		save();
+	}
+	if (Controls::get()->kIsPressed(sf::Keyboard::X))
+	{
+		openAndBuild();
+	}
 	if (Controls::get()->mIsPressed(sf::Mouse::Button::Middle))
 	{
 		view.zoom(2);
@@ -171,11 +169,6 @@ void Merge::update(float dt)
 	view.move(position);
 	window.setView(view);
 
-	for (unsigned i = 0; i < buttons.size(); ++i)
-	{
-		buttons[i]->update();
-	}
-
 }
 void Merge::draw()
 {
@@ -183,15 +176,12 @@ void Merge::draw()
 
 	for (unsigned i = 0; i < temp; ++i)
 	{	
+		//ylempi on tapa millä pelitilassa piirto + törmäystarkastelut toimii. Alempi on vaan kätevämpi nopeaan tarkasteluun.
 		//if (std::pow(mapObjects[i]->getPos().x - view.getCenter().x,2)-350*70 < std::pow(halfScreenX,2) && std::pow(mapObjects[i]->getPos().y-view.getCenter().y,2)-350*70 < std::pow(halfscreenY,2))
 		if (mapObjects[i]->getPos().x - view.getCenter().x < halfScreenX && mapObjects[i]->getPos().y-view.getCenter().y < halfscreenY)
 		window.draw(mapObjects[i]->shape);
 	}
 
-	for (unsigned i = 0; i < buttons.size(); ++i)
-	{
-		buttons[i]->draw();
-	}
 }
 
 void Merge::loop(float dt)
@@ -235,7 +225,7 @@ void Merge::killAll()
 	{
 		delete mapObjects[i];
 	}
-	mapObjects.clear();
+	mapObjects.clear(); // there's no such a thing as overkill
 
 	for (unsigned i = 0; i < parts.size(); ++i)
 	for (unsigned i = 0; i < partObjects.size(); ++i)
