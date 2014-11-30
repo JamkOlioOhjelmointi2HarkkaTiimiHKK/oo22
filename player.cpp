@@ -21,7 +21,6 @@ void Player::update(float dt, Map &ptr,sf::View view){
 
 }
 void Player::updateMovement(){
-	velocityX = 0; //ei liukastella, tämä on sitten purkkaa.
 
 	if ((Controls::get()->iskeydown(sf::Keyboard::A)) && (Controls::get()->iskeydown(sf::Keyboard::D))){
 		if (velocityX != 0)
@@ -128,21 +127,20 @@ void Player::checkBodyCollision(Map &ptr,sf::View view){
 		{
 
 			if (Utility::boxHit(this->hitbox.bodyLeftHitbox, ptr.mapObjects[i]->shape)){
-				this->velocityX = 0;
 				sprite.setPosition(ptr.mapObjects[i]->getPos().x + ptr.mapObjects[i]->getSize().x + this->sizeX / 2 - 1, sprite.getPosition().y);
 				this->bodyLeftHitbocCollides = true;
 			}
 
 			if (Utility::boxHit(this->hitbox.bodyRightHitbox, ptr.mapObjects[i]->shape)){
-				this->velocityX = 0;
 				sprite.setPosition(ptr.mapObjects[i]->getPos().x - this->sizeX / 2 + 1, sprite.getPosition().y);
 				this->bodyRightHitbocCollides = true;
 			}
 		}
 	}
 
-	if ((!this->bodyLeftHitbocCollides || this->DX != -1) && (!this->bodyRightHitbocCollides || this->DX != 1)){
-		this->velocityX = 500;
+	if ((this->DX == -1 && this->bodyLeftHitbocCollides) || (this->DX == 1 && this->bodyRightHitbocCollides)){
+		this->setDX(0);
+		this->velocityX = 0;
 	}
 
 	this->bodyLeftHitbocCollides = false;

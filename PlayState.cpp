@@ -37,7 +37,9 @@ void PlayState::updatePlayState(){
 
 	view.reset(sf::FloatRect(player.getSprite().getPosition().x - halfScreenX, player.getSprite().getPosition().y - halfscreenY, SCREEN_WIDTH, SCREEN_HEIGHT));
 	window.setView(view);
-
+	if (showDebug){
+		Content::get()->setDebugTextPosition(view.getCenter().x - halfScreenX, view.getCenter().y - halfscreenY);
+	}
 	enemy1.update(dt);
 	enemy2.update(dt);
 	map.update();

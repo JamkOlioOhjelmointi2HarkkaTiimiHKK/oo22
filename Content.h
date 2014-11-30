@@ -28,5 +28,6 @@ public:
 	static Content* get();
 
 	void setDebugText(std::string text);
+	void setDebugTextPosition(float posX, float posY);
 };
 

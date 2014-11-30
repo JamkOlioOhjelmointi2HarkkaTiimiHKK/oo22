@@ -36,3 +36,7 @@ Content* Content::get()
 void Content::setDebugText(std::string text){
 	debugText.setString(text);
 }
+
+void Content::setDebugTextPosition(float posX, float posY){
+	debugText.setPosition(posX, posY);
+}
