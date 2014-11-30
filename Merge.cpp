@@ -6,11 +6,12 @@ Merge::Merge()
 	halfScreenX = SCREEN_WIDTH / 2;
 	halfscreenY = SCREEN_HEIGHT / 2;
 
+#pragma region hyv‰
 		facts.open("Files\\facts.txt");
 	getline(facts, howManuMapParts);
 	getline(facts, howManyMaps);
 	numberOfMap = std::stoi(howManyMaps);
-	numberOfPart = std::stoi(howManuMapParts);//t‰m‰ pit‰‰ korvata jos haluaa vanhan
+	numberOfPart = std::stoi(howManuMapParts);
 	facts.close();
 
 	for (int i = 0; i < numberOfPart + 1; i++)
@@ -53,7 +54,9 @@ Merge::Merge()
 	}
 
 
-	Build(); //t‰m‰ on hyv‰ tapa
+	Build(); 
+#pragma endregion
+
 
 	//t‰m‰ no huono tapa
 	/*
@@ -123,9 +126,9 @@ void Merge::Build()
 {
 	killAll(); // tyhj‰t‰‰n jos reshuflataan
 
-	for (int xAkseli = 0; xAkseli < 100; xAkseli++)
+	for (int xAkseli = 0; xAkseli < 60; xAkseli++)
 	{
-		for (int yAkseli = 0; yAkseli < 100; yAkseli++)
+		for (int yAkseli = 0; yAkseli < 60; yAkseli++)
 		{
 			std::vector<MapObject*> kamikaze = parts[Utility::random(0, parts.size() - 1)];
 			for (unsigned i = 0; i < kamikaze.size(); i++)

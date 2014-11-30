@@ -54,7 +54,7 @@ void Map::draw(sf::View view)
 {
 	for (unsigned i = 0; i < mapObjects.size(); ++i)
 	{
-		if (std::pow(mapObjects[i]->getPos().x - view.getCenter().x, 2) - 350 < std::pow(halfScreenX, 2) && std::pow(mapObjects[i]->getPos().y - view.getCenter().y, 2) - 350 < std::pow(halfscreenY, 2))
+		if ((mapObjects[i]->getPos().x - view.getCenter().x)*(mapObjects[i]->getPos().x - view.getCenter().x)  < halfScreenX*halfScreenX && (mapObjects[i]->getPos().y - view.getCenter().y)*(mapObjects[i]->getPos().y - view.getCenter().y) < halfscreenY*halfscreenY)
 		window.draw(mapObjects[i]->shape);
 	}
 }

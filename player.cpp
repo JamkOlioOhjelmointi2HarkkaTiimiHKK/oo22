@@ -104,7 +104,7 @@ void Player::checkCollision(Map &ptr, sf::View view){
 	bool legHitboxPriority = false;
 
 	for (int i = 0; i < ptr.mapObjects.size(); i++){
-		if (std::pow(ptr.mapObjects[i]->getPos().x - view.getCenter().x, 2) - 350 < std::pow(halfScreenX, 2) && std::pow(ptr.mapObjects[i]->getPos().y - view.getCenter().y, 2) - 350 < std::pow(halfscreenY, 2))
+		if ((ptr.mapObjects[i]->getPos().x - view.getCenter().x)*(ptr.mapObjects[i]->getPos().x - view.getCenter().x)  < halfScreenX*halfScreenX && (ptr.mapObjects[i]->getPos().y - view.getCenter().y)*(ptr.mapObjects[i]->getPos().y - view.getCenter().y) < halfscreenY*halfscreenY) // tehoja lisää
 		{
 			if (!ptr.mapObjects[i]->passable){
 
