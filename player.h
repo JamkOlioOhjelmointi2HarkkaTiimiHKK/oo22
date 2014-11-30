@@ -4,11 +4,13 @@
 #include "Controls.h"
 #include "Map.h"
 #include "Utility.h"
+#include "Gun.h"
 class Player:public Character{
 private:
 	float jumpstart;
 public:
 	Player();
+	Gun gun;
 	void create(float posX, float posY, float sizeX, float sizeY);
 	void update(float dt, Map &ptr, sf::View);
 	void updateMovement();

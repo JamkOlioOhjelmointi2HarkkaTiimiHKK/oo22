@@ -87,6 +87,9 @@
     <ClCompile Include="Ladder.cpp">
       <Filter>mapObjects</Filter>
     </ClCompile>
+    <ClCompile Include="Gun.cpp">
+      <Filter>Character</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="globals.h">
@@ -152,6 +155,9 @@
     <ClInclude Include="Ladder.h">
       <Filter>mapObjects</Filter>
     </ClInclude>
+    <ClInclude Include="Gun.h">
+      <Filter>Character</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Font Include="res\calibri.ttf">
@@ -162,13 +168,13 @@
     <Image Include="res\player.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\janis.jpg">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="res\janis.png">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="res\ghost.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\gunHand.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

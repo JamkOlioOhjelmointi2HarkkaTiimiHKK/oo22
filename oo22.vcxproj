@@ -19,6 +19,7 @@
     <ClCompile Include="EditorState.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Floor.cpp" />
+    <ClCompile Include="Gun.cpp" />
     <ClCompile Include="Hitbox.cpp" />
     <ClCompile Include="Ladder.cpp" />
     <ClCompile Include="main.cpp" />
@@ -43,6 +44,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Floor.h" />
     <ClInclude Include="globals.h" />
+    <ClInclude Include="Gun.h" />
     <ClInclude Include="Hitbox.h" />
     <ClInclude Include="Ladder.h" />
     <ClInclude Include="MainMenuState.h" />
@@ -61,7 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\ghost.png" />
-    <Image Include="res\janis.jpg" />
+    <Image Include="res\gunHand.png" />
     <Image Include="res\janis.png" />
     <Image Include="res\player.png" />
   </ItemGroup>

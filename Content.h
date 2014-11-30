@@ -20,6 +20,7 @@ public:
 	sf::Texture playerTexture;
 	sf::Texture janisTexture;
 	sf::Texture ghostTexture;
+	sf::Texture gunHandTexture;
 	sf::Texture backgroundTexture;
 	sf::Font calibri;
 	sf::Font font; // Tuomas K‰ytt‰‰ t‰t‰
