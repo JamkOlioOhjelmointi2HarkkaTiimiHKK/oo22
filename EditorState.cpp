@@ -185,7 +185,6 @@ void EditorState::save()
 	{
 		facts.seekg(0,std::ios_base::beg);
 		facts << numberOfPart;
-		std::cout << temp;
 	}
 		
 	facts.close();

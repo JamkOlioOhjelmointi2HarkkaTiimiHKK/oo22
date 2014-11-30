@@ -29,7 +29,7 @@ private:
 	int numberOfPart, numberOfMap, halfScreenX, halfscreenY;
 
 	sf::View view;
-	void openAndBuild();
+	void Build();
 	void save();
 	void update(float);
 	void draw();

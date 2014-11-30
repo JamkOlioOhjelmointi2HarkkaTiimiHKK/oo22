@@ -1,0 +1,10 @@
+floor 224 128
+floor 96 352
+floor 192 480
+floor 352 320
+floor 128 224
+floor 32 192
+floor 32 96
+floor 128 32
+floor 288 32
+floor 320 128

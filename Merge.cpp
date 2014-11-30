@@ -6,65 +6,7 @@ Merge::Merge()
 	halfScreenX = SCREEN_WIDTH / 2;
 	halfscreenY = SCREEN_HEIGHT / 2;
 
-	openAndBuild(); //tämä on hyvä tapa
-
-	//tämä no huono tapa
-	/*
-	numberOfPart = Utility::random(0, std::stoi(temp));
-
-
-		for (int xAkseli = 0; xAkseli < 6; xAkseli++)
-		{
-			for (int yAkseli = 0; yAkseli < 2; yAkseli++)
-			{
-				file.open("Files\\MapPart" + std::to_string(numberOfPart) + ".txt");
-				while (getline(file, line))
-				{
-					int temp = line.find(" ");
-					name = line.substr(0, temp);
-					int temp2 = line.find(" ", temp + 1);
-					x = line.substr(temp + 1, temp2 - temp - 1);
-					int temp3 = line.find("\n", temp2 + 1);
-					y = line.substr(temp2 + 1, temp3 - temp2 - 1);
-#pragma region vertailu
-					if (name.compare("block") == 0)
-					{
-						mapObjects.push_back(new Block(std::stoi(x) + xAkseli * 512, std::stoi(y) + yAkseli * 512));
-					}
-					else if (name.compare("floor") == 0)
-					{
-						mapObjects.push_back(new Floor(std::stoi(x) + xAkseli * 512, std::stoi(y)+yAkseli * 512));
-					}
-					else if (name.compare("ladde") == 0)
-					{
-						mapObjects.push_back(new Ladder(std::stoi(x) + xAkseli * 512, std::stoi(y) + yAkseli * 512));
-					}
-					else if (name.compare("spawP") == 0)
-					{
-						mapObjects.push_back(new SpawnPoint(std::stoi(x) + xAkseli * 512, std::stoi(y) + yAkseli * 512));
-					}
-					else if (name.compare("spawE") == 0)
-					{
-						mapObjects.push_back(new SpawnEnemy(std::stoi(x) + xAkseli * 512, std::stoi(y) + yAkseli * 512));
-					}
-#pragma endregion
-				}
-				numberOfPart = Utility::random(0, std::stoi(temp));
-				file.close();
-			}
-		}
-		*/
-
-	view.reset(sf::FloatRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT));
-	window.setView(view);
-
-}
-
-void Merge::openAndBuild()
-{
-	killAll(); // tyhjätään jos reshuflataan
-
-	facts.open("Files\\facts.txt");
+		facts.open("Files\\facts.txt");
 	getline(facts, howManuMapParts);
 	getline(facts, howManyMaps);
 	numberOfMap = std::stoi(howManyMaps);
@@ -110,9 +52,80 @@ void Merge::openAndBuild()
 		partObjects.clear();
 	}
 
-	for (int xAkseli = 0; xAkseli < 9; xAkseli++)
+
+	Build(); //tämä on hyvä tapa
+
+	//tämä no huono tapa
+	/*
+#pragma region huono	
+	std::string temp, temp2;
+
+	facts.open("Files\\facts.txt");
+	getline(facts, temp);
+	getline(facts, temp2);
+	numberOfMap = std::stoi(temp);
+	numberOfPart = std::stoi(temp2);
+	facts.close();
+
+	numberOfPart = Utility::random(0, std::stoi(temp));
+
+	
+		for (int xAkseli = 0; xAkseli < 170; xAkseli++)
+		{
+			for (int yAkseli = 0; yAkseli < 170; yAkseli++)
+			{
+				file.open("Files\\MapPart" + std::to_string(numberOfPart) + ".txt");
+				while (getline(file, line))
+				{
+					int temp = line.find(" ");
+					name = line.substr(0, temp);
+					int temp2 = line.find(" ", temp + 1);
+					x = line.substr(temp + 1, temp2 - temp - 1);
+					int temp3 = line.find("\n", temp2 + 1);
+					y = line.substr(temp2 + 1, temp3 - temp2 - 1);
+#pragma region vertailu
+					if (name.compare("block") == 0)
+					{
+						mapObjects.push_back(new Block(std::stoi(x) + xAkseli * 512, std::stoi(y) + yAkseli * 512));
+					}
+					else if (name.compare("floor") == 0)
+					{
+						mapObjects.push_back(new Floor(std::stoi(x) + xAkseli * 512, std::stoi(y)+yAkseli * 512));
+					}
+					else if (name.compare("ladde") == 0)
+					{
+						mapObjects.push_back(new Ladder(std::stoi(x) + xAkseli * 512, std::stoi(y) + yAkseli * 512));
+					}
+					else if (name.compare("spawP") == 0)
+					{
+						mapObjects.push_back(new SpawnPoint(std::stoi(x) + xAkseli * 512, std::stoi(y) + yAkseli * 512));
+					}
+					else if (name.compare("spawE") == 0)
+					{
+						mapObjects.push_back(new SpawnEnemy(std::stoi(x) + xAkseli * 512, std::stoi(y) + yAkseli * 512));
+					}
+#pragma endregion
+					
+				}
+				numberOfPart = Utility::random(0, std::stoi(temp));
+				file.close();
+			}
+		}
+#pragma endregion
+		*/
+		
+	view.reset(sf::FloatRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT));
+	window.setView(view);
+
+}
+
+void Merge::Build()
+{
+	killAll(); // tyhjätään jos reshuflataan
+
+	for (int xAkseli = 0; xAkseli < 100; xAkseli++)
 	{
-		for (int yAkseli = 0; yAkseli < 9; yAkseli++)
+		for (int yAkseli = 0; yAkseli < 100; yAkseli++)
 		{
 			std::vector<MapObject*> kamikaze = parts[Utility::random(0, parts.size() - 1)];
 			for (unsigned i = 0; i < kamikaze.size(); i++)
@@ -124,9 +137,6 @@ void Merge::openAndBuild()
 			}
 		}
 	}
-
-
-
 }
 
 void Merge::update(float dt)
@@ -156,7 +166,7 @@ void Merge::update(float dt)
 	}
 	if (Controls::get()->kIsPressed(sf::Keyboard::X))
 	{
-		openAndBuild();
+		Build();
 	}
 	if (Controls::get()->mIsPressed(sf::Mouse::Button::Middle))
 	{
@@ -176,9 +186,10 @@ void Merge::draw()
 
 	for (unsigned i = 0; i < temp; ++i)
 	{	
-		//ylempi on tapa millä pelitilassa piirto + törmäystarkastelut toimii. Alempi on vaan kätevämpi nopeaan tarkasteluun.
-		//if (std::pow(mapObjects[i]->getPos().x - view.getCenter().x,2)-350*70 < std::pow(halfScreenX,2) && std::pow(mapObjects[i]->getPos().y-view.getCenter().y,2)-350*70 < std::pow(halfscreenY,2))
-		if (mapObjects[i]->getPos().x - view.getCenter().x < halfScreenX && mapObjects[i]->getPos().y-view.getCenter().y < halfscreenY)
+		//ylempi on tapa millä pelitilassa piirto + törmäystarkastelut toimii. Keskimmäinen on vaan kätevämpi nopeaan tarkasteluun. Alin on tehokkain
+		//if (std::pow(mapObjects[i]->getPos().x - view.getCenter().x,2)-350*70 < std::pow(halfScreenX,2) && std::pow(mapObjects[i]->getPos().y-view.getCenter().y,2)-350*70 < std::pow(halfscreenY,2))		
+		//if (mapObjects[i]->getPos().x - view.getCenter().x < halfScreenX && mapObjects[i]->getPos().y-view.getCenter().y < halfscreenY)
+		if ((mapObjects[i]->getPos().x - view.getCenter().x)*(mapObjects[i]->getPos().x - view.getCenter().x)  < halfScreenX*halfScreenX && (mapObjects[i]->getPos().y - view.getCenter().y)*(mapObjects[i]->getPos().y - view.getCenter().y) < halfscreenY*halfscreenY)
 		window.draw(mapObjects[i]->shape);
 	}
 
@@ -200,20 +211,16 @@ void Merge::save()
 	{
 		file2 << mapObjects[i]->getName() << " " << mapObjects[i]->getPos().x  << " " << mapObjects[i]->getPos().y<< std::endl;
 	}
-
 	file2.close();
 
-	std::string temp;
-	facts.open("Files\\facts.txt");
-	getline(facts, temp);
-	getline(facts, howManyMaps);
+	
 
+	facts.open("Files\\facts.txt");
 	if (std::stoi(howManyMaps) < numberOfMap)
 	{
-		facts.seekg(3, std::ios_base::beg);
+		facts.seekg(sizeof(numberOfPart), std::ios_base::beg);
 		facts << numberOfMap;
 	}
-
 	facts.close();
 
 	numberOfMap++;
@@ -227,6 +234,12 @@ void Merge::killAll()
 	}
 	mapObjects.clear(); // there's no such a thing as overkill
 
+
+}
+
+Merge::~Merge()
+{
+	killAll();
 	for (unsigned i = 0; i < parts.size(); ++i)
 	for (unsigned i = 0; i < partObjects.size(); ++i)
 	{
@@ -234,9 +247,4 @@ void Merge::killAll()
 	}
 	parts.clear();
 
-}
-
-Merge::~Merge()
-{
-	killAll();
 }

@@ -1,0 +1,13 @@
+spawE 160 224
+spawE 352 352
+spawE 352 160
+spawE 320 128
+spawE 224 224
+spawE 192 352
+spawE 64 352
+ladde 96 288
+floor 0 448
+floor 160 448
+floor 128 288
+floor 256 256
+floor 352 224

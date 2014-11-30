@@ -1,0 +1,13 @@
+block 128 320
+block 288 384
+block 320 224
+block 256 160
+block 96 128
+block 64 192
+block 224 288
+block 352 352
+block 352 448
+block 128 448
+block 128 416
+block 416 32
+block 416 32
