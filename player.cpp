@@ -23,48 +23,48 @@ void Player::update(float dt, Map &ptr,sf::View view){
 void Player::updateMovement(){
 
 	if ((Controls::get()->iskeydown(sf::Keyboard::A)) && (Controls::get()->iskeydown(sf::Keyboard::D))){
-		if (velocityX != 0)
-			velocityX -= 50;
-		else
-			this->setDX(0);
+		deceleratePlayerX();
 	}
+
 	else if (Controls::get()->iskeydown(sf::Keyboard::A)){
 		if (DX <= 0){
 			this->setDX(-1);
-			if (this->velocityX < 500)
-				this->velocityX += 50;
+			acceleratePlayerX();
 			this->setFacingDirection(false);
 		}
-		if (DX == 1){
-			if (velocityX == 0)
-				this->setDX(0);
-			this->velocityX -= 50;
+		else{
+			deceleratePlayerX();
 		}
 	}
+
 	else if (Controls::get()->iskeydown(sf::Keyboard::D)){
-		
 		if (DX >= 0){
 			this->setDX(1);
-			if (this->velocityX < 500)
-				this->velocityX += 50;
+			acceleratePlayerX();
 			this->setFacingDirection(true);
 		}
-		if (DX == -1){
-			if (this->velocityX == 0)
-				this->setDX(0);
-			this->velocityX -= 50;
+		else{
+			deceleratePlayerX();
 		}
 	}
+
 	else{
-		if (velocityX != 0)
-			velocityX -= 50;
-		else
-		this->setDX(0);
+		deceleratePlayerX();
 	}
 
 	if (Controls::get()->iskeydown(sf::Keyboard::Space)){
 		jump();
 	}
+}
+void Player::acceleratePlayerX(){
+	if (this->velocityX < 500)
+		this->velocityX += 50;
+}
+void Player::deceleratePlayerX(){
+	if (velocityX <= 0)
+		this->setDX(0);
+	else
+		velocityX -= 50;
 }
 
 void Player::jump(){
@@ -73,9 +73,8 @@ void Player::jump(){
 	}
 
 	if (this->DY == 0){
-		if (this->velocityY == 0){
+		if (this->velocityY <= 0){
 			this->setDY(-1);
-
 		}
 		falling = true;
 	}
@@ -93,7 +92,7 @@ void Player::applyGravity(){
 	if (falling){
 		if (this->DY == -1)
 			this->velocityY = this->velocityY - 50;
-		if (this->velocityY == 0)
+		if (this->velocityY <= 0)
 			this->setDY(1);
 		if (this->DY == 1 && this->velocityY < 500)
 			this->velocityY = this->velocityY + 50;
@@ -142,6 +141,7 @@ void Player::checkBodyCollision(Map &ptr,sf::View view){
 		this->setDX(0);
 		this->velocityX = 0;
 	}
+
 
 	this->bodyLeftHitbocCollides = false;
 	this->bodyRightHitbocCollides = false;

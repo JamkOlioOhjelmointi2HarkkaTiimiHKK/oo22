@@ -17,6 +17,9 @@ public:
 	void checkLegCollision(Map &ptr,sf::View);
 	void checkBodyCollision(Map &ptr, sf::View);
 
+	void acceleratePlayerX();
+	void deceleratePlayerX();
+
 	sf::Sprite getSprite();
 
 	int halfscreenY = SCREEN_HEIGHT / 2;

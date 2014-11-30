@@ -98,6 +98,9 @@ void MainMenuState::updateMainMenuState(){
 	{
 		menuButtons[i]->update();
 	}
+	if (showDebug){
+		Content::get()->setDebugTextPosition(0, 0);
+	}
 	if (titleAnimation < 255){
 		titleAnimation += (4 * dt);
 		title.setColor(Color(255, 255, 255, titleAnimation));
