@@ -5,7 +5,9 @@ Hitbox::Hitbox(){
 	bodyLeftHitbox.setFillColor(sf::Color(224, 72, 72, 192));
 	bodyRightHitbox.setFillColor(sf::Color(224, 24, 24, 192));
 	legHitbox.setFillColor(sf::Color(48, 224, 48, 192));
-	fullHitbox.setFillColor(sf::Color(224, 48, 224, 192));
+	enemyBodyHitbox.setFillColor(sf::Color(224, 48, 224, 192));
+	enemyLegHitbox.setFillColor(sf::Color(48, 224, 48, 192));
+	legHeigh = 7;
 }
 Hitbox::~Hitbox(){
 
@@ -14,38 +16,42 @@ void Hitbox::initializeHitBoxes(sf::Sprite sprite, float sizeX, float sizeY, boo
 	this->isPlayer = isPlayer;
 	
 	if (isPlayer){
-		headHitbox.setSize(sf::Vector2f(sizeX - 10, 7));
+		headHitbox.setSize(sf::Vector2f(sizeX - 10, legHeigh));
 		headHitbox.setPosition(sprite.getPosition().x - sprite.getOrigin().x + 5, sprite.getPosition().y - sprite.getOrigin().y);
 
 		bodyHitbox.setSize(sf::Vector2f(sizeX, sizeY - 14));
-		bodyHitbox.setPosition(sprite.getPosition().x - sprite.getOrigin().x, sprite.getPosition().y - sprite.getOrigin().y + 7);
+		bodyHitbox.setPosition(sprite.getPosition().x - sprite.getOrigin().x, sprite.getPosition().y - sprite.getOrigin().y + legHeigh);
 
 		bodyLeftHitbox.setSize(sf::Vector2f(sizeX / 2, sizeY - 14));
-		bodyLeftHitbox.setPosition(sprite.getPosition().x - sprite.getOrigin().x, sprite.getPosition().y - sprite.getOrigin().y + 7);
+		bodyLeftHitbox.setPosition(sprite.getPosition().x - sprite.getOrigin().x, sprite.getPosition().y - sprite.getOrigin().y + legHeigh);
 
 		bodyRightHitbox.setSize(sf::Vector2f(sizeX / 2, sizeY - 14));
-		bodyRightHitbox.setPosition(sprite.getPosition().x, sprite.getPosition().y - sprite.getOrigin().y + 7);
+		bodyRightHitbox.setPosition(sprite.getPosition().x, sprite.getPosition().y - sprite.getOrigin().y + legHeigh);
 
-		legHitbox.setSize(sf::Vector2f(sizeX - 6, 7));
-		legHitbox.setPosition(sprite.getPosition().x - sprite.getOrigin().x + 3, sprite.getPosition().y + (sprite.getOrigin().y - 7));
+		legHitbox.setSize(sf::Vector2f(sizeX - 6, legHeigh));
+		legHitbox.setPosition(sprite.getPosition().x - sprite.getOrigin().x + 3, sprite.getPosition().y + (sprite.getOrigin().y - legHeigh));
 	}
 	
 	else{
-		fullHitbox.setSize(sf::Vector2f(sizeX, sizeY));
-		fullHitbox.setPosition(sprite.getPosition().x - sprite.getOrigin().x, sprite.getPosition().y - sprite.getOrigin().y);
+		enemyBodyHitbox.setSize(sf::Vector2f(sizeX, sizeY));
+		enemyBodyHitbox.setPosition(sprite.getPosition().x - sprite.getOrigin().x, sprite.getPosition().y - sprite.getOrigin().y);
+
+		enemyLegHitbox.setSize(sf::Vector2f(sizeX - 6, legHeigh));
+		enemyLegHitbox.setPosition(sprite.getPosition().x - sprite.getOrigin().x, sprite.getPosition().y + (sprite.getOrigin().y - legHeigh));
 	}
 	
 }
 void Hitbox::update(sf::Sprite sprite){
 	if (isPlayer){
 		headHitbox.setPosition(sprite.getPosition().x - sprite.getOrigin().x + 5, sprite.getPosition().y - sprite.getOrigin().y);
-		bodyHitbox.setPosition(sprite.getPosition().x - sprite.getOrigin().x, sprite.getPosition().y - sprite.getOrigin().y + 7);
-		bodyLeftHitbox.setPosition(sprite.getPosition().x - sprite.getOrigin().x, sprite.getPosition().y - sprite.getOrigin().y + 7);
-		bodyRightHitbox.setPosition(sprite.getPosition().x, sprite.getPosition().y - sprite.getOrigin().y + 7);
-		legHitbox.setPosition(sprite.getPosition().x - sprite.getOrigin().x + 3, sprite.getPosition().y + (sprite.getOrigin().y - 7));
+		bodyHitbox.setPosition(sprite.getPosition().x - sprite.getOrigin().x, sprite.getPosition().y - sprite.getOrigin().y + legHeigh);
+		bodyLeftHitbox.setPosition(sprite.getPosition().x - sprite.getOrigin().x, sprite.getPosition().y - sprite.getOrigin().y + legHeigh);
+		bodyRightHitbox.setPosition(sprite.getPosition().x, sprite.getPosition().y - sprite.getOrigin().y + legHeigh);
+		legHitbox.setPosition(sprite.getPosition().x - sprite.getOrigin().x + 3, sprite.getPosition().y + (sprite.getOrigin().y - legHeigh));
 	}
 	else{
-		fullHitbox.setPosition(sprite.getPosition().x - sprite.getOrigin().x, sprite.getPosition().y - sprite.getOrigin().y);
+		enemyBodyHitbox.setPosition(sprite.getPosition().x - sprite.getOrigin().x, sprite.getPosition().y - sprite.getOrigin().y);
+		enemyLegHitbox.setPosition(sprite.getPosition().x - sprite.getOrigin().x, sprite.getPosition().y + (sprite.getOrigin().y - legHeigh));
 	}
 	
 }
@@ -58,6 +64,7 @@ void Hitbox::draw(){
 		window.draw(bodyRightHitbox);
 	}
 	else{
-		window.draw(fullHitbox);
+		window.draw(enemyBodyHitbox);
+		window.draw(enemyLegHitbox);
 	}
 }

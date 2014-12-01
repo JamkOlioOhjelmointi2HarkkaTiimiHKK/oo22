@@ -27,18 +27,7 @@ bool PlayState::runPlayState()
 }
 
 void PlayState::initializePlayState(){
-	koko = 0;
 	player.create(350, 350, 32, 64);
-	enemy[koko].create(400, 400, 1);
-	koko += 1;
-	enemy[koko].create(200, 200, 0);
-	koko += 1;
-	enemy[koko].create(800, 350, 3);
-	koko += 1;
-	enemy[koko].create(600, 450, 2);
-	koko += 1;
-
-
 }
 
 void PlayState::updatePlayState(){
@@ -49,8 +38,8 @@ void PlayState::updatePlayState(){
 	if (showDebug){
 		Content::get()->setDebugTextPosition(view.getCenter().x - halfScreenX, view.getCenter().y - halfscreenY);
 	}
-	for (int i = 0; i < koko; i++){
-		enemy[i].update(dt, player.getSprite().getPosition().x, player.getSprite().getPosition().y, *mapPtr, view);
+	for (listIter = enemyList.begin(); listIter != enemyList.end(); ++listIter){
+		(*listIter)->update(dt, player.getSprite().getPosition().x, player.getSprite().getPosition().y, *mapPtr, view);
 	}
 	map.update();
 }
@@ -58,16 +47,22 @@ void PlayState::updatePlayState(){
 void PlayState::drawPlayState(){
 	window.clear(Color::Black);
 
+	map.draw(view);
 	player.draw();
 	if (showDebug){
 		window.draw(Content::get()->debugText);
 		player.drawHitboxes();
 	}
-	for (int i = 0; i < koko; i++){
-		enemy[i].draw();
+	for (listIter = enemyList.begin(); listIter != enemyList.end(); ++listIter){
+		(*listIter)->draw();
 	}
-	map.draw(view);
+	
 	window.display();
+}
+
+void PlayState::spawnEnemy(){
+	Enemy* test = new Enemy(Utility::random(0, 2000), Utility::random(0, 1500), Utility::random(0, 2));
+	enemyList.push_back(test);
 }
 
 void PlayState::handleControls(){
@@ -76,9 +71,13 @@ void PlayState::handleControls(){
 	if (Controls::get()->kIsReleased(Keyboard::F1)){
 		showDebug = !showDebug;
 	}
-	if (Controls::get()->kIsPressed(sf::Keyboard().Escape)){
+	if (Controls::get()->kIsPressed(Keyboard().F2)){
+		spawnEnemy();
+	}
+	if (Controls::get()->kIsPressed(Keyboard().Escape)){
 		playModeIsActive = false;
 	}
+	
 
 	Event currentEvent;
 	if (window.pollEvent(currentEvent))

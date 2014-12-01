@@ -4,20 +4,16 @@
 #include "player.h"
 #include "Enemy.h"
 #include "Map.h"
+#include <list>
 using namespace sf;
 
 class PlayState
 {
 private:
-	struct EnemyList{
-		Enemy enemy;
-		Enemy *next, *prev;
-		int index;
-	};
-	EnemyList enemyList;
+	
+	std::list<Enemy*> enemyList;
+	std::list<Enemy*>::iterator listIter;
 	Player player;
-	int koko;
-	Enemy *enemy = new Enemy[500];
 	Map map;
 	Map *mapPtr;
 	Clock clock, secondClock;
@@ -30,7 +26,7 @@ private:
 	int halfscreenY = SCREEN_HEIGHT / 2;
 	int halfScreenX = SCREEN_WIDTH / 2;
 
-	void initializeEnemyList();
+	void spawnEnemy();
 public:
 	PlayState();
 	~PlayState();

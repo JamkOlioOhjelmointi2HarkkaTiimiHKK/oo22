@@ -6,9 +6,12 @@
 #include "Utility.h"
 class Enemy :public Character{
 public:
-	Enemy();
 	float sizeX, sizeY;
 	int type;
+
+	Enemy();
+	Enemy(float posX, float posY, int type);
+	Enemy(const Enemy &);
 	void jump();
 	void applyGravity();
 	void checkCollision(Map &ptr, sf::View);
