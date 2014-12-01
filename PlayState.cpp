@@ -46,7 +46,7 @@ void PlayState::updatePlayState(){
 		Content::get()->setDebugTextPosition(view.getCenter().x - halfScreenX, view.getCenter().y - halfscreenY);
 	}
 	for (int i = 0; i < koko; i++){
-		enemy[i].update(dt, player.getSprite().getPosition().x, player.getSprite().getPosition().y);
+		enemy[i].update(dt, player.getSprite().getPosition().x, player.getSprite().getPosition().y, *mapPtr, view);
 	}
 	map.update();
 }
