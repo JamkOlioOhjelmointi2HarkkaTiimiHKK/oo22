@@ -21,6 +21,7 @@ public:
 	sf::Texture janisTexture;
 	sf::Texture ghostTexture;
 	sf::Texture slimeTexture;
+	sf::Texture foxTexture;
 	sf::Texture gunHandTexture;
 	sf::Texture backgroundTexture;
 	sf::Font calibri;

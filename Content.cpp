@@ -11,6 +11,7 @@ Content::Content(void) //ladataan sisältö
 	janisTexture.loadFromFile("res/janis.png");
 	ghostTexture.loadFromFile("res/ghost.png");
 	slimeTexture.loadFromFile("res/slime.png");
+	foxTexture.loadFromFile("res/fox.png");
 	gunHandTexture.loadFromFile("res/gunHand.png");
 	if (!calibri.loadFromFile("res/calibri.ttf")){
 		printf("Error: Calibri font not found!\n");

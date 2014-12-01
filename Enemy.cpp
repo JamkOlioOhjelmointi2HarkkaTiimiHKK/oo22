@@ -15,11 +15,11 @@ void Enemy::update(float dt, float playerposX, float playerposY, Map &ptr, sf::V
 		velocityX = velocityY = 100;
 		if (playerposX < sprite.getPosition().x - 25){
 			this->setDX(-1);
-			this->setFacingDirection(false);
+			this->setFacingDirection(true);
 		}
 		if (playerposX > sprite.getPosition().x + 25){
 			this->setDX(1);
-			this->setFacingDirection(true);
+			this->setFacingDirection(false);
 		}
 		if (playerposY < sprite.getPosition().y - 25){
 			this->setDY(-1);
@@ -34,11 +34,11 @@ void Enemy::update(float dt, float playerposX, float playerposY, Map &ptr, sf::V
 	case 2:
 		velocityX = 200;
 
-		if (playerposX < sprite.getPosition().x-100){
+		if (playerposX < sprite.getPosition().x-25){
 			this->setDX(-1);
 			this->setFacingDirection(false);
 		}
-		if (playerposX > sprite.getPosition().x + 100){
+		if (playerposX > sprite.getPosition().x + 25){
 			this->setDX(1);
 			this->setFacingDirection(true);
 		}
@@ -70,6 +70,19 @@ void Enemy::update(float dt, float playerposX, float playerposY, Map &ptr, sf::V
 		this->move(dt);
 		hitbox.update(sprite);
 		break;
+	case 3:
+		velocityX = 600;
+		if (playerposX < sprite.getPosition().x - 100){
+			this->setDX(-1);
+			this->setFacingDirection(true);
+		}
+		if (playerposX > sprite.getPosition().x + 100){
+			this->setDX(1);
+			this->setFacingDirection(false);
+		}
+		this->move(dt);
+		hitbox.update(sprite);
+		break;
 	default:
 		break;
 	}
@@ -96,6 +109,13 @@ void Enemy::create(float posX, float posY, int type){
 		sizeY = 40;
 		this->createCharacter(posX, posY, sizeX, sizeY, false);
 		this->sprite.setTexture(Content::get()->slimeTexture);
+		falling = false;
+		break;
+	case 3:
+		sizeX = 100;
+		sizeY = 60;
+		this->createCharacter(posX, posY, sizeX, sizeY, false);
+		this->sprite.setTexture(Content::get()->foxTexture);
 		falling = false;
 		break;
 	default:

@@ -31,6 +31,10 @@ void PlayState::initializePlayState(){
 	player.create(350, 350, 32, 64);
 	enemy[koko].create(400, 400, 1);
 	koko += 1;
+	enemy[koko].create(200, 200, 0);
+	koko += 1;
+	enemy[koko].create(800, 350, 3);
+	koko += 1;
 	enemy[koko].create(600, 450, 2);
 	koko += 1;
 
