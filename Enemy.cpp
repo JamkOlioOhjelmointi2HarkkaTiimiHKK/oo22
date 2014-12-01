@@ -27,7 +27,43 @@ void Enemy::update(float dt, float playerposX, float playerposY, Map &ptr, sf::V
 		}
 		this->move(dt);
 		hitbox.update(sprite);
-		checkCollision(ptr, view);
+		//checkCollision(ptr, view);
+		break;
+	case 2:
+		velocityX = 200;
+
+		if (playerposX < sprite.getPosition().x){
+			this->setDX(-1);
+		}
+		else{
+			this->setDX(1);
+		}
+
+		if ((playerposX - sprite.getPosition().x)*(playerposX - sprite.getPosition().x) < 22500){
+			
+			if (this->DY == 0){
+				if (this->velocityY <= 0){
+					this->setDY(-1);
+				}
+				
+			}
+			if (!falling){
+				if (this->velocityY < 800 && this->DY == -1){
+					this->velocityY = 800;
+					falling = true;
+				}
+			}
+			else{
+				if (this->DY == -1)
+					this->velocityY = this->velocityY - 50;
+				if (this->velocityY <= 0)
+					this->setDY(1);
+				if (this->DY == 1 && this->velocityY < 800)
+					this->velocityY = this->velocityY + 50;
+			}
+		}
+		this->move(dt);
+		hitbox.update(sprite);
 		break;
 	default:
 		break;
@@ -49,6 +85,13 @@ void Enemy::create(float posX, float posY, int type){
 		sizeY = 40;
 		this->createCharacter(posX, posY, sizeX, sizeY, false);
 		this->sprite.setTexture(Content::get()->ghostTexture);
+		break;
+	case 2:
+		sizeX = 80;
+		sizeY = 40;
+		this->createCharacter(posX, posY, sizeX, sizeY, false);
+		this->sprite.setTexture(Content::get()->slimeTexture);
+		falling = false;
 		break;
 	default:
 		break;
@@ -84,7 +127,7 @@ void Enemy::checkCollision(Map &ptr, sf::View view){
 
 
 	for (int i = 0; i < ptr.mapObjects.size(); i++){
-		if ((ptr.mapObjects[i]->getPos().x - sprite.getPosition().x*(ptr.mapObjects[i]->getPos().x - sprite.getPosition().x)  < 3000 && (ptr.mapObjects[i]->getPos().y - sprite.getPosition().y)*(ptr.mapObjects[i]->getPos().y - sprite.getPosition().y) < 3000)) // tehoja lisää
+		if ((ptr.mapObjects[i]->getPos().x - sprite.getPosition().x*(ptr.mapObjects[i]->getPos().x - sprite.getPosition().x)  < 5000 && (ptr.mapObjects[i]->getPos().y - sprite.getPosition().y)*(ptr.mapObjects[i]->getPos().y - sprite.getPosition().y) < 5000)) // tehoja lisää
 		{
 			if (!ptr.mapObjects[i]->passable){
 

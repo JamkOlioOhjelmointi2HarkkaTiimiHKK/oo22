@@ -20,6 +20,7 @@ public:
 	sf::Texture playerTexture;
 	sf::Texture janisTexture;
 	sf::Texture ghostTexture;
+	sf::Texture slimeTexture;
 	sf::Texture gunHandTexture;
 	sf::Texture backgroundTexture;
 	sf::Font calibri;
