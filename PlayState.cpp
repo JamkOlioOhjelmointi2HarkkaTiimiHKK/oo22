@@ -27,9 +27,12 @@ bool PlayState::runPlayState()
 }
 
 void PlayState::initializePlayState(){
+	koko = 0;
 	player.create(350, 350, 32, 64);
-	enemy1.create(400, 400, 0);
-	enemy2.create(600, 400, 1);
+	enemy[koko].create(400, 400, 1);
+	koko += 1;
+	enemy[koko].create(450, 450, 1);
+	koko += 1;
 }
 
 void PlayState::updatePlayState(){
@@ -40,8 +43,9 @@ void PlayState::updatePlayState(){
 	if (showDebug){
 		Content::get()->setDebugTextPosition(view.getCenter().x - halfScreenX, view.getCenter().y - halfscreenY);
 	}
-	enemy1.update(dt);
-	enemy2.update(dt);
+	for (int i = 0; i < koko; i++){
+		enemy[i].update(dt, player.getSprite().getPosition().x, player.getSprite().getPosition().y);
+	}
 	map.update();
 }
 
@@ -53,8 +57,9 @@ void PlayState::drawPlayState(){
 		window.draw(Content::get()->debugText);
 		player.drawHitboxes();
 	}
-	enemy1.draw();
-	enemy2.draw();
+	for (int i = 0; i < koko; i++){
+		enemy[i].draw();
+	}
 	map.draw(view);
 	window.display();
 }
