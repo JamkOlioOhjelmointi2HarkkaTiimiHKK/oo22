@@ -13,16 +13,18 @@ void Enemy::update(float dt, float playerposX, float playerposY, Map &ptr, sf::V
 		break;
 	case 1:
 		velocityX = velocityY = 100;
-		if (playerposX < sprite.getPosition().x){
+		if (playerposX < sprite.getPosition().x - 25){
 			this->setDX(-1);
+			this->setFacingDirection(false);
 		}
-		else{
+		if (playerposX > sprite.getPosition().x + 25){
 			this->setDX(1);
+			this->setFacingDirection(true);
 		}
-		if (playerposY < sprite.getPosition().y){
+		if (playerposY < sprite.getPosition().y - 25){
 			this->setDY(-1);
 		}
-		else{
+		if (playerposY > sprite.getPosition().y + 25){
 			this->setDY(1);
 		}
 		this->move(dt);
@@ -32,11 +34,13 @@ void Enemy::update(float dt, float playerposX, float playerposY, Map &ptr, sf::V
 	case 2:
 		velocityX = 200;
 
-		if (playerposX < sprite.getPosition().x){
+		if (playerposX < sprite.getPosition().x-100){
 			this->setDX(-1);
+			this->setFacingDirection(false);
 		}
-		else{
+		if (playerposX > sprite.getPosition().x + 100){
 			this->setDX(1);
+			this->setFacingDirection(true);
 		}
 
 		if ((playerposX - sprite.getPosition().x)*(playerposX - sprite.getPosition().x) < 22500){
@@ -44,6 +48,7 @@ void Enemy::update(float dt, float playerposX, float playerposY, Map &ptr, sf::V
 			if (this->DY == 0){
 				if (this->velocityY <= 0){
 					this->setDY(-1);
+					
 				}
 				
 			}
