@@ -5,7 +5,7 @@ Player::Player(){
 }
 
 void Player::create(float posX, float posY, float sizeX, float sizeY){
-	this->createCharacter(posX, posY, sizeX, sizeY);
+	this->createCharacter(posX, posY, sizeX, sizeY, true);
 	this->sprite.setTexture(Content::get()->playerTexture);
 	this->gun.create();
 }

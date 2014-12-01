@@ -10,7 +10,7 @@ Character::~Character(){
 
 }
 
-void Character::initializeCharacter(float posX, float posY, float sizeX, float sizeY){
+void Character::initializeCharacter(float posX, float posY, float sizeX, float sizeY, bool isPlayer){
 	sprite.setPosition(posX, posY);
 	this->setSize(sf::Vector2f(sizeX, sizeY));
 	this->sizeX = sizeX;
@@ -21,7 +21,7 @@ void Character::initializeCharacter(float posX, float posY, float sizeX, float s
 	sprite.setOrigin(sf::Vector2f(sizeX / 2, sizeY / 2));
 	falling = false;
 	recentlyjumped = false;
-	hitbox.initializeHitBoxes(sprite, sizeX, sizeY);
+	hitbox.initializeHitBoxes(sprite, sizeX, sizeY, isPlayer);
 }
 
 void Character::move(float dt){
@@ -35,11 +35,11 @@ void Character::drawHitboxes(){
 	hitbox.draw();
 }
 
-void Character::createCharacter(sf::Vector2f position, sf::Vector2f size){
-	initializeCharacter(position.x, position.y, size.x, size.y);
+void Character::createCharacter(sf::Vector2f position, sf::Vector2f size, bool isPlayer){
+	initializeCharacter(position.x, position.y, size.x, size.y, isPlayer);
 }
-void Character::createCharacter(float posX, float posY, float sizeX, float sizeY){
-	initializeCharacter(posX, posY, sizeX, sizeY);
+void Character::createCharacter(float posX, float posY, float sizeX, float sizeY, bool isPlayer){
+	initializeCharacter(posX, posY, sizeX, sizeY, isPlayer);
 }
 
 void Character::setDirection(int dx, int dy){

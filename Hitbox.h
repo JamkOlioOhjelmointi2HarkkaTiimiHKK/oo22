@@ -4,6 +4,8 @@
 #include "SFML\Graphics.hpp"
 class Hitbox{
 
+private:
+	bool isPlayer;
 public:
 	Hitbox();
 	~Hitbox();
@@ -12,7 +14,8 @@ public:
 	sf::RectangleShape bodyLeftHitbox;
 	sf::RectangleShape bodyRightHitbox;
 	sf::RectangleShape headHitbox;
-	void initializeHitBoxes(sf::Sprite sprite, float sizeX, float sizeY);
+	sf::RectangleShape fullHitbox;
+	void initializeHitBoxes(sf::Sprite sprite, float sizeX, float sizeY, bool isPlayer);
 	void update(sf::Sprite sprite);
 	void draw();
 

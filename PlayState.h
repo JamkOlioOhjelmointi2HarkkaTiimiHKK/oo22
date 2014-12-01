@@ -9,6 +9,12 @@ using namespace sf;
 class PlayState
 {
 private:
+	struct EnemyList{
+		Enemy enemy;
+		Enemy *next, *prev;
+		int index;
+	};
+	EnemyList enemyList;
 	Player player;
 	int koko;
 	Enemy *enemy = new Enemy[500];
@@ -23,6 +29,8 @@ private:
 
 	int halfscreenY = SCREEN_HEIGHT / 2;
 	int halfScreenX = SCREEN_WIDTH / 2;
+
+	void initializeEnemyList();
 public:
 	PlayState();
 	~PlayState();

@@ -33,6 +33,8 @@ void PlayState::initializePlayState(){
 	koko += 1;
 	enemy[koko].create(450, 450, 1);
 	koko += 1;
+
+
 }
 
 void PlayState::updatePlayState(){

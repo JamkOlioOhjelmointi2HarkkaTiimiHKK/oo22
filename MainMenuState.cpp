@@ -17,10 +17,10 @@ MainMenuState::MainMenuState(){
 		if (!kohde.is_open()){
 			std::cout << "Tiedoston luominenkaan ei onnistunut!" << std::endl;
 		}
-		kohde.write((char *)&optionsStruct, sizeof(optionValues));
+		kohde.write((char *)&optionsStruct, sizeof(OptionValues));
 		kohde.close();
 	}
-	lahde.read((char*)&optionsStruct, sizeof(optionValues));
+	lahde.read((char*)&optionsStruct, sizeof(OptionValues));
 	lahde.close();
 	if (optionsStruct.isFullScreen)
 		window.create(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "OO22", Style::Fullscreen, optionsStruct.settings);
@@ -230,7 +230,7 @@ void MainMenuState::applyOptionSettings(){
 	if (!kohde.is_open()){
 		std::cout << "Options tietojen tallennus ei onnistunut!" << std::endl;
 	}
-	kohde.write((char *)&optionsStruct, sizeof(optionValues));
+	kohde.write((char *)&optionsStruct, sizeof(OptionValues));
 	kohde.close();
 }
 

@@ -18,13 +18,13 @@ private:
 	float dt;
 	float titleAnimation;
 
-	struct optionValues{
+	struct OptionValues{
 		bool isVsync;
 		int fpsLimit;
 		ContextSettings settings;
 		bool isFullScreen;
 	};
-	optionValues optionsStruct;
+	OptionValues optionsStruct;
 
 public:
 	enum gameState { uninitialized, menu, play, edit, mergeState, exit };

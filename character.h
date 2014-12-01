@@ -17,12 +17,12 @@ protected:
 public:
 	Character();
 	~Character();
-	void initializeCharacter(float posX, float posY, float sizeX, float sizeY);
+	void initializeCharacter(float posX, float posY, float sizeX, float sizeY, bool isPlayer);
 	void move(float dt);
 	void draw();
 	void drawHitboxes();
-	void createCharacter(float posX, float posY, float sizeX, float sizeY);
-	void createCharacter(sf::Vector2f position, sf::Vector2f size);
+	void createCharacter(float posX, float posY, float sizeX, float sizeY, bool isPlayer);
+	void createCharacter(sf::Vector2f position, sf::Vector2f size, bool isPlayer);
 	void setDirection(int DX, int DY);
 	void setFacingDirection(bool facingLeft);
 	void setDX(int DX);

@@ -40,13 +40,13 @@ void Enemy::create(float posX, float posY, int type){
 	case 0:
 		sizeX = 32;
 		sizeY = 64;
-		this->createCharacter(posX, posY, sizeX, sizeY);
+		this->createCharacter(posX, posY, sizeX, sizeY, false);
 		this->sprite.setTexture(Content::get()->janisTexture);
 		break;
 	case 1:
 		sizeX = 40;
 		sizeY = 40;
-		this->createCharacter(posX, posY, sizeX, sizeY);
+		this->createCharacter(posX, posY, sizeX, sizeY, false);
 		this->sprite.setTexture(Content::get()->ghostTexture);
 		break;
 	default:
