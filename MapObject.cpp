@@ -36,6 +36,8 @@ sf::Vector2f MapObject::getPos()
 {
 	return shape.getPosition();
 }
+
+
 std::string MapObject::getName()
 {
 	return name;
