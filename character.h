@@ -13,7 +13,7 @@ protected:
 	bool falling;
 	bool recentlyjumped;
 	Hitbox hitbox;
-	bool legHitbocCollides, bodyHitbocCollides, bodyLeftHitbocCollides, bodyRightHitbocCollides, headHitboxCollides;
+	bool legHitboxCollides, bodyHitboxCollides, bodyLeftHitboxCollides, bodyRightHitboxCollides, headHitboxCollides;
 public:
 	Character();
 	~Character();
