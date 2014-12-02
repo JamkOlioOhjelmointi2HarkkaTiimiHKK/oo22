@@ -16,86 +16,91 @@ Enemy::Enemy(const Enemy &copy){
 void Enemy::update(float dt, float playerposX, float playerposY, Map &ptr, sf::View view){
 	switch (type){
 	case 0:
-		
-		this->move(dt);
-		hitbox.update(sprite);
+		updateJanis(dt, playerposX, playerposY);
 		break;
 	case 1:
-		velocityX = velocityY = 100;
-		if (playerposX < sprite.getPosition().x - 25){
-			this->setDX(-1);
-			this->setFacingDirection(false);
-		}
-		if (playerposX > sprite.getPosition().x + 25){
-			this->setDX(1);
-			this->setFacingDirection(true);
-		}
-		if (playerposY < sprite.getPosition().y - 25){
-			this->setDY(-1);
-		}
-		if (playerposY > sprite.getPosition().y + 25){
-			this->setDY(1);
-		}
-		this->move(dt);
-		hitbox.update(sprite);
-		checkCollision(ptr, view);
+		updateGhost(dt, playerposX, playerposY);
 		break;
 	case 2:
-		velocityX = 200;
-
-		if (playerposX < sprite.getPosition().x-100){
-			this->setDX(-1);
-			this->setFacingDirection(false);
-		}
-		if (playerposX > sprite.getPosition().x + 100){
-			this->setDX(1);
-			this->setFacingDirection(true);
-		}
-
-		if ((playerposX - sprite.getPosition().x)*(playerposX - sprite.getPosition().x) < 22500){
-			
-			if (this->DY == 0){
-				if (this->velocityY <= 0){
-					this->setDY(-1);
-					
-				}
-				
-			}
-			if (!falling){
-				if (this->velocityY < 800 && this->DY == -1){
-					this->velocityY = 800;
-					falling = true;
-				}
-			}
-			else{
-				if (this->DY == -1)
-					this->velocityY = this->velocityY - 50;
-				if (this->velocityY <= 0)
-					this->setDY(1);
-				if (this->DY == 1 && this->velocityY < 800)
-					this->velocityY = this->velocityY + 50;
-			}
-		}
-		this->move(dt);
-		hitbox.update(sprite);
+		updateSlime(dt, playerposX, playerposY);
 		break;
 	case 3:
-		velocityX = 600;
-		if (playerposX < sprite.getPosition().x - 100){
-			this->setDX(-1);
-			this->setFacingDirection(true);
-		}
-		if (playerposX > sprite.getPosition().x + 100){
-			this->setDX(1);
-			this->setFacingDirection(false);
-		}
-		this->move(dt);
-		hitbox.update(sprite);
+		updateFox(dt, playerposX, playerposY);
 		break;
 	default:
 		break;
 	}
-	
+	this->move(dt);
+	hitbox.update(sprite);
+	//checkCollision(ptr, view);
+}
+
+void Enemy::updateJanis(float dt, float playerposX, float playerposY){
+
+}
+void Enemy::updateGhost(float dt, float playerposX, float playerposY){
+	velocityX = velocityY = 100;
+	if (playerposX < sprite.getPosition().x - 25){
+		this->setDX(-1);
+		this->setFacingDirection(false);
+	}
+	if (playerposX > sprite.getPosition().x + 25){
+		this->setDX(1);
+		this->setFacingDirection(true);
+	}
+	if (playerposY < sprite.getPosition().y - 25){
+		this->setDY(-1);
+	}
+	if (playerposY > sprite.getPosition().y + 25){
+		this->setDY(1);
+	}
+}
+void Enemy::updateSlime(float dt, float playerposX, float playerposY){
+	velocityX = 200;
+
+	if (playerposX < sprite.getPosition().x - 100){
+		this->setDX(-1);
+		this->setFacingDirection(false);
+	}
+	if (playerposX > sprite.getPosition().x + 100){
+		this->setDX(1);
+		this->setFacingDirection(true);
+	}
+
+	if ((playerposX - sprite.getPosition().x)*(playerposX - sprite.getPosition().x) < 22500){
+
+		if (this->DY == 0){
+			if (this->velocityY <= 0){
+				this->setDY(-1);
+			}
+
+		}
+		if (!falling){
+			if (this->velocityY < 800 && this->DY == -1){
+				this->velocityY = 800;
+				falling = true;
+			}
+		}
+		else{
+			if (this->DY == -1)
+				this->velocityY = this->velocityY - 50;
+			if (this->velocityY <= 0)
+				this->setDY(1);
+			if (this->DY == 1 && this->velocityY < 800)
+				this->velocityY = this->velocityY + 50;
+		}
+	}
+}
+void Enemy::updateFox(float dt, float playerposX, float playerposY){
+	velocityX = 600;
+	if (playerposX < sprite.getPosition().x - 100){
+		this->setDX(-1);
+		this->setFacingDirection(true);
+	}
+	if (playerposX > sprite.getPosition().x + 100){
+		this->setDX(1);
+		this->setFacingDirection(false);
+	}
 }
 
 void Enemy::create(float posX, float posY, int type){
@@ -134,20 +139,23 @@ void Enemy::create(float posX, float posY, int type){
 }
 
 void Enemy::draw(Map &ptr, sf::View view){
-	int xxx = floor(view.getCenter().x / 512);
-	int yyy = floor(view.getCenter().y / 512);
+	int currentSectorX = floor(view.getCenter().x / 512);
+	int currentSectorY = floor(view.getCenter().y / 512);
 
-	for (int xx = -1; xx < 2; ++xx)
+	int enemySectorX = floor(this->getPosition().x / 512);
+	int enemySectorY = floor(this->getPosition().y / 512);
+
+	for (int offsetSectorX = -1; offsetSectorX < 2; ++offsetSectorX)
 	{
-		for (int yy = -1; yy < 2; ++yy)
+		for (int offsetSectorY = -1; offsetSectorY < 2; ++offsetSectorY)
 		{
-			if (xxx + xx >= 0 && yyy + yy >= 0 && xxx + xx < ptr.xRivi.size() && yyy + yy < ptr.xRivi.size())
-			{
-				for (int i = 0; i < ptr.xRivi[xxx + xx][yyy + yy].size(); ++i)
-				{
-					window.draw(sprite);					
-				}
+			int adjacentSectorX = currentSectorX + offsetSectorX;
+			int adjacentSectorY = currentSectorY + offsetSectorY;
 
+			if (adjacentSectorX >= 0 && adjacentSectorY >= 0 && adjacentSectorX < ptr.xRivi.size() && adjacentSectorY < ptr.xRivi.size())
+			{
+
+				window.draw(sprite);
 			}
 		}
 	}

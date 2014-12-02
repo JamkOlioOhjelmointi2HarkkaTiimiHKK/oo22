@@ -16,6 +16,10 @@ public:
 	void applyGravity();
 	void checkCollision(Map &ptr, sf::View);
 	void update(float dt, float playerposX, float playerposY, Map &ptr, sf::View view);
+	void updateJanis(float dt, float playerposX, float playerposY);
+	void updateGhost(float dt, float playerposX, float playerposY);
+	void updateSlime(float dt, float playerposX, float playerposY);
+	void updateFox(float dt, float playerposX, float playerposYp);
 	void draw(Map &ptr, sf::View view);
 	void create(float posX, float posY, int type);
 	~Enemy();
