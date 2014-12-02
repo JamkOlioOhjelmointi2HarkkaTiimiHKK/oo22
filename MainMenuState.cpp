@@ -232,6 +232,9 @@ void MainMenuState::applyOptionSettings(){
 	}
 	kohde.write((char *)&optionsStruct, sizeof(OptionValues));
 	kohde.close();
+
+	state = menu;
+	showOptions = false;
 }
 
 void MainMenuState::handleControls(){

@@ -168,17 +168,6 @@ bool Enemy::isEnemyOnAdjacentSector(Map &ptr, sf::View view){
 	}
 	return false;
 }
-
-void Enemy::applyGravity(){
-	if (falling){
-		if (this->DY == -1)
-			this->velocityY -= 50;
-		if (this->velocityY <= 0)
-			this->setDY(1);
-		if (this->DY == 1 && this->velocityY < 500)
-			this->velocityY += 50;
-	}
-}
 void Enemy::jump(){
 	
 	if (this->DY == 0){
@@ -196,19 +185,16 @@ void Enemy::jump(){
 }
 void Enemy::checkCollision(Map &ptr, sf::View view){
 
-	if (isEnemyOnAdjacentSector(ptr, view)){
+	
 
+	if (isEnemyOnAdjacentSector(ptr, view)){		
+		bottom = sprite.getPosition() + sf::Vector2f(0, sizeY / 2);
+		cout << bottom.y << endl;
 		for (int i = 0; i < ptr.xRivi[enemySectorX][enemySectorY].size(); ++i)
 		{
 			if (!ptr.xRivi[enemySectorX][enemySectorY][i]->passable){
+				if (ptr.xRivi[enemySectorX][enemySectorY][i]->shape.getGlobalBounds().contains(bottom)){
 
-				if (Utility::boxHit(this->hitbox.enemyBodyHitbox, ptr.xRivi[enemySectorX][enemySectorY][i]->shape)){
-					sprite.setPosition(sprite.getPosition().x, ptr.xRivi[enemySectorX][enemySectorY][i]->getPos().y - this->sizeY / 2 + 1);
-					sprite.setPosition(ptr.xRivi[enemySectorX][enemySectorY][i]->getPos().x + ptr.xRivi[enemySectorX][enemySectorY][i]->getSize().x + this->sizeX / 2 - 1, sprite.getPosition().y);
-					this->setDY(0);
-					this->velocityY = 0;
-					this->setDX(0);
-					this->velocityX = 0;
 				}
 			}
 		}

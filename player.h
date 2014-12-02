@@ -15,15 +15,12 @@ public:
 	void update(float dt, Map &ptr, sf::View);
 	void updateMovement();
 	void jump();
-	void applyGravity();
 	void checkCollision(Map &ptr, sf::View);
+	void fixValuesBasedOnCollision();
 	void acceleratePlayerX();
 	void deceleratePlayerX();
 
 	sf::Sprite getSprite();
-
-	int halfscreenY = SCREEN_HEIGHT / 2;
-	int halfScreenX = SCREEN_WIDTH / 2;
 
 	~Player();
 };

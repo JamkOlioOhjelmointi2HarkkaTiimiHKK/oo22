@@ -9,12 +9,11 @@ public:
 	float sizeX, sizeY;
 	int type;
 	int enemySectorX, enemySectorY;
-
+	sf::Vector2f bottom;
 	Enemy();
 	Enemy(float posX, float posY, int type);
 	Enemy(const Enemy &);
 	void jump();
-	void applyGravity();
 	void checkCollision(Map &ptr, sf::View);
 	void update(float dt, float playerposX, float playerposY, Map &ptr, sf::View view);
 	void updateJanis(float dt, float playerposX, float playerposY);

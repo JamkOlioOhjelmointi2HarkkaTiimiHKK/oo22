@@ -85,17 +85,6 @@ void Player::jump(){
 	}
 }
 
-void Player::applyGravity(){
-	if (falling){
-		if (this->DY == -1)
-			this->velocityY -= 50;
-		if (this->velocityY <= 0)
-			this->setDY(1);
-		if (this->DY == 1 && this->velocityY < 500)
-			this->velocityY += 50;
-	}
-}
-
 void Player::checkCollision(Map &ptr, sf::View view){
 
 	this->legHitboxCollides = false;
@@ -158,28 +147,33 @@ void Player::checkCollision(Map &ptr, sf::View view){
 		}
 	}
 
-		if (this->legHitboxCollides){
-			falling = false;
-			this->setDY(0);
-			this->velocityY = 0;
-			recentlyjumped = false;
-		}
-		else{
-			falling = true;
-		}
-		if (this->headHitboxCollides){
-			this->velocityY = 0;
-			recentlyjumped = true;
-		}
+	fixValuesBasedOnCollision();
+}
 
-		if ((this->DX == -1 && this->bodyLeftHitboxCollides) || (this->DX == 1 && this->bodyRightHitboxCollides)){
-			this->setDX(0);
-			this->velocityX = 0;
-		}
+void Player::fixValuesBasedOnCollision(){
 
-		if (this->legHitboxCollides || this->bodyLeftHitboxCollides || this->bodyRightHitboxCollides){
-			hitbox.update(sprite);
-		}
+	if (this->legHitboxCollides){
+		falling = false;
+		this->setDY(0);
+		this->velocityY = 0;
+		recentlyjumped = false;
+	}
+	else{
+		falling = true;
+	}
+	if (this->headHitboxCollides){
+		this->velocityY = 0;
+		recentlyjumped = true;
+	}
+
+	if ((this->DX == -1 && this->bodyLeftHitboxCollides) || (this->DX == 1 && this->bodyRightHitboxCollides)){
+		this->setDX(0);
+		this->velocityX = 0;
+	}
+
+	if (this->legHitboxCollides || this->bodyLeftHitboxCollides || this->bodyRightHitboxCollides){
+		hitbox.update(sprite);
+	}
 }
 
 sf::Sprite Player::getSprite()

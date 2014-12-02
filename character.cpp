@@ -55,7 +55,16 @@ void Character::setFacingDirection(bool facingLeft){
 		sprite.setScale(-1, 1);
 
 }
-
+void Character::applyGravity(){
+	if (falling){
+		if (this->DY == -1)
+			this->velocityY -= 50;
+		if (this->velocityY <= 0)
+			this->setDY(1);
+		if (this->DY == 1 && this->velocityY < 500)
+			this->velocityY += 50;
+	}
+}
 void Character::setDX(int dx){
 	this->DX = dx;
 }
