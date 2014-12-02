@@ -3,6 +3,8 @@
 
 Merge::Merge()
 {
+	koko = 7;
+
 	halfScreenX = SCREEN_WIDTH / 2;
 	halfscreenY = SCREEN_HEIGHT / 2;
 
@@ -56,67 +58,7 @@ Merge::Merge()
 
 	Build(); 
 #pragma endregion
-
-
-	//tämä no huono tapa
-	/*
-#pragma region huono	
-	std::string temp, temp2;
-
-	facts.open("Files\\facts.txt");
-	getline(facts, temp);
-	getline(facts, temp2);
-	numberOfMap = std::stoi(temp);
-	numberOfPart = std::stoi(temp2);
-	facts.close();
-
-	numberOfPart = Utility::random(0, std::stoi(temp));
-
 	
-		for (int xAkseli = 0; xAkseli < 170; xAkseli++)
-		{
-			for (int yAkseli = 0; yAkseli < 170; yAkseli++)
-			{
-				file.open("Files\\MapPart" + std::to_string(numberOfPart) + ".txt");
-				while (getline(file, line))
-				{
-					int temp = line.find(" ");
-					name = line.substr(0, temp);
-					int temp2 = line.find(" ", temp + 1);
-					x = line.substr(temp + 1, temp2 - temp - 1);
-					int temp3 = line.find("\n", temp2 + 1);
-					y = line.substr(temp2 + 1, temp3 - temp2 - 1);
-#pragma region vertailu
-					if (name.compare("block") == 0)
-					{
-						mapObjects.push_back(new Block(std::stoi(x) + xAkseli * 512, std::stoi(y) + yAkseli * 512));
-					}
-					else if (name.compare("floor") == 0)
-					{
-						mapObjects.push_back(new Floor(std::stoi(x) + xAkseli * 512, std::stoi(y)+yAkseli * 512));
-					}
-					else if (name.compare("ladde") == 0)
-					{
-						mapObjects.push_back(new Ladder(std::stoi(x) + xAkseli * 512, std::stoi(y) + yAkseli * 512));
-					}
-					else if (name.compare("spawP") == 0)
-					{
-						mapObjects.push_back(new SpawnPoint(std::stoi(x) + xAkseli * 512, std::stoi(y) + yAkseli * 512));
-					}
-					else if (name.compare("spawE") == 0)
-					{
-						mapObjects.push_back(new SpawnEnemy(std::stoi(x) + xAkseli * 512, std::stoi(y) + yAkseli * 512));
-					}
-#pragma endregion
-					
-				}
-				numberOfPart = Utility::random(0, std::stoi(temp));
-				file.close();
-			}
-		}
-#pragma endregion
-		*/
-		
 	view.reset(sf::FloatRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT));
 	window.setView(view);
 
@@ -126,9 +68,9 @@ void Merge::Build()
 {
 	killAll(); // tyhjätään jos reshuflataan
 
-	for (int xAkseli = 0; xAkseli < 60; xAkseli++)
+	for (int xAkseli = 0; xAkseli < koko; xAkseli++)
 	{
-		for (int yAkseli = 0; yAkseli < 60; yAkseli++)
+		for (int yAkseli = 0; yAkseli < koko; yAkseli++)
 		{
 			std::vector<MapObject*> kamikaze = parts[Utility::random(0, parts.size() - 1)];
 			for (unsigned i = 0; i < kamikaze.size(); i++)
@@ -192,7 +134,7 @@ void Merge::draw()
 		//ylempi on tapa millä pelitilassa piirto + törmäystarkastelut toimii. Keskimmäinen on vaan kätevämpi nopeaan tarkasteluun. Alin on tehokkain
 		//if (std::pow(mapObjects[i]->getPos().x - view.getCenter().x,2)-350*70 < std::pow(halfScreenX,2) && std::pow(mapObjects[i]->getPos().y-view.getCenter().y,2)-350*70 < std::pow(halfscreenY,2))		
 		//if (mapObjects[i]->getPos().x - view.getCenter().x < halfScreenX && mapObjects[i]->getPos().y-view.getCenter().y < halfscreenY)
-		if ((mapObjects[i]->getPos().x - view.getCenter().x)*(mapObjects[i]->getPos().x - view.getCenter().x)  < halfScreenX*halfScreenX && (mapObjects[i]->getPos().y - view.getCenter().y)*(mapObjects[i]->getPos().y - view.getCenter().y) < halfscreenY*halfscreenY)
+		if ((mapObjects[i]->getPos().x - view.getCenter().x)*(mapObjects[i]->getPos().x - view.getCenter().x)  < (halfScreenX + 350)*(halfScreenX + 350) && (mapObjects[i]->getPos().y - view.getCenter().y)*(mapObjects[i]->getPos().y - view.getCenter().y) < (halfscreenY + 350)*(halfscreenY + 350))
 		window.draw(mapObjects[i]->shape);
 	}
 
@@ -208,16 +150,35 @@ void Merge::loop(float dt)
 
 void Merge::save()
 {
+	kerroinY = 1;
+	int temp = 1;
+
 	file2.open("Files\\Maps\\Map" + std::to_string(numberOfMap) + ".txt");
 
 	for (unsigned i = 0; i < mapObjects.size(); ++i)
 	{
+		if (kerroinY == koko && mapObjects[i]->getPos().x > temp * 512)
+		{
+			file2 << "--" << std::endl;
+			file2 << mapObjects[i]->getName() << " " << mapObjects[i]->getPos().x << " " << mapObjects[i]->getPos().y << std::endl;			
+			temp++;
+			kerroinY = 1;
+		}
+		else if (mapObjects[i]->getPos().y > kerroinY * 512)
+		{
+			file2 << "--" << std::endl;
+			file2 << mapObjects[i]->getName() << " " << mapObjects[i]->getPos().x << " " << mapObjects[i]->getPos().y << std::endl;
+			kerroinY++;
+
+		}
+		else
 		file2 << mapObjects[i]->getName() << " " << mapObjects[i]->getPos().x  << " " << mapObjects[i]->getPos().y<< std::endl;
+
 	}
+	
 	file2.close();
 
 	
-
 	facts.open("Files\\facts.txt");
 	if (std::stoi(howManyMaps) < numberOfMap)
 	{

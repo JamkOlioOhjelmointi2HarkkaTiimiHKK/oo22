@@ -9,14 +9,12 @@
 #include "SpawnEnemy.h"
 #include "Controls.h"
 #include "Utility.h"
-#include "Button.h"
 
 //class MapObject; mitä vitun mustaa magiaa tämä on
 
 class Merge
 {
 private:
-	std::vector<Button*> buttons;
 	std::vector<MapObject*> mapObjects;
 	std::vector<MapObject*> partObjects;
 	std::vector<std::vector<MapObject*>>parts;
@@ -26,7 +24,7 @@ private:
 	std::string line,name,x,y,howManyMaps,howManuMapParts;
 	sf::Vector2f position;
 
-	int numberOfPart, numberOfMap, halfScreenX, halfscreenY;
+	int numberOfPart, numberOfMap, halfScreenX, halfscreenY,kerroinY,koko;
 
 	sf::View view;
 	void Build();

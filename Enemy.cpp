@@ -139,7 +139,7 @@ void Enemy::jump(){
 }
 void Enemy::checkCollision(Map &ptr, sf::View view){
 
-
+	/*
 	for (int i = 0; i < ptr.mapObjects.size(); i++){
 		if ((ptr.mapObjects[i]->getPos().x - sprite.getPosition().x*(ptr.mapObjects[i]->getPos().x - sprite.getPosition().x)  < 5000 && (ptr.mapObjects[i]->getPos().y - sprite.getPosition().y)*(ptr.mapObjects[i]->getPos().y - sprite.getPosition().y) < 5000)) // tehoja lisää
 		{
@@ -164,7 +164,7 @@ void Enemy::checkCollision(Map &ptr, sf::View view){
 
 	
 		
-	
+	*/
 	
 		hitbox.update(sprite);
 

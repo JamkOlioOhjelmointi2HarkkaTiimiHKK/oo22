@@ -15,10 +15,14 @@ private:
 	std::fstream facts;
 	std::string name,line,x,y;
 
-	int numberOfMap, halfScreenX, halfscreenY;
+		std::vector<std::vector<MapObject*>> yRivi;
+	std::vector<MapObject*> mapObjects;
+
+	int numberOfMap, halfScreenX=0, halfscreenY=0,kerroin;
 
 public:
-	std::vector<MapObject*> mapObjects;
+	std::vector<std::vector<std::vector<MapObject*>>> xRivi;
+
 	Map();
 	void update();
 	void draw(sf::View);
