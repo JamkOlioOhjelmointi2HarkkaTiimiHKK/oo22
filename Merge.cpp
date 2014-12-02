@@ -3,7 +3,7 @@
 
 Merge::Merge()
 {
-	size = 60;
+	size = 100;
 
 	halfScreenX = SCREEN_WIDTH / 2;
 	halfscreenY = SCREEN_HEIGHT / 2;
@@ -175,7 +175,7 @@ void Merge::save()
 		file2 << mapObjects[i]->getName() << " " << mapObjects[i]->getPos().x  << " " << mapObjects[i]->getPos().y<< std::endl;
 
 	}
-	
+	file2 << "--" << std::endl; // loppuunvielä
 	file2.close();
 
 	

@@ -1,4 +1,0 @@
-floor 32 480
-floor 192 480
-floor 0 480
-floor 352 480

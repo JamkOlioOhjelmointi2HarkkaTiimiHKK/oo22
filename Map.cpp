@@ -4,7 +4,7 @@
 Map::Map()
 {
 	kerroin = 0;
-	size = 60;
+	size = 100;
 
 	numberOfMap = 0;
 
@@ -55,7 +55,6 @@ Map::Map()
 			}
 #pragma endregion
 		}				
-		//mapObjects.clear();
 	}
 	file.close();
 }
@@ -86,14 +85,12 @@ void Map::draw(sf::View view)
 		}
 	}
 	
-	int tempX = xxx ;
-	int tempY = yyy;
-	std::cout << tempX << " " << tempY << std::endl;
 }
 
 Map::~Map()
 {
-
-
-
+	for (int i = 0; i < xRivi.size();i++)
+	for (int k = 0; k < xRivi[i].size();k++)
+	for (int e = 0; e < xRivi[i][k].size(); e++)
+		delete xRivi[i][k][e];
 }

@@ -118,74 +118,74 @@ void Player::checkCollision(Map &ptr, sf::View view){
 				{
 					for (int i = 0; i < ptr.xRivi[xxx + xx][yyy + yy].size(); ++i)
 					{
-							if (!ptr.xRivi[xxx + xx][yyy + yy][i]->passable)
+						if (!ptr.xRivi[xxx + xx][yyy + yy][i]->passable)
+						{
+
+							if (Utility::boxHit(this->hitbox.legHitbox, ptr.xRivi[xxx][yyy][i]->shape))
 							{
+								if (falling)
+								{
+									sprite.setPosition(sprite.getPosition().x, ptr.xRivi[xxx][yyy][i]->getPos().y - this->sizeY / 2 + 1);
+									legHitboxPriority = true;
+								}
+								this->legHitboxCollides = true;
+							}
+							else if (Utility::boxHit(this->hitbox.headHitbox, ptr.xRivi[xxx][yyy][i]->shape))
+							{
+								if (this->DY == -1)
+								{
+									sprite.setPosition(sprite.getPosition().x, ptr.xRivi[xxx][yyy][i]->getPos().y + ptr.xRivi[xxx][yyy][i]->getSize().y + this->sizeY / 2 + 1);
+									legHitboxPriority = true;
+								}
+								this->headHitboxCollides = true;
+							}
 
-								if (Utility::boxHit(this->hitbox.legHitbox, ptr.xRivi[xxx][yyy][i]->shape))
-								{
-									if (falling)
-									{
-										sprite.setPosition(sprite.getPosition().x, ptr.xRivi[xxx][yyy][i]->getPos().y - this->sizeY / 2 + 1);
-										legHitboxPriority = true;
-									}
-									this->legHitboxCollides = true;
-								}
-								else if (Utility::boxHit(this->hitbox.headHitbox, ptr.xRivi[xxx][yyy][i]->shape))
-								{
-									if (this->DY == -1)
-									{
-										sprite.setPosition(sprite.getPosition().x, ptr.xRivi[xxx][yyy][i]->getPos().y + ptr.xRivi[xxx][yyy][i]->getSize().y + this->sizeY / 2 + 1);
-										legHitboxPriority = true;
-									}
-									this->headHitboxCollides = true;
-								}
+							if (Utility::boxHit(this->hitbox.bodyLeftHitbox, ptr.xRivi[xxx][yyy][i]->shape))
+							{
+								if (!legHitboxPriority)
+									sprite.setPosition(ptr.xRivi[xxx][yyy][i]->getPos().x + ptr.xRivi[xxx][yyy][i]->getSize().x + this->sizeX / 2 - 1, sprite.getPosition().y);
+								this->bodyLeftHitboxCollides = true;
+							}
 
-								if (Utility::boxHit(this->hitbox.bodyLeftHitbox, ptr.xRivi[xxx][yyy][i]->shape))
-								{
-									if (!legHitboxPriority)
-										sprite.setPosition(ptr.xRivi[xxx][yyy][i]->getPos().x + ptr.xRivi[xxx][yyy][i]->getSize().x + this->sizeX / 2 - 1, sprite.getPosition().y);
-									this->bodyLeftHitboxCollides = true;
-								}
-
-								else if (Utility::boxHit(this->hitbox.bodyRightHitbox, ptr.xRivi[xxx][yyy][i]->shape))
-								{
-									if (!legHitboxPriority)
-										sprite.setPosition(ptr.xRivi[xxx][yyy][i]->getPos().x - this->sizeX / 2 + 1, sprite.getPosition().y);
-									this->bodyRightHitboxCollides = true;
-								}
+							else if (Utility::boxHit(this->hitbox.bodyRightHitbox, ptr.xRivi[xxx][yyy][i]->shape))
+							{
+								if (!legHitboxPriority)
+									sprite.setPosition(ptr.xRivi[xxx][yyy][i]->getPos().x - this->sizeX / 2 + 1, sprite.getPosition().y);
+								this->bodyRightHitboxCollides = true;
 							}
 						}
 					}
 				}
-			
+			if (this->legHitboxCollides){
+				falling = false;
+				this->setDY(0);
+				this->velocityY = 0;
+				recentlyjumped = false;
 			}
-		
-		if (this->legHitboxCollides){
-			falling = false;
-			this->setDY(0);
-			this->velocityY = 0;
-			recentlyjumped = false;
-		}
-		else{
-			falling = true;
-		}
+			else{
+				falling = true;
+			}
 
-		if (this->headHitboxCollides){
-			this->velocityY = 0;
-			recentlyjumped = true;
-		}
+			if (this->headHitboxCollides){
+				this->velocityY = 0;
+				recentlyjumped = true;
+			}
 
-		if ((this->DX == -1 && this->bodyLeftHitboxCollides) || (this->DX == 1 && this->bodyRightHitboxCollides)){
-			this->setDX(0);
-			this->velocityX = 0;
-		}
+			if ((this->DX == -1 && this->bodyLeftHitboxCollides) || (this->DX == 1 && this->bodyRightHitboxCollides)){
+				this->setDX(0);
+				this->velocityX = 0;
+			}
 
-		if (this->legHitboxCollides || this->bodyLeftHitboxCollides || this->bodyRightHitboxCollides || this->headHitboxCollides){
-			hitbox.update(sprite);
-		}
+			if (this->legHitboxCollides || this->bodyLeftHitboxCollides || this->bodyRightHitboxCollides || this->headHitboxCollides){
+				hitbox.update(sprite);
+			}
+					}
+				}
+
 	}
 }
 */
+
 void Player::checkCollision(Map &ptr, sf::View view){
 
 	this->legHitboxCollides = false;
@@ -231,8 +231,6 @@ void Player::checkCollision(Map &ptr, sf::View view){
 
 			}
 		}
-
-
 
 		if (this->legHitboxCollides){
 			falling = false;

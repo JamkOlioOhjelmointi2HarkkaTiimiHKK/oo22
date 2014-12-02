@@ -1,6 +1,0 @@
-ladde 192 320
-floor 0 480
-floor 128 480
-floor 288 480
-floor 256 480
-floor 352 480

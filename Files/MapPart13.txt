@@ -1,7 +1,0 @@
-block 160 224
-block 256 160
-block 320 224
-block 192 384
-block 32 384
-block 64 64
-block 128 64

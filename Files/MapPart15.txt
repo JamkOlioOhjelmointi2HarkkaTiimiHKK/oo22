@@ -1,4 +1,0 @@
-ladde 160 288
-ladde 352 320
-ladde 256 128
-ladde 128 128

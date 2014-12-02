@@ -1,3 +1,0 @@
-floor 96 256
-floor 160 384
-floor 96 384
