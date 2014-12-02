@@ -28,6 +28,10 @@ bool PlayState::runPlayState()
 
 void PlayState::initializePlayState(){
 	player.create(350, 350, 32, 64);
+	this->spawnEnemy();
+	this->spawnEnemy();
+	this->spawnEnemy();
+	this->spawnEnemy();
 }
 
 void PlayState::updatePlayState(){
@@ -61,7 +65,7 @@ void PlayState::drawPlayState(){
 }
 
 void PlayState::spawnEnemy(){
-	Enemy* test = new Enemy(Utility::random(0, 2000), Utility::random(0, 1500), Utility::random(0, 2));
+	Enemy* test = new Enemy(Utility::random(0, 2000), Utility::random(0, 1500), Utility::random(0, 3));
 	enemyList.push_back(test);
 }
 
