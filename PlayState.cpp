@@ -39,7 +39,7 @@ void PlayState::initializePlayState(){
 void PlayState::updatePlayState(){
 	player.update(dt, *mapPtr,view);
 
-	view.reset(sf::FloatRect(player.getSprite().getPosition().x - halfScreenX, player.getSprite().getPosition().y - halfscreenY, SCREEN_WIDTH, SCREEN_HEIGHT));
+	view.setCenter(player.getSprite().getPosition().x, player.getSprite().getPosition().y);
 	window.setView(view);
 	if (showDebug){
 		Content::get()->setDebugTextPosition(view.getCenter().x - halfScreenX, view.getCenter().y - halfscreenY);
@@ -88,6 +88,12 @@ void PlayState::handleControls(){
 		playModeIsActive = false;
 	}
 	
+	if (Controls::get()->mIsPressed(Mouse().Right)){
+		view.zoom(2);
+	}
+	if (Controls::get()->mIsPressed(Mouse().Middle)){
+		view.zoom(0.5);
+	}
 
 	Event currentEvent;
 	if (window.pollEvent(currentEvent))
