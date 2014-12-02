@@ -28,10 +28,12 @@ bool PlayState::runPlayState()
 
 void PlayState::initializePlayState(){
 	player.create(350, 350, 32, 64);
-	this->spawnEnemy();
-	this->spawnEnemy();
-	this->spawnEnemy();
-	this->spawnEnemy();
+
+	for (int i = 0; i < 200; i++)
+	{
+		this->spawnEnemy();
+	}
+
 }
 
 void PlayState::updatePlayState(){
@@ -42,9 +44,12 @@ void PlayState::updatePlayState(){
 	if (showDebug){
 		Content::get()->setDebugTextPosition(view.getCenter().x - halfScreenX, view.getCenter().y - halfscreenY);
 	}
+	
 	for (listIter = enemyList.begin(); listIter != enemyList.end(); ++listIter){
 		(*listIter)->update(dt, player.getSprite().getPosition().x, player.getSprite().getPosition().y, *mapPtr, view);
 	}
+
+
 	map.update();
 }
 
@@ -57,15 +62,16 @@ void PlayState::drawPlayState(){
 		window.draw(Content::get()->debugText);
 		player.drawHitboxes();
 	}
+	
 	for (listIter = enemyList.begin(); listIter != enemyList.end(); ++listIter){
-		(*listIter)->draw();
+		(*listIter)->draw(*mapPtr,view);
 	}
 	
 	window.display();
 }
 
 void PlayState::spawnEnemy(){
-	Enemy* test = new Enemy(Utility::random(0, 2000), Utility::random(0, 1500), Utility::random(0, 3));
+	Enemy* test = new Enemy(Utility::random(0, 51000), Utility::random(0, 51000), Utility::random(0, 3));
 	enemyList.push_back(test);
 }
 

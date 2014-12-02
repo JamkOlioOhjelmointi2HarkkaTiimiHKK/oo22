@@ -95,7 +95,7 @@ void Player::applyGravity(){
 			this->velocityY += 50;
 	}
 }
-/*
+
 void Player::checkCollision(Map &ptr, sf::View view){
 
 	this->legHitboxCollides = false;
@@ -104,98 +104,9 @@ void Player::checkCollision(Map &ptr, sf::View view){
 	this->headHitboxCollides = false;
 
 	bool legHitboxPriority = false;
-	
-	int xxx = ceil(view.getCenter().x / 512);
-	int yyy = ceil(view.getCenter().y / 512);
 
-	for (int xx = -1; xx < 2; ++xx)
-	{
-		for (int yy = -1; yy < 2; ++yy)
-		{
-			if (xxx + xx >= 0 && yyy + yy >= 0 && xxx + xx < ptr.xRivi.size() && yyy + yy < ptr.xRivi.size())
-			{
-				for (int i = 0; i < ptr.xRivi[xxx + xx][yyy + yy].size(); ++i)
-				{
-					for (int i = 0; i < ptr.xRivi[xxx + xx][yyy + yy].size(); ++i)
-					{
-						if (!ptr.xRivi[xxx + xx][yyy + yy][i]->passable)
-						{
-
-							if (Utility::boxHit(this->hitbox.legHitbox, ptr.xRivi[xxx][yyy][i]->shape))
-							{
-								if (falling)
-								{
-									sprite.setPosition(sprite.getPosition().x, ptr.xRivi[xxx][yyy][i]->getPos().y - this->sizeY / 2 + 1);
-									legHitboxPriority = true;
-								}
-								this->legHitboxCollides = true;
-							}
-							else if (Utility::boxHit(this->hitbox.headHitbox, ptr.xRivi[xxx][yyy][i]->shape))
-							{
-								if (this->DY == -1)
-								{
-									sprite.setPosition(sprite.getPosition().x, ptr.xRivi[xxx][yyy][i]->getPos().y + ptr.xRivi[xxx][yyy][i]->getSize().y + this->sizeY / 2 + 1);
-									legHitboxPriority = true;
-								}
-								this->headHitboxCollides = true;
-							}
-
-							if (Utility::boxHit(this->hitbox.bodyLeftHitbox, ptr.xRivi[xxx][yyy][i]->shape))
-							{
-								if (!legHitboxPriority)
-									sprite.setPosition(ptr.xRivi[xxx][yyy][i]->getPos().x + ptr.xRivi[xxx][yyy][i]->getSize().x + this->sizeX / 2 - 1, sprite.getPosition().y);
-								this->bodyLeftHitboxCollides = true;
-							}
-
-							else if (Utility::boxHit(this->hitbox.bodyRightHitbox, ptr.xRivi[xxx][yyy][i]->shape))
-							{
-								if (!legHitboxPriority)
-									sprite.setPosition(ptr.xRivi[xxx][yyy][i]->getPos().x - this->sizeX / 2 + 1, sprite.getPosition().y);
-								this->bodyRightHitboxCollides = true;
-							}
-						}
-					}
-				}
-			if (this->legHitboxCollides){
-				falling = false;
-				this->setDY(0);
-				this->velocityY = 0;
-				recentlyjumped = false;
-			}
-			else{
-				falling = true;
-			}
-
-			if (this->headHitboxCollides){
-				this->velocityY = 0;
-				recentlyjumped = true;
-			}
-
-			if ((this->DX == -1 && this->bodyLeftHitboxCollides) || (this->DX == 1 && this->bodyRightHitboxCollides)){
-				this->setDX(0);
-				this->velocityX = 0;
-			}
-
-			if (this->legHitboxCollides || this->bodyLeftHitboxCollides || this->bodyRightHitboxCollides || this->headHitboxCollides){
-				hitbox.update(sprite);
-			}
-					}
-				}
-
-	}
-}
-*/
-
-void Player::checkCollision(Map &ptr, sf::View view){
-
-	this->legHitboxCollides = false;
-	this->bodyLeftHitboxCollides = false;
-	this->bodyRightHitboxCollides = false;
-
-	bool legHitboxPriority = false;
-
-	int xxx = ceil(view.getCenter().x / 512);
-	int yyy = ceil(view.getCenter().y / 512);
+	int xxx = floor(view.getCenter().x / 512);
+	int yyy = floor(view.getCenter().y / 512);
 
 	for (int xx = -1; xx < 2; ++xx)
 	{
@@ -214,6 +125,15 @@ void Player::checkCollision(Map &ptr, sf::View view){
 							}
 							this->legHitboxCollides = true;
 						}
+						else if (Utility::boxHit(this->hitbox.headHitbox, ptr.xRivi[xxx][yyy][i]->shape))
+						{
+							if (this->DY == -1)
+							{
+								sprite.setPosition(sprite.getPosition().x, ptr.xRivi[xxx][yyy][i]->getPos().y + ptr.xRivi[xxx][yyy][i]->getSize().y + this->sizeY / 2 + 1);
+								legHitboxPriority = true;
+							}
+							this->headHitboxCollides = true;
+						}
 
 						if (Utility::boxHit(this->hitbox.bodyLeftHitbox, ptr.xRivi[xxx + xx][yyy + yy][i]->shape)){
 							if (!legHitboxPriority)
@@ -231,6 +151,7 @@ void Player::checkCollision(Map &ptr, sf::View view){
 
 			}
 		}
+	}
 
 		if (this->legHitboxCollides){
 			falling = false;
@@ -241,6 +162,10 @@ void Player::checkCollision(Map &ptr, sf::View view){
 		else{
 			falling = true;
 		}
+		if (this->headHitboxCollides){
+			this->velocityY = 0;
+			recentlyjumped = true;
+		}
 
 		if ((this->DX == -1 && this->bodyLeftHitboxCollides) || (this->DX == 1 && this->bodyRightHitboxCollides)){
 			this->setDX(0);
@@ -250,9 +175,6 @@ void Player::checkCollision(Map &ptr, sf::View view){
 		if (this->legHitboxCollides || this->bodyLeftHitboxCollides || this->bodyRightHitboxCollides){
 			hitbox.update(sprite);
 		}
-
-	}
-
 }
 
 
