@@ -107,45 +107,48 @@ void Player::checkCollision(Map &ptr, sf::View view){
 
 	
 
-	int xxx = floor(view.getCenter().x / 512);
-	int yyy = floor(view.getCenter().y / 512);
+	currentSectorX = floor(view.getCenter().x / 512);
+	currentSectorY = floor(view.getCenter().y / 512);
 	
-	for (int xx = -1; xx < 2; ++xx)
+	for (offsetSectorX = -1; offsetSectorX < 2; ++offsetSectorX)
 	{
-		for (int yy = -1; yy < 2; ++yy)
+		for (offsetSectorY = -1; offsetSectorY < 2; ++offsetSectorY)
 		{
-			if (xxx + xx >= 0 && yyy + yy >= 0 && xxx + xx < ptr.xRivi.size() && yyy + yy < ptr.xRivi.size())
-			{
-				for (int i = 0; i < ptr.xRivi[xxx + xx][yyy + yy].size(); ++i)
-				{
-					if (!ptr.xRivi[xxx + xx][yyy + yy][i]->passable){
+			adjacentSectorX = currentSectorX + offsetSectorX;
+			adjacentSectorY = currentSectorY + offsetSectorY;
 
-						if (Utility::boxHit(this->hitbox.legHitbox, ptr.xRivi[xxx + xx][yyy + yy][i]->shape)){
+			if (adjacentSectorX >= 0 && adjacentSectorY >= 0 && adjacentSectorX < ptr.xRivi.size() && adjacentSectorY < ptr.xRivi.size())
+			{
+				for (int i = 0; i < ptr.xRivi[adjacentSectorX][adjacentSectorY].size(); ++i)
+				{
+					if (!ptr.xRivi[adjacentSectorX][adjacentSectorY][i]->passable){
+
+						if (Utility::boxHit(this->hitbox.legHitbox, ptr.xRivi[adjacentSectorX][adjacentSectorY][i]->shape)){
 							if (falling){
-								sprite.setPosition(sprite.getPosition().x, ptr.xRivi[xxx + xx][yyy + yy][i]->getPos().y - this->sizeY / 2 + 1);
+								sprite.setPosition(sprite.getPosition().x, ptr.xRivi[adjacentSectorX][adjacentSectorY][i]->getPos().y - this->sizeY / 2 + 1);
 								legHitboxPriority = true;
 							}
 							this->legHitboxCollides = true;
 						}
-						else if (Utility::boxHit(this->hitbox.headHitbox, ptr.xRivi[xxx][yyy][i]->shape))
+						else if (Utility::boxHit(this->hitbox.headHitbox, ptr.xRivi[adjacentSectorX][adjacentSectorY][i]->shape))
 						{
 							if (this->DY == -1)
 							{
-								sprite.setPosition(sprite.getPosition().x, ptr.xRivi[xxx][yyy][i]->getPos().y + ptr.xRivi[xxx][yyy][i]->getSize().y + this->sizeY / 2 + 1);
+								sprite.setPosition(sprite.getPosition().x, ptr.xRivi[adjacentSectorX][adjacentSectorY][i]->getPos().y + ptr.xRivi[adjacentSectorX][adjacentSectorY][i]->getSize().y + this->sizeY / 2 + 1);
 								legHitboxPriority = true;
 							}
 							this->headHitboxCollides = true;
 						}
 
-						if (Utility::boxHit(this->hitbox.bodyLeftHitbox, ptr.xRivi[xxx + xx][yyy + yy][i]->shape)){
+						if (Utility::boxHit(this->hitbox.bodyLeftHitbox, ptr.xRivi[adjacentSectorX][adjacentSectorY][i]->shape)){
 							if (!legHitboxPriority)
-								sprite.setPosition(ptr.xRivi[xxx + xx][yyy + yy][i]->getPos().x + ptr.xRivi[xxx + xx][yyy + yy][i]->getSize().x + this->sizeX / 2 - 1, sprite.getPosition().y);
+								sprite.setPosition(ptr.xRivi[adjacentSectorX][adjacentSectorY][i]->getPos().x + ptr.xRivi[adjacentSectorX][adjacentSectorY][i]->getSize().x + this->sizeX / 2 - 1, sprite.getPosition().y);
 							this->bodyLeftHitboxCollides = true;
 						}
 
-						else if (Utility::boxHit(this->hitbox.bodyRightHitbox, ptr.xRivi[xxx + xx][yyy + yy][i]->shape)){
+						else if (Utility::boxHit(this->hitbox.bodyRightHitbox, ptr.xRivi[adjacentSectorX][adjacentSectorY][i]->shape)){
 							if (!legHitboxPriority)
-								sprite.setPosition(ptr.xRivi[xxx + xx][yyy + yy][i]->getPos().x - this->sizeX / 2 + 1, sprite.getPosition().y);
+								sprite.setPosition(ptr.xRivi[adjacentSectorX][adjacentSectorY][i]->getPos().x - this->sizeX / 2 + 1, sprite.getPosition().y);
 							this->bodyRightHitboxCollides = true;
 						}
 					}

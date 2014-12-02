@@ -172,11 +172,11 @@ bool Enemy::isEnemyOnAdjacentSector(Map &ptr, sf::View view){
 void Enemy::applyGravity(){
 	if (falling){
 		if (this->DY == -1)
-			this->velocityY = this->velocityY - 50;
+			this->velocityY -= 50;
 		if (this->velocityY <= 0)
 			this->setDY(1);
 		if (this->DY == 1 && this->velocityY < 500)
-			this->velocityY = this->velocityY + 50;
+			this->velocityY += 50;
 	}
 }
 void Enemy::jump(){
