@@ -4,6 +4,7 @@
 Map::Map()
 {
 	kerroin = 0;
+	size = 60;
 
 	numberOfMap = 0;
 
@@ -15,7 +16,7 @@ Map::Map()
 			yRivi.push_back(mapObjects);
 			kerroin++;
 			mapObjects.clear();
-			if (kerroin == 7)
+			if (kerroin == size)
 			{
 				xRivi.push_back(yRivi);
 				kerroin = 0;

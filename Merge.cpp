@@ -3,7 +3,7 @@
 
 Merge::Merge()
 {
-	koko = 7;
+	size = 60;
 
 	halfScreenX = SCREEN_WIDTH / 2;
 	halfscreenY = SCREEN_HEIGHT / 2;
@@ -68,9 +68,9 @@ void Merge::Build()
 {
 	killAll(); // tyhj‰t‰‰n jos reshuflataan
 
-	for (int xAkseli = 0; xAkseli < koko; xAkseli++)
+	for (int xAkseli = 0; xAkseli < size; xAkseli++)
 	{
-		for (int yAkseli = 0; yAkseli < koko; yAkseli++)
+		for (int yAkseli = 0; yAkseli < size; yAkseli++)
 		{
 			std::vector<MapObject*> kamikaze = parts[Utility::random(0, parts.size() - 1)];
 			for (unsigned i = 0; i < kamikaze.size(); i++)
@@ -157,7 +157,7 @@ void Merge::save()
 
 	for (unsigned i = 0; i < mapObjects.size(); ++i)
 	{
-		if (kerroinY == koko && mapObjects[i]->getPos().x > temp * 512)
+		if (kerroinY == size && mapObjects[i]->getPos().x > temp * 512)
 		{
 			file2 << "--" << std::endl;
 			file2 << mapObjects[i]->getName() << " " << mapObjects[i]->getPos().x << " " << mapObjects[i]->getPos().y << std::endl;			
@@ -197,8 +197,6 @@ void Merge::killAll()
 		delete mapObjects[i];
 	}
 	mapObjects.clear(); // there's no such a thing as overkill
-
-
 }
 
 Merge::~Merge()

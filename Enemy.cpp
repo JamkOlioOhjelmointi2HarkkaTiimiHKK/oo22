@@ -164,10 +164,10 @@ void Enemy::checkCollision(Map &ptr, sf::View view){
 
 	
 		
-	*/
+	
 	
 		hitbox.update(sprite);
-
+		*/
 }
 Enemy::~Enemy(){
 	

@@ -6,6 +6,7 @@
 #include "Ladder.h"
 #include "SpawnPoint.h"
 #include "SpawnEnemy.h"
+#include "Merge.h"
 #pragma once
 class Map
 {
@@ -18,7 +19,7 @@ private:
 		std::vector<std::vector<MapObject*>> yRivi;
 	std::vector<MapObject*> mapObjects;
 
-	int numberOfMap, halfScreenX=0, halfscreenY=0,kerroin;
+	int numberOfMap, halfScreenX=0, halfscreenY=0,kerroin,size;
 
 public:
 	std::vector<std::vector<std::vector<MapObject*>>> xRivi;

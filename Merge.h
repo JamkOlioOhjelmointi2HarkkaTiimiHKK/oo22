@@ -24,7 +24,7 @@ private:
 	std::string line,name,x,y,howManyMaps,howManuMapParts;
 	sf::Vector2f position;
 
-	int numberOfPart, numberOfMap, halfScreenX, halfscreenY,kerroinY,koko;
+	int numberOfPart, numberOfMap, halfScreenX, halfscreenY,kerroinY,size;
 
 	sf::View view;
 	void Build();
