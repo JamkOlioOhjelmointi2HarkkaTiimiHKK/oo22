@@ -14,6 +14,9 @@ protected:
 	bool recentlyjumped;
 	Hitbox hitbox;
 	bool legHitboxCollides, bodyHitboxCollides, bodyLeftHitboxCollides, bodyRightHitboxCollides, headHitboxCollides;
+	int currentSectorX, currentSectorY;
+	int offsetSectorX, offsetSectorY;
+	int adjacentSectorX, adjacentSectorY;
 public:
 	Character();
 	~Character();

@@ -105,9 +105,11 @@ void Player::checkCollision(Map &ptr, sf::View view){
 
 	bool legHitboxPriority = false;
 
+	
+
 	int xxx = floor(view.getCenter().x / 512);
 	int yyy = floor(view.getCenter().y / 512);
-
+	
 	for (int xx = -1; xx < 2; ++xx)
 	{
 		for (int yy = -1; yy < 2; ++yy)
@@ -176,7 +178,6 @@ void Player::checkCollision(Map &ptr, sf::View view){
 			hitbox.update(sprite);
 		}
 }
-
 
 sf::Sprite Player::getSprite()
 {

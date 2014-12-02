@@ -17,7 +17,6 @@ public:
 	void jump();
 	void applyGravity();
 	void checkCollision(Map &ptr, sf::View);
-
 	void acceleratePlayerX();
 	void deceleratePlayerX();
 

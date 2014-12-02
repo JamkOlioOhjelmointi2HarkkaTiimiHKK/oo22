@@ -8,6 +8,7 @@ class Enemy :public Character{
 public:
 	float sizeX, sizeY;
 	int type;
+	int enemySectorX, enemySectorY;
 
 	Enemy();
 	Enemy(float posX, float posY, int type);
@@ -21,6 +22,7 @@ public:
 	void updateSlime(float dt, float playerposX, float playerposY);
 	void updateFox(float dt, float playerposX, float playerposYp);
 	void draw(Map &ptr, sf::View view);
+	bool isEnemyOnAdjacentSector(Map &ptr, sf::View view);
 	void create(float posX, float posY, int type);
 	~Enemy();
 };

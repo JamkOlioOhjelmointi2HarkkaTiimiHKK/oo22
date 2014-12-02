@@ -32,7 +32,7 @@ void Enemy::update(float dt, float playerposX, float playerposY, Map &ptr, sf::V
 	}
 	this->move(dt);
 	hitbox.update(sprite);
-	//checkCollision(ptr, view);
+	checkCollision(ptr, view);
 }
 
 void Enemy::updateJanis(float dt, float playerposX, float playerposY){
@@ -139,26 +139,34 @@ void Enemy::create(float posX, float posY, int type){
 }
 
 void Enemy::draw(Map &ptr, sf::View view){
-	int currentSectorX = floor(view.getCenter().x / 512);
-	int currentSectorY = floor(view.getCenter().y / 512);
+	if (isEnemyOnAdjacentSector(ptr, view)){
+		window.draw(sprite);
+	}
+}
 
-	int enemySectorX = floor(this->getPosition().x / 512);
-	int enemySectorY = floor(this->getPosition().y / 512);
+bool Enemy::isEnemyOnAdjacentSector(Map &ptr, sf::View view){
+	currentSectorX = floor(view.getCenter().x / 512);
+	currentSectorY = floor(view.getCenter().y / 512);
 
-	for (int offsetSectorX = -1; offsetSectorX < 2; ++offsetSectorX)
+	enemySectorX = floor(sprite.getPosition().x / 512);
+	enemySectorY = floor(sprite.getPosition().y / 512);
+
+	for (offsetSectorX = -1; offsetSectorX < 2; ++offsetSectorX)
 	{
-		for (int offsetSectorY = -1; offsetSectorY < 2; ++offsetSectorY)
+		for (offsetSectorY = -1; offsetSectorY < 2; ++offsetSectorY)
 		{
-			int adjacentSectorX = currentSectorX + offsetSectorX;
-			int adjacentSectorY = currentSectorY + offsetSectorY;
+			adjacentSectorX = currentSectorX + offsetSectorX;
+			adjacentSectorY = currentSectorY + offsetSectorY;
 
 			if (adjacentSectorX >= 0 && adjacentSectorY >= 0 && adjacentSectorX < ptr.xRivi.size() && adjacentSectorY < ptr.xRivi.size())
 			{
-
-				window.draw(sprite);
+				if (enemySectorX == adjacentSectorX && enemySectorY == adjacentSectorY){
+					return true;
+				}
 			}
 		}
 	}
+	return false;
 }
 
 void Enemy::applyGravity(){
@@ -188,40 +196,25 @@ void Enemy::jump(){
 }
 void Enemy::checkCollision(Map &ptr, sf::View view){
 
-	int xxx = floor(view.getCenter().x / 512);
-	int yyy = floor(view.getCenter().y / 512);
+	if (isEnemyOnAdjacentSector(ptr, view)){
 
-	for (int xx = -1; xx < 2; ++xx)
-	{
-		for (int yy = -1; yy < 2; ++yy)
+		for (int i = 0; i < ptr.xRivi[enemySectorX][enemySectorY].size(); ++i)
 		{
-			if (xxx + xx >= 0 && yyy + yy >= 0 && xxx + xx < ptr.xRivi.size() && yyy + yy < ptr.xRivi.size())
-			{
-				for (int i = 0; i < ptr.xRivi[xxx + xx][yyy + yy].size(); ++i)
-				{
-					if (!ptr.xRivi[xxx + xx][yyy + yy][i]->passable){
+			if (!ptr.xRivi[enemySectorX][enemySectorY][i]->passable){
 
-						if (Utility::boxHit(this->hitbox.enemyBodyHitbox, ptr.xRivi[xxx + xx][yyy + yy][i]->shape)){
-								sprite.setPosition(sprite.getPosition().x, ptr.xRivi[xxx + xx][yyy + yy][i]->getPos().y - this->sizeY / 2 + 1);
-								sprite.setPosition(ptr.xRivi[xxx + xx][yyy + yy][i]->getPos().x + ptr.xRivi[xxx + xx][yyy + yy][i]->getSize().x + this->sizeX / 2 - 1, sprite.getPosition().y);
-								this->setDY(0);
-								this->velocityY = 0;
-								this->setDX(0);
-								this->velocityX = 0;
-							}
-
-							//else if (Utility::boxHit(this->hitbox.bodyRightHitbox, ptr.mapObjects[i]->shape)){
-							//	sprite.setPosition(ptr.mapObjects[i]->getPos().x - this->sizeX / 2 + 1, sprite.getPosition().y);
-							//this->bodyRightHitbocCollides = true;
-							//}
-						}
-					}
+				if (Utility::boxHit(this->hitbox.enemyBodyHitbox, ptr.xRivi[enemySectorX][enemySectorY][i]->shape)){
+					sprite.setPosition(sprite.getPosition().x, ptr.xRivi[enemySectorX][enemySectorY][i]->getPos().y - this->sizeY / 2 + 1);
+					sprite.setPosition(ptr.xRivi[enemySectorX][enemySectorY][i]->getPos().x + ptr.xRivi[enemySectorX][enemySectorY][i]->getSize().x + this->sizeX / 2 - 1, sprite.getPosition().y);
+					this->setDY(0);
+					this->velocityY = 0;
+					this->setDX(0);
+					this->velocityX = 0;
 				}
 			}
 		}
-	
-	
-		hitbox.update(sprite);
+	}
+
+	hitbox.update(sprite);
 		
 }
 Enemy::~Enemy(){

@@ -49,7 +49,6 @@ void PlayState::updatePlayState(){
 		(*listIter)->update(dt, player.getSprite().getPosition().x, player.getSprite().getPosition().y, *mapPtr, view);
 	}
 
-
 	map.update();
 }
 
