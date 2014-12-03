@@ -189,12 +189,11 @@ void Enemy::checkCollision(Map &ptr, sf::View view){
 
 	if (isEnemyOnAdjacentSector(ptr, view)){		
 		bottom = sprite.getPosition() + sf::Vector2f(0, sizeY / 2);
-		cout << bottom.y << endl;
 		for (int i = 0; i < ptr.xRivi[enemySectorX][enemySectorY].size(); ++i)
 		{
 			if (!ptr.xRivi[enemySectorX][enemySectorY][i]->passable){
 				if (ptr.xRivi[enemySectorX][enemySectorY][i]->shape.getGlobalBounds().contains(bottom)){
-
+					cout << "succes!" << endl;
 				}
 			}
 		}

@@ -1,0 +1,10 @@
+block 192 320
+block 192 352
+block 256 352
+block 224 352
+block 224 320
+block 256 320
+floor 0 480
+floor 160 480
+floor 320 480
+floor 352 480
