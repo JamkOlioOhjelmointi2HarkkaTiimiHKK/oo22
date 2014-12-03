@@ -47,7 +47,11 @@ void StateHandler::loopGame()
 			menuMode.runMainMenuState();
 			MainMenuState::gameState result = menuMode.state;
 
-			merge = new Merge();
+			if (result != MainMenuState::exit){
+				drawLoadingScreen();
+				merge = new Merge();
+			}
+				
 
 			switch (result)
 			{
@@ -96,6 +100,17 @@ void StateHandler::loopGame()
 			break;
 	}
 	
+}
+
+void StateHandler::drawLoadingScreen(){
+	window.clear(Color::Black);
+	sf::Texture loadTexture;
+	sf::Sprite loadSprite;
+	loadTexture.loadFromFile("res/loadingScreen.png");
+	loadSprite.setTexture(loadTexture);
+	loadSprite.setPosition(50, SCREEN_HEIGHT - loadSprite.getGlobalBounds().height- 50);
+	window.draw(loadSprite);
+	window.display();
 }
 
 void StateHandler::handleTime(){

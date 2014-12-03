@@ -43,5 +43,7 @@ public:
 	void startGame();
 	bool exitGame();
 	void setState(gameState);
+
+	void drawLoadingScreen();
 };
 

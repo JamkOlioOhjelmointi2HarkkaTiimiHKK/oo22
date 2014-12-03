@@ -65,6 +65,7 @@
     <Image Include="res\ghost.png" />
     <Image Include="res\gunHand.png" />
     <Image Include="res\janis.png" />
+    <Image Include="res\loadingScreen.png" />
     <Image Include="res\player.png" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

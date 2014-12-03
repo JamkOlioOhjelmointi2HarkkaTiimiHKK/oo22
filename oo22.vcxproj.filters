@@ -177,5 +177,8 @@
     <Image Include="res\gunHand.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="res\loadingScreen.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
