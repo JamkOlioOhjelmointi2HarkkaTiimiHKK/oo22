@@ -14,25 +14,27 @@ Enemy::Enemy(const Enemy &copy){
 	hitbox = copy.hitbox;
 }
 void Enemy::update(float dt, float playerposX, float playerposY, Map &ptr, sf::View view){
-	switch (type){
-	case 0:
-		updateJanis(dt, playerposX, playerposY);
-		break;
-	case 1:
-		updateGhost(dt, playerposX, playerposY);
-		break;
-	case 2:
-		updateSlime(dt, playerposX, playerposY);
-		break;
-	case 3:
-		updateFox(dt, playerposX, playerposY);
-		break;
-	default:
-		break;
+	if (this->isEnemyOnAdjacentSector(ptr, view)){
+		switch (type){
+		case 0:
+			updateJanis(dt, playerposX, playerposY);
+			break;
+		case 1:
+			updateGhost(dt, playerposX, playerposY);
+			break;
+		case 2:
+			updateSlime(dt, playerposX, playerposY);
+			break;
+		case 3:
+			updateFox(dt, playerposX, playerposY);
+			break;
+		default:
+			break;
+		}
+		this->move(dt);
+		hitbox.update(sprite);
+		checkCollision(ptr, view);
 	}
-	this->move(dt);
-	hitbox.update(sprite);
-	checkCollision(ptr, view);
 }
 
 void Enemy::updateJanis(float dt, float playerposX, float playerposY){
