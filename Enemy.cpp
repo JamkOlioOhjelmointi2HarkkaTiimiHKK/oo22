@@ -1,11 +1,14 @@
 #include "Enemy.h"
 
+//Vakio konstruktori
 Enemy::Enemy(){
 
 }
+//Konstruktori
 Enemy::Enemy(float posX, float posY, int type){
 	create(posX, posY, type);
 }
+//Kopio konstruktori
 Enemy::Enemy(const Enemy &copy){
 	sizeX = copy.sizeX;
 	sizeY = copy.sizeY;
@@ -13,6 +16,7 @@ Enemy::Enemy(const Enemy &copy){
 	sprite = copy.sprite;
 	hitbox = copy.hitbox;
 }
+//Päivitetään yksittäinen vihollinen riippuen mitä tyyppiä vihollinen edustaa
 void Enemy::update(float dt, float playerposX, float playerposY, Map &ptr, sf::View view){
 	if (this->isEnemyOnAdjacentSector(ptr, view)){
 		switch (type){
@@ -104,7 +108,7 @@ void Enemy::updateFox(float dt, float playerposX, float playerposY){
 		this->setFacingDirection(false);
 	}
 }
-
+//Kutsutaan, kun vihollinen luodaan (Joko kontruktorissa, tai erikseen kutsuttaessa)
 void Enemy::create(float posX, float posY, int type){
 	this->type = type;
 	switch (type){
@@ -139,13 +143,13 @@ void Enemy::create(float posX, float posY, int type){
 	}
 	
 }
-
+//Piirretään vihollinen
 void Enemy::draw(Map &ptr, sf::View view){
 	if (isEnemyOnAdjacentSector(ptr, view)){
 		window.draw(sprite);
 	}
 }
-
+//Tutkitaan onko vihollinen pelaajaa viereisellä sektorilla
 bool Enemy::isEnemyOnAdjacentSector(Map &ptr, sf::View view){
 	currentSectorX = floor(view.getCenter().x / 512);
 	currentSectorY = floor(view.getCenter().y / 512);
@@ -170,6 +174,7 @@ bool Enemy::isEnemyOnAdjacentSector(Map &ptr, sf::View view){
 	}
 	return false;
 }
+//Vihollisen hyppäämiseen käytettävä funktio
 void Enemy::jump(){
 	
 	if (this->DY == 0){
@@ -185,6 +190,7 @@ void Enemy::jump(){
 	}
 	
 }
+//Tarkastetaan törmääkö vihollinen
 void Enemy::checkCollision(Map &ptr, sf::View view){
 	
 	bottom = sprite.getPosition() + sf::Vector2f(0, sizeY / 2);
@@ -201,6 +207,7 @@ void Enemy::checkCollision(Map &ptr, sf::View view){
 	hitbox.update(sprite);
 		
 }
+//Vihollisen destruktori
 Enemy::~Enemy(){
 	
 }

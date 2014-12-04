@@ -14,7 +14,7 @@ class Merge;
 class StateHandler
 {
 private:
-	enum gameState { uninitialized, menu, options, play, edit, mergeState, exit };
+	enum gameState { uninitialized, menu, play, edit, mergeState, exit };
 	gameState state;
 
 	EditorState *editState;

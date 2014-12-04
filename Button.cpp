@@ -53,7 +53,7 @@ void Button::draw()
 
 void Button::update()
 {
-	// älä oikeasti muokkaa tätä
+	// Jos nappia painetaan, suoritetaan funktio
 	if (Controls::get()->mIsReleased(sf::Mouse::Left) && button.getGlobalBounds().contains(Controls::get()->getmousepos()))
 	{
 		function();

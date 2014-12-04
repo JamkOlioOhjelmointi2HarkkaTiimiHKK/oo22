@@ -9,7 +9,7 @@ Character::Character(){
 Character::~Character(){
 
 }
-
+//Alustetaan hahmo olio
 void Character::initializeCharacter(float posX, float posY, float sizeX, float sizeY, bool isPlayer){
 	sprite.setPosition(posX, posY);
 	this->setSize(sf::Vector2f(sizeX, sizeY));
@@ -23,14 +23,15 @@ void Character::initializeCharacter(float posX, float posY, float sizeX, float s
 	recentlyjumped = false;
 	hitbox.initializeHitBoxes(sprite, sizeX, sizeY, isPlayer);
 }
-
+//liikuttaa hahmoa
 void Character::move(float dt){
 	sprite.setPosition(sprite.getPosition().x + (DX * (velocityX * dt)), sprite.getPosition().y + (DY * (velocityY * dt)));
 }
-
+//Piirtää hahmon
 void Character::draw(){
 	window.draw(sprite);
 }
+//Piirtää hahmon hitboxit, jos sillä on niitä.
 void Character::drawHitboxes(){
 	hitbox.draw();
 }
@@ -41,12 +42,12 @@ void Character::createCharacter(sf::Vector2f position, sf::Vector2f size, bool i
 void Character::createCharacter(float posX, float posY, float sizeX, float sizeY, bool isPlayer){
 	initializeCharacter(posX, posY, sizeX, sizeY, isPlayer);
 }
-
+//Asetetaan hahmon kulkusuunta
 void Character::setDirection(int dx, int dy){
 	this->DX = dx;
 	this->DY = dy;
 }
-
+//Asetetaan visuaalinen hahmon kulkusuunta.
 void Character::setFacingDirection(bool facingLeft){
 
 	if (facingLeft)
@@ -55,6 +56,7 @@ void Character::setFacingDirection(bool facingLeft){
 		sprite.setScale(-1, 1);
 
 }
+//Jos hahmo putoaa, niin siihen pistetään vaikuttamaan painovoima
 void Character::applyGravity(){
 	if (falling){
 		if (this->DY == -1)
@@ -65,10 +67,11 @@ void Character::applyGravity(){
 			this->velocityY += 50;
 	}
 }
+//Asetetaan X suunta
 void Character::setDX(int dx){
 	this->DX = dx;
 }
-
+//Asetetaan Y suunta
 void Character::setDY(int dy){
 	this->DY = dy;
 }

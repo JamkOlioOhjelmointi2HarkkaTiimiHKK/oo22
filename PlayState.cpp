@@ -13,6 +13,7 @@ PlayState::PlayState(){
 PlayState::~PlayState(){
 
 }
+//Pyˆrit‰ peli looppia
 bool PlayState::runPlayState()
 {
 	initializePlayState();
@@ -25,7 +26,7 @@ bool PlayState::runPlayState()
 	}
 	return exitToMenu;
 }
-
+//alustetaan pelitila
 void PlayState::initializePlayState(){
 	player.create(350, 350, 32, 64);
 
@@ -35,7 +36,7 @@ void PlayState::initializePlayState(){
 	}
 
 }
-
+//P‰ivitet‰‰n pelitilaa. Hoidetaan l‰hinn‰ liikkumista.
 void PlayState::updatePlayState(){
 	player.update(dt, *mapPtr,view);
 
@@ -51,7 +52,7 @@ void PlayState::updatePlayState(){
 
 	map.update();
 }
-
+//Piirret‰‰n pelitilanne
 void PlayState::drawPlayState(){
 	window.clear(Color::Black);
 
@@ -68,12 +69,12 @@ void PlayState::drawPlayState(){
 	
 	window.display();
 }
-
+//Luodaan vihollinen linkitettyyn listaan
 void PlayState::spawnEnemy(){
 	Enemy* test = new Enemy(Utility::random(0, map.getSize() * 512), Utility::random(0, map.getSize() * 512), Utility::random(0, 3));
 	enemyList.push_back(test);
 }
-
+//Kuunnellaan mit‰ n‰pp‰imi‰ pelaaja painaa
 void PlayState::handleControls(){
 
 	Controls::get()->update(window);
@@ -103,7 +104,7 @@ void PlayState::handleControls(){
 		}
 	}
 }
-
+//K‰sitell‰‰n kellot
 void PlayState::handleTime(){
 
 	dt = clock.restart().asSeconds();

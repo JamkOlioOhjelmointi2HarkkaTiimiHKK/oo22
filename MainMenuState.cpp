@@ -5,6 +5,7 @@ MainMenuState::MainMenuState(){
 	showDebug = true;
 	state = menu;
 
+	//Ladataan/luodaan asetukset, jos niitä ei ole.
 	std::ifstream lahde(OPTIONS_FILENAME, std::ios_base::binary);
 	
 	if (!lahde.is_open()){
@@ -42,7 +43,7 @@ MainMenuState::MainMenuState(){
 	title.setPosition(10, -100);
 
 	std::string vsyncButtonString, fpsLimitString, AAString, fullScreenString;
-	
+	//Asetetaan nappien arvoja riippuen ladatuista asetuksista
 	if (optionsStruct.isVsync)
 		vsyncButtonString = "vsync: ON";
 	else
@@ -59,6 +60,7 @@ MainMenuState::MainMenuState(){
 	else
 		fullScreenString = "Windowed";
 
+	//Asetetaan napit vektoreihin. Nappien mukana annetaan arvona niiden toiminto.
 	menuButtons.push_back(new Button(Vector2f(35, 400), [&](){state = play; menuModeIsActive = false; }, menuButtonSize, "Play"));
 	menuButtons.push_back(new Button(Vector2f(35, 500), [&](){showOptions = true; }, menuButtonSize, "Options"));
 	menuButtons.push_back(new Button(Vector2f(35, 600), [&](){state = exit; menuModeIsActive = false; }, menuButtonSize, "Exit"));
@@ -75,16 +77,16 @@ MainMenuState::MainMenuState(){
 MainMenuState::~MainMenuState(){
 
 }
-
+//Päävalikon päälooppi
 void MainMenuState::runMainMenuState(){
 	while (menuModeIsActive){
 		elapsedTime = secondClock.getElapsedTime();
 		handleControls();
-		if (showOptions){
+		if (showOptions){	//Jos halutaan näyttää asetusruutu, niin piirretään ja päivitetään niitä.
 			updateOptionsMenuState();
 			drawOptionsMenuState();
 		}
-		else{
+		else{				//Jos ei, niin päivitetään päävalikkoa
 			updateMainMenuState();
 			drawMainMenuState();
 		}
@@ -144,7 +146,7 @@ void MainMenuState::drawOptionsMenuState(){
 	}
 	window.display();
 }
-
+//Vertical synkronisaatio ON/OFF
 void MainMenuState::changeVsync(){
 
 	std::string vsyncButtonString;
@@ -158,7 +160,7 @@ void MainMenuState::changeVsync(){
 
 	optionButtons[2]->buttonText.setString(vsyncButtonString);
 }
-
+//Vaihdetaan ruudunpäivitys rajoitinta
 void MainMenuState::changeFPSLimit(){
 
 	std::string fpsLimitString;
@@ -187,6 +189,7 @@ void MainMenuState::changeFPSLimit(){
 
 	optionButtons[3]->buttonText.setString(fpsLimitString);
 }
+//Vaihdetaan Anti-Aliasing kerrointa
 void MainMenuState::changeAA(){
 	std::string AAString;
 
@@ -204,6 +207,7 @@ void MainMenuState::changeAA(){
 	AAString = "AA: " + std::to_string(optionsStruct.settings.antialiasingLevel);
 	optionButtons[4]->buttonText.setString(AAString);
 }
+//Vaihtaa ikkunan tilaa täyteen ruutuun tai takaisin ikkuna tilaan.
 void MainMenuState::changeFullScreen(){
 
 	std::string fullScreenString;
@@ -216,7 +220,7 @@ void MainMenuState::changeFullScreen(){
 		fullScreenString = "Windowed";
 	optionButtons[5]->buttonText.setString(fullScreenString);
 }
-
+//Hyväksytään options muutokset
 void MainMenuState::applyOptionSettings(){
 	window.setVerticalSyncEnabled(optionsStruct.isVsync);
 	window.setFramerateLimit(optionsStruct.fpsLimit);
@@ -236,7 +240,7 @@ void MainMenuState::applyOptionSettings(){
 	state = menu;
 	showOptions = false;
 }
-
+//Käsitellään mitä näppäimiä käyttäjä syöttää
 void MainMenuState::handleControls(){
 
 	Controls::get()->update(window);

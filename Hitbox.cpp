@@ -1,5 +1,6 @@
 #include "Hitbox.h"
 Hitbox::Hitbox(){
+	//Alustetaan havainnollistavia värejä hitboxeille.
 	headHitbox.setFillColor(sf::Color(48, 48, 224, 192));
 	bodyHitbox.setFillColor(sf::Color(224, 48, 48, 192));
 	bodyLeftHitbox.setFillColor(sf::Color(224, 72, 72, 192));

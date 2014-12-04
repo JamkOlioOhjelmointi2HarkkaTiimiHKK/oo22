@@ -16,7 +16,7 @@ bool Utility::boxHit(const sf::IntRect &box1, const sf::IntRect &box2)
 {
 	return box1.intersects(box2); 
 }
-
+//Tutkitaan ovatko 2 suorakulmiota toistensa sisällä
 bool Utility::boxHit(sf::RectangleShape box1, sf::RectangleShape box2)
 {
 	return box1.getGlobalBounds().intersects(box2.getGlobalBounds());
@@ -32,7 +32,7 @@ float Utility::distance(const sf::Vector2f &pos1, const sf::Vector2f &pos2)
 	sf::Vector2f difference = pos2 - pos1;
 	return std::sqrt(std::powf(difference.x, 2) + std::powf(difference.y, 2));
 }
-
+//Etsitään joku luku satunneisesti min ja max väliltä
 int Utility::random(int min, int max)
 {
 	if (min >= 0 && max > min)

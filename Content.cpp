@@ -2,9 +2,8 @@
 
 Content* Content::content;
 
-Content::Content(void) //ladataan sisältö
+Content::Content(void) //ladataan sisältö. Tekstuureja, fontteja, etc.
 {
-	//backgroundTex.loadFromFile("res/taivas.png");
 	if (!playerTexture.loadFromFile("res/player.png")){
 		printf("Error: Player texture not found!\n");
 	}
@@ -27,7 +26,7 @@ Content::~Content(void)
 {
 	free(content);
 }
-
+//Palautetaan pointteri tähän luokkaan, jolla päästään hakemaan Contentin sisältöä muualta.
 Content* Content::get()
 {
 	if (!content)
@@ -35,7 +34,7 @@ Content* Content::get()
 
 	return content;
 }
-
+//Asetaan/päivitetään debugTeksti
 void Content::setDebugText(std::string text){
 	debugText.setString(text);
 }

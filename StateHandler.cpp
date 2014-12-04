@@ -27,7 +27,7 @@ bool StateHandler::exitGame()
 	else
 		return false;
 }
-
+//Pelin p‰‰ looppi, koko peli pyˆrii t‰ss‰.
 void StateHandler::loopGame()
 {	
 	Event currentEvent;
@@ -101,7 +101,7 @@ void StateHandler::loopGame()
 	}
 	
 }
-
+//Piirt‰‰ latausruudun raskaan latausajan v‰liin
 void StateHandler::drawLoadingScreen(){
 	window.clear(Color::Black);
 	sf::Texture loadTexture;
@@ -112,7 +112,7 @@ void StateHandler::drawLoadingScreen(){
 	window.draw(loadSprite);
 	window.display();
 }
-
+//p‰ivitt‰‰ kellot
 void StateHandler::handleTime(){
 
 	dt = clock.restart().asSeconds();
@@ -127,7 +127,7 @@ void StateHandler::handleTime(){
 		secondPassed = false;
 	}
 }
-
+//Destruktori
 StateHandler::~StateHandler()
 {
 	delete merge;
