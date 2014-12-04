@@ -44,11 +44,11 @@ void Enemy::updateGhost(float dt, float playerposX, float playerposY){
 	velocityX = velocityY = 100;
 	if (playerposX < sprite.getPosition().x - 25){
 		this->setDX(-1);
-		this->setFacingDirection(false);
+		this->setFacingDirection(true);
 	}
 	if (playerposX > sprite.getPosition().x + 25){
 		this->setDX(1);
-		this->setFacingDirection(true);
+		this->setFacingDirection(false);
 	}
 	if (playerposY < sprite.getPosition().y - 25){
 		this->setDY(-1);
