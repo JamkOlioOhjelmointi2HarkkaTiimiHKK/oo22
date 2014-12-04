@@ -3,7 +3,7 @@
 
 Merge::Merge()
 {
-	size = 100;
+	size = 50;
 
 	halfScreenX = SCREEN_WIDTH / 2;
 	halfscreenY = SCREEN_HEIGHT / 2;

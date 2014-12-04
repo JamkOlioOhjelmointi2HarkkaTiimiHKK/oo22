@@ -27,6 +27,7 @@ public:
 	Map();
 	void update();
 	void draw(sf::View);
+	int getSize();
 	~Map();
 };
 
