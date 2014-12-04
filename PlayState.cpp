@@ -29,7 +29,7 @@ bool PlayState::runPlayState()
 void PlayState::initializePlayState(){
 	player.create(350, 350, 32, 64);
 
-	for (int i = 0; i < 200; i++)
+	for (int i = 0; i < 2000; i++)
 	{
 		this->spawnEnemy();
 	}
@@ -70,7 +70,7 @@ void PlayState::drawPlayState(){
 }
 
 void PlayState::spawnEnemy(){
-	Enemy* test = new Enemy(Utility::random(0, map.getSize() * 512), Utility::random(0, map.getSize() * 512), Utility::random(0, 3));
+	Enemy* test = new Enemy(Utility::random(0, 51000), Utility::random(0, 51000), Utility::random(0, 3));
 	enemyList.push_back(test);
 }
 

@@ -4,7 +4,7 @@
 Map::Map()
 {
 	kerroin = 0;
-	size = 50;
+	size = 100;
 
 	numberOfMap = 0;
 
@@ -85,10 +85,6 @@ void Map::draw(sf::View view)
 		}
 	}
 	
-}
-
-int Map::getSize(){
-	return this->size;
 }
 
 Map::~Map()
