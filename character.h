@@ -28,7 +28,7 @@ public:
 	void createCharacter(sf::Vector2f position, sf::Vector2f size, bool isPlayer);
 	void setDirection(int DX, int DY);
 	void setFacingDirection(bool facingLeft);
-	void applyGravity();
+	void applyGravity(float dt);
 	void setDX(int DX);
 	void setDY(int DY);
 };

@@ -13,12 +13,12 @@ public:
 	Gun gun;
 	void create(float posX, float posY, float sizeX, float sizeY);
 	void update(float dt, Map &ptr, sf::View);
-	void updateMovement();
-	void jump();
+	void updateMovement(float dt);
+	void jump(float dt);
 	void checkCollision(Map &ptr, sf::View);
 	void fixValuesBasedOnCollision();
-	void acceleratePlayerX();
-	void deceleratePlayerX();
+	void acceleratePlayerX(float dt);
+	void deceleratePlayerX(float dt);
 
 	sf::Sprite getSprite();
 

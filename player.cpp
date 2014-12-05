@@ -12,61 +12,61 @@ void Player::create(float posX, float posY, float sizeX, float sizeY){
 //Päivitetään pelaaja
 void Player::update(float dt, Map &ptr,sf::View view){
 	
-	updateMovement();
-	applyGravity();
+	updateMovement(dt);
+	applyGravity(dt);
 	this->move(dt);
 	hitbox.update(sprite);
 	checkCollision(ptr, view);
 }
 //Kuunnellaan mitä näppäimiä pelaaja painaa
-void Player::updateMovement(){
+void Player::updateMovement(float dt){
 
 	if ((Controls::get()->iskeydown(sf::Keyboard::A)) && (Controls::get()->iskeydown(sf::Keyboard::D))){
-		deceleratePlayerX();
+		deceleratePlayerX(dt);
 	}
 
 	else if (Controls::get()->iskeydown(sf::Keyboard::A)){
 		if (DX <= 0){
 			this->setDX(-1);
-			acceleratePlayerX();
+			acceleratePlayerX(dt);
 			this->setFacingDirection(false);
 		}
 		else{
-			deceleratePlayerX();
+			deceleratePlayerX(dt);
 		}
 	}
 
 	else if (Controls::get()->iskeydown(sf::Keyboard::D)){
 		if (DX >= 0){
 			this->setDX(1);
-			acceleratePlayerX();
+			acceleratePlayerX(dt);
 			this->setFacingDirection(true);
 		}
 		else{
-			deceleratePlayerX();
+			deceleratePlayerX(dt);
 		}
 	}
 
 	else{
-		deceleratePlayerX();
+		deceleratePlayerX(dt);
 	}
 
 	if (Controls::get()->iskeydown(sf::Keyboard::Space)){
-		jump();
+		jump(dt);
 	}
 }
-void Player::acceleratePlayerX(){
+void Player::acceleratePlayerX(float dt){
 	if (this->velocityX < 500)
-		this->velocityX += 50;
+		this->velocityX += 2000 * dt;
 }
-void Player::deceleratePlayerX(){
+void Player::deceleratePlayerX(float dt){
 	if (velocityX <= 0)
 		this->setDX(0);
 	else
-		velocityX -= 50;
+		velocityX -= 2000 * dt;
 }
 //Pelaajan hyppy logiikka
-void Player::jump(){
+void Player::jump(float dt){
 	if (!falling){
 		jumpstart = sprite.getPosition().y;
 	}
@@ -105,7 +105,7 @@ void Player::checkCollision(Map &ptr, sf::View view){
 	{
 		for (offsetSectorY = -1; offsetSectorY < 2; ++offsetSectorY)
 		{
-			//Viereinen sektori pelaasta katsottuna. (Mukaanlukien viistoon ja pelaajan oma sektori)
+			//Viereinen sektori pelaajasta katsottuna. (Mukaanlukien viistoon ja pelaajan oma sektori)
 			adjacentSectorX = currentSectorX + offsetSectorX;
 			adjacentSectorY = currentSectorY + offsetSectorY;
 

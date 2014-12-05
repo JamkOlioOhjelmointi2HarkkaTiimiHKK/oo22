@@ -57,14 +57,14 @@ void Character::setFacingDirection(bool facingLeft){
 
 }
 //Jos hahmo putoaa, niin siihen pistetään vaikuttamaan painovoima
-void Character::applyGravity(){
+void Character::applyGravity(float dt){
 	if (falling){
 		if (this->DY == -1)
-			this->velocityY -= 50;
+			this->velocityY -= 2000 * dt;
 		if (this->velocityY <= 0)
 			this->setDY(1);
 		if (this->DY == 1 && this->velocityY < 500)
-			this->velocityY += 50;
+			this->velocityY += 2000 * dt;
 	}
 }
 //Asetetaan X suunta
