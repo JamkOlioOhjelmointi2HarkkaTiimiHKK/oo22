@@ -25,8 +25,9 @@ void Enemy::update(float dt, float playerposX, float playerposY, Map &ptr, sf::V
 			updateJanis(dt, playerposX, playerposY);
 			break;
 		case 1:
-			checkCollision(ptr, view);
 			updateGhost(dt, playerposX, playerposY);
+			checkCollision(ptr, view);
+			
 			break;
 		case 2:
 			checkCollision(ptr, view);
@@ -50,7 +51,7 @@ void Enemy::updateJanis(float dt, float playerposX, float playerposY){
 	applyGravity(dt);
 }
 void Enemy::updateGhost(float dt, float playerposX, float playerposY){
-	velocityX = velocityY = 100;
+	velocityX = 100;
 	
 	if (playerposX < sprite.getPosition().x - 25){
 		this->setDX(-1);
@@ -61,9 +62,11 @@ void Enemy::updateGhost(float dt, float playerposX, float playerposY){
 		this->setFacingDirection(false);
 	}
 	if (playerposY < sprite.getPosition().y - 25){
+	if(falling)velocityY = 100;
 		this->setDY(-1);
 	}
 	if (playerposY > sprite.getPosition().y + 25){
+		velocityY = 100;
 		this->setDY(1);
 	}
 }
@@ -235,7 +238,7 @@ void Enemy::checkCollision(Map &ptr, sf::View view){
 }
 void Enemy::fixValuesBasedOnCollision(){
 
-	if (this->legHitboxCollides){
+	if (this->legHitboxCollides && DY == 1){
 		falling = false;
 		this->setDY(0);
 		this->velocityY = 0;
@@ -244,7 +247,7 @@ void Enemy::fixValuesBasedOnCollision(){
 	else{
 		falling = true;
 	}
-	if (this->headHitboxCollides){
+	if (this->headHitboxCollides && DY == -1){
 		this->velocityY = 0;
 		this->setDY(0);
 		
