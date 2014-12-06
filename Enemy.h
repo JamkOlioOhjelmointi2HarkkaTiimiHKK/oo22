@@ -22,6 +22,7 @@ public:
 	void updateFox(float dt, float playerposX, float playerposYp);
 	void draw(Map &ptr, sf::View view);
 	bool isEnemyOnAdjacentSector(Map &ptr, sf::View view);
+	void fixValuesBasedOnCollision();
 	void create(float posX, float posY, int type);
 	~Enemy();
 };

@@ -22,15 +22,19 @@ void Enemy::update(float dt, float playerposX, float playerposY, Map &ptr, sf::V
 		switch (type){
 		case 0:
 			updateJanis(dt, playerposX, playerposY);
+			checkCollision(ptr, view);
 			break;
 		case 1:
 			updateGhost(dt, playerposX, playerposY);
+			checkCollision(ptr, view);
 			break;
 		case 2:
 			updateSlime(dt, playerposX, playerposY);
+			checkCollision(ptr, view);
 			break;
 		case 3:
 			updateFox(dt, playerposX, playerposY);
+			checkCollision(ptr, view);
 			break;
 		default:
 			break;
@@ -42,7 +46,7 @@ void Enemy::update(float dt, float playerposX, float playerposY, Map &ptr, sf::V
 }
 
 void Enemy::updateJanis(float dt, float playerposX, float playerposY){
-
+	applyGravity(dt);
 }
 void Enemy::updateGhost(float dt, float playerposX, float playerposY){
 	velocityX = velocityY = 100;
@@ -74,28 +78,9 @@ void Enemy::updateSlime(float dt, float playerposX, float playerposY){
 	}
 
 	if ((playerposX - sprite.getPosition().x)*(playerposX - sprite.getPosition().x) < 22500){
-
-		if (this->DY == 0){
-			if (this->velocityY <= 0){
-				this->setDY(-1);
-			}
-
-		}
-		if (!falling){
-			if (this->velocityY < 800 && this->DY == -1){
-				this->velocityY = 800;
-				falling = true;
-			}
-		}
-		else{
-			if (this->DY == -1)
-				this->velocityY = this->velocityY - 2000 * dt;
-			if (this->velocityY <= 0)
-				this->setDY(1);
-			if (this->DY == 1 && this->velocityY < 800)
-				this->velocityY = this->velocityY + 2000 * dt;
-		}
+		jump();
 	}
+	applyGravity(dt);
 }
 void Enemy::updateFox(float dt, float playerposX, float playerposY){
 	velocityX = 600;
@@ -107,20 +92,22 @@ void Enemy::updateFox(float dt, float playerposX, float playerposY){
 		this->setDX(1);
 		this->setFacingDirection(false);
 	}
+	applyGravity(dt);
+
 }
 //Kutsutaan, kun vihollinen luodaan (Joko kontruktorissa, tai erikseen kutsuttaessa)
 void Enemy::create(float posX, float posY, int type){
 	this->type = type;
 	switch (type){
 	case 0:
-		sizeX = 32;
-		sizeY = 64;
+		sizeX = 92;
+		sizeY = 89;
 		this->createCharacter(posX, posY, sizeX, sizeY, false);
 		this->sprite.setTexture(Content::get()->janisTexture);
 		break;
 	case 1:
 		sizeX = 40;
-		sizeY = 40;
+		sizeY = 38;
 		this->createCharacter(posX, posY, sizeX, sizeY, false);
 		this->sprite.setTexture(Content::get()->ghostTexture);
 		break;
@@ -176,36 +163,103 @@ bool Enemy::isEnemyOnAdjacentSector(Map &ptr, sf::View view){
 }
 //Vihollisen hyppäämiseen käytettävä funktio
 void Enemy::jump(){
-	
-	if (this->DY == 0){
-		if (this->velocityY <= 0){
-			this->setDY(-1);
-		}
-		falling = true;
-	}
 	if (!falling){
+		if (this->DY == 0){
+			if (this->velocityY <= 0){
+				this->setDY(-1);
+			}
+			falling = true;
+		}
+
 		if (this->velocityY < 500 && this->DY == -1){
-			this->velocityY = 500;
+			this->velocityY = 800;
+
 		}
 	}
-	
 }
 //Tarkastetaan törmääkö vihollinen
 void Enemy::checkCollision(Map &ptr, sf::View view){
-	
-	bottom = sprite.getPosition() + sf::Vector2f(0, sizeY / 2);
-	for (int i = 0; i < ptr.xRivi[enemySectorX][enemySectorY].size(); ++i)
-	{
-		if (!ptr.xRivi[enemySectorX][enemySectorY][i]->passable){
-			if (ptr.xRivi[enemySectorX][enemySectorY][i]->shape.getGlobalBounds().contains(bottom)){
-				//cout << "succes!" << endl;
-			}
-		}
+	this->legHitboxCollides = false;
+	this->bodyLeftHitboxCollides = false;
+	this->bodyRightHitboxCollides = false;
+	this->headHitboxCollides = false;
+
+	bool legHitboxPriority = false;
+
+
+	//Saadaan pelaajan nykyinen sektori selville.
+	currentSectorX = floor(view.getCenter().x / 512);
+	currentSectorY = floor(view.getCenter().y / 512);
+
+//Käydään läpi sektorin jokainen maa pala.
+				for (int i = 0; i < ptr.xRivi[adjacentSectorX][adjacentSectorY].size(); ++i)
+				{
+					if (!ptr.xRivi[adjacentSectorX][adjacentSectorY][i]->passable){
+						//Jos jalat osuvat maahan
+						if (Utility::boxHit(this->hitbox.enemyLegHitbox, ptr.xRivi[adjacentSectorX][adjacentSectorY][i]->shape)){
+							if (falling){
+								sprite.setPosition(sprite.getPosition().x, ptr.xRivi[adjacentSectorX][adjacentSectorY][i]->getPos().y - this->sizeY / 2 + 1);
+								legHitboxPriority = true;
+							}
+							this->legHitboxCollides = true;
+						}
+						//Jos pää osuu kattoon
+						else if (Utility::boxHit(this->hitbox.enemyheadHitbox, ptr.xRivi[adjacentSectorX][adjacentSectorY][i]->shape))
+						{
+							if (this->DY == -1)
+							{
+								sprite.setPosition(sprite.getPosition().x, ptr.xRivi[adjacentSectorX][adjacentSectorY][i]->getPos().y + ptr.xRivi[adjacentSectorX][adjacentSectorY][i]->getSize().y + this->sizeY / 2 + 1);
+								legHitboxPriority = true;
+							}
+							this->headHitboxCollides = true;
+						}
+						//Jos kehon vasen puoli osuu seinään
+						if (Utility::boxHit(this->hitbox.enemyBodyleftHitbox, ptr.xRivi[adjacentSectorX][adjacentSectorY][i]->shape)){
+							if (!legHitboxPriority)
+								sprite.setPosition(ptr.xRivi[adjacentSectorX][adjacentSectorY][i]->getPos().x + ptr.xRivi[adjacentSectorX][adjacentSectorY][i]->getSize().x + this->sizeX / 2 - 1, sprite.getPosition().y);
+							this->bodyLeftHitboxCollides = true;
+						}
+						//Jos kehon oikea puoli osuu seinään
+						else if (Utility::boxHit(this->hitbox.enemyBodyrightHitbox, ptr.xRivi[adjacentSectorX][adjacentSectorY][i]->shape)){
+							if (!legHitboxPriority)
+								sprite.setPosition(ptr.xRivi[adjacentSectorX][adjacentSectorY][i]->getPos().x - this->sizeX / 2 + 1, sprite.getPosition().y);
+							this->bodyRightHitboxCollides = true;
+						}
+					}
+				
+
+			
+		
 	}
 	
 
-	hitbox.update(sprite);
+	fixValuesBasedOnCollision();
+}
+void Enemy::fixValuesBasedOnCollision(){
+
+	if (this->legHitboxCollides){
+		falling = false;
+		this->setDY(0);
+		this->velocityY = 0;
 		
+	}
+	else{
+		falling = true;
+	}
+	if (this->headHitboxCollides){
+		this->velocityY = 0;
+		
+	}
+
+	if ((this->DX == -1 && this->bodyLeftHitboxCollides) || (this->DX == 1 && this->bodyRightHitboxCollides)){
+		this->setDX(0);
+		this->velocityX = 0;
+	}
+
+	if (this->legHitboxCollides || this->bodyLeftHitboxCollides || this->bodyRightHitboxCollides){
+		hitbox.update(sprite);
+	}
+	hitbox.update(sprite);
 }
 //Vihollisen destruktori
 Enemy::~Enemy(){

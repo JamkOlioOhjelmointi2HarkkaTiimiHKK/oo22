@@ -15,7 +15,9 @@ public:
 	sf::RectangleShape bodyLeftHitbox;
 	sf::RectangleShape bodyRightHitbox;
 	sf::RectangleShape headHitbox;
-	sf::RectangleShape enemyBodyHitbox;
+	sf::RectangleShape enemyheadHitbox;
+	sf::RectangleShape enemyBodyleftHitbox;
+	sf::RectangleShape enemyBodyrightHitbox;
 	sf::RectangleShape enemyLegHitbox;
 	void initializeHitBoxes(sf::Sprite sprite, float sizeX, float sizeY, bool isPlayer);
 	void update(sf::Sprite sprite);
