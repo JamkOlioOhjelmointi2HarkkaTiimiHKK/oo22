@@ -21,27 +21,28 @@ void Enemy::update(float dt, float playerposX, float playerposY, Map &ptr, sf::V
 	if (this->isEnemyOnAdjacentSector(ptr, view)){
 		switch (type){
 		case 0:
-			updateJanis(dt, playerposX, playerposY);
 			checkCollision(ptr, view);
+			updateJanis(dt, playerposX, playerposY);
 			break;
 		case 1:
-			updateGhost(dt, playerposX, playerposY);
 			checkCollision(ptr, view);
+			updateGhost(dt, playerposX, playerposY);
 			break;
 		case 2:
-			updateSlime(dt, playerposX, playerposY);
 			checkCollision(ptr, view);
+			updateSlime(dt, playerposX, playerposY);
 			break;
 		case 3:
-			updateFox(dt, playerposX, playerposY);
 			checkCollision(ptr, view);
+			updateFox(dt, playerposX, playerposY);
 			break;
 		default:
 			break;
 		}
 		this->move(dt);
 		hitbox.update(sprite);
-		checkCollision(ptr, view);
+
+		
 	}
 }
 
@@ -50,6 +51,7 @@ void Enemy::updateJanis(float dt, float playerposX, float playerposY){
 }
 void Enemy::updateGhost(float dt, float playerposX, float playerposY){
 	velocityX = velocityY = 100;
+	
 	if (playerposX < sprite.getPosition().x - 25){
 		this->setDX(-1);
 		this->setFacingDirection(true);
@@ -104,10 +106,11 @@ void Enemy::create(float posX, float posY, int type){
 		sizeY = 89;
 		this->createCharacter(posX, posY, sizeX, sizeY, false);
 		this->sprite.setTexture(Content::get()->janisTexture);
+		falling = false;
 		break;
 	case 1:
-		sizeX = 40;
-		sizeY = 38;
+		sizeX = 32;
+		sizeY = 28;
 		this->createCharacter(posX, posY, sizeX, sizeY, false);
 		this->sprite.setTexture(Content::get()->ghostTexture);
 		break;
@@ -186,11 +189,6 @@ void Enemy::checkCollision(Map &ptr, sf::View view){
 
 	bool legHitboxPriority = false;
 
-
-	//Saadaan pelaajan nykyinen sektori selville.
-	currentSectorX = floor(view.getCenter().x / 512);
-	currentSectorY = floor(view.getCenter().y / 512);
-
 //K‰yd‰‰n l‰pi sektorin jokainen maa pala.
 				for (int i = 0; i < ptr.xRivi[adjacentSectorX][adjacentSectorY].size(); ++i)
 				{
@@ -248,6 +246,7 @@ void Enemy::fixValuesBasedOnCollision(){
 	}
 	if (this->headHitboxCollides){
 		this->velocityY = 0;
+		this->setDY(0);
 		
 	}
 

@@ -61,10 +61,12 @@ void PlayState::drawPlayState(){
 	if (showDebug){
 		window.draw(Content::get()->debugText);
 		player.drawHitboxes();
+		
 	}
 	
 	for (listIter = enemyList.begin(); listIter != enemyList.end(); ++listIter){
 		(*listIter)->draw(*mapPtr,view);
+		if (showDebug)(*listIter)->drawHitboxes();
 	}
 	
 	window.display();
