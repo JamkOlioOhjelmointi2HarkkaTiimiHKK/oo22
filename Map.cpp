@@ -6,6 +6,10 @@ Map::Map()
 	kerroin = 0;
 	size = 50;
 
+	tausta1.setTexture(&Content::get()->backgroundTexture1);
+	tausta1.setPosition(0,0);
+	tausta1.setSize(sf::Vector2f(1536,1536));
+
 	numberOfMap = 0;
 
 	file.open("Files\\Maps\\Map" + std::to_string(numberOfMap) + ".txt");
@@ -59,13 +63,14 @@ Map::Map()
 	file.close();
 }
 
-void Map::update()
+void Map::update(sf::View view)
 {
-
+	tausta1.setPosition(view.getCenter().x - tausta1.getGlobalBounds().width / 2, view.getCenter().y - tausta1.getGlobalBounds().height / 2);
 }
 
 void Map::draw(sf::View view)
 {
+	window.draw(tausta1);
 
 	int xxx = floor(view.getCenter().x / 512);
 	int yyy = floor(view.getCenter().y / 512);
@@ -84,6 +89,7 @@ void Map::draw(sf::View view)
 			}
 		}
 	}
+
 	
 }
 

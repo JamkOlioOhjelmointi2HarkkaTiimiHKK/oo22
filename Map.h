@@ -7,11 +7,14 @@
 #include "SpawnPoint.h"
 #include "SpawnEnemy.h"
 #include "Merge.h"
+#include "Content.h"
 #pragma once
+
 class Map
 {
 private:
 
+	sf::RectangleShape tausta1;
 	std::ifstream file;
 	std::fstream facts;
 	std::string name,line,x,y;
@@ -25,7 +28,7 @@ public:
 	std::vector<std::vector<std::vector<MapObject*>>> xRivi;
 
 	Map();
-	void update();
+	void update(sf::View);
 	void draw(sf::View);
 	int getSize();
 	~Map();

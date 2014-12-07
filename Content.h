@@ -30,6 +30,7 @@ public:
 	sf::Texture blockTexture;
 	sf::Texture floorTexture;
 	sf::Texture ladderTexture;
+	sf::Texture backgroundTexture1;
 
 	static Content* get();
 

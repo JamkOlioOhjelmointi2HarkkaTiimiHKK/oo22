@@ -7,6 +7,7 @@ PlayState::PlayState(){
 	fps = 0;
 	mapPtr = &map;
 
+
 	view.reset(sf::FloatRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT));
 	window.setView(view);
 }
@@ -50,7 +51,7 @@ void PlayState::updatePlayState(){
 		(*listIter)->update(dt, player.getSprite().getPosition().x, player.getSprite().getPosition().y, *mapPtr, view);
 	}
 
-	map.update();
+	map.update(view);
 }
 //Piirretään pelitilanne
 void PlayState::drawPlayState(){
@@ -63,7 +64,7 @@ void PlayState::drawPlayState(){
 		player.drawHitboxes();
 		
 	}
-	
+
 	for (listIter = enemyList.begin(); listIter != enemyList.end(); ++listIter){
 		(*listIter)->draw(*mapPtr,view);
 		if (showDebug)(*listIter)->drawHitboxes();
