@@ -20,6 +20,9 @@ Content::Content(void) //ladataan sisältö. Tekstuureja, fontteja, etc.
 	debugText.setCharacterSize(24);
 	debugText.setColor(sf::Color::White);
 	font.loadFromFile("res\\calibri.ttf");
+	blockTexture.loadFromFile("res/block.png");
+	floorTexture.loadFromFile("res/floor.png");
+	ladderTexture.loadFromFile("res/tikkaat.png");
 }
 
 Content::~Content(void)

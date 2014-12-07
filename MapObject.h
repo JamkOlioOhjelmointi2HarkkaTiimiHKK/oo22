@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML\Graphics.hpp>
+#include "Content.h"
 #include <string.h>
 
 class MapObject

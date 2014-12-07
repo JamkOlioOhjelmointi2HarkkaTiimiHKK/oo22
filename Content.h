@@ -27,6 +27,9 @@ public:
 	sf::Font calibri;
 	sf::Font font; // Tuomas K‰ytt‰‰ t‰t‰
 	sf::Text debugText;
+	sf::Texture blockTexture;
+	sf::Texture floorTexture;
+	sf::Texture ladderTexture;
 
 	static Content* get();
 
