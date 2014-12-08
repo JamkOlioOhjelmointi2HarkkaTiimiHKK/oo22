@@ -31,5 +31,6 @@ public:
 	void applyGravity(float dt);
 	void setDX(int DX);
 	void setDY(int DY);
+	float getCharacterMovementX(float dt);
 };
 #endif;

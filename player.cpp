@@ -75,7 +75,7 @@ void Player::updateMovement(float dt){
 		isClimbing = false;
 		
 	}
-	std::cout << canClimbUp << std::endl;
+
 	if (Controls::get()->iskeydown(sf::Keyboard::Space)){
 		isClimbing = false;
 		jump(dt);

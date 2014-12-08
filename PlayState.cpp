@@ -54,7 +54,7 @@ void PlayState::updatePlayState(){
 		}
 	}
 
-	map.update(view);
+	map.update(view, player.getCharacterMovementX(dt));
 }
 //Piirret‰‰n pelitilanne
 void PlayState::drawPlayState(){

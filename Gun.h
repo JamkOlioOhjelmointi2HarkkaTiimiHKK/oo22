@@ -6,7 +6,7 @@
 
 class Gun:public sf::RectangleShape{
 private:
-	
+	int sizeX, sizeY;
 public:
 	Gun();
 	~Gun();

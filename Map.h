@@ -31,7 +31,7 @@ public:
 	std::vector<std::vector<std::vector<MapObject*>>> xRivi;
 
 	Map();
-	void update(sf::View);
+	void update(sf::View, float dt);
 	void draw(sf::View);
 	int getSize();
 	~Map();
