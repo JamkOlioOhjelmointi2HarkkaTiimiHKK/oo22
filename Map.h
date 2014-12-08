@@ -8,6 +8,7 @@
 #include "SpawnEnemy.h"
 #include "Merge.h"
 #include "Content.h"
+#include "Cloud.h"
 #pragma once
 
 class Map
@@ -19,10 +20,12 @@ private:
 	std::fstream facts;
 	std::string name,line,x,y;
 
-		std::vector<std::vector<MapObject*>> yRivi;
+	std::vector<std::vector<MapObject*>> yRivi;
 	std::vector<MapObject*> mapObjects;
 
-	int numberOfMap, halfScreenX=0, halfscreenY=0,kerroin,size;
+	std::vector<Cloud*> clouds;
+
+	int numberOfMap,kerroin,size;
 
 public:
 	std::vector<std::vector<std::vector<MapObject*>>> xRivi;

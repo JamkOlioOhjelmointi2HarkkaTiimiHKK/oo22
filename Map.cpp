@@ -3,15 +3,26 @@
 
 Map::Map()
 {
+#pragma region tausta
+
+	tausta1.setTexture(&Content::get()->backgroundTexture1);
+	tausta1.setPosition(0, 0);
+	tausta1.setSize(sf::Vector2f(1536, 1536));
+
+	for (int i = 0; i < 1; i++)
+	{
+		clouds.push_back(new Cloud());
+		clouds[i]->setPos(sf::Vector2f(Utility::random(-SCREEN_WIDTH, SCREEN_WIDTH), Utility::random(0, SCREEN_HEIGHT)));
+	}
+#pragma endregion
+
+#pragma region luku
+
 	kerroin = 0;
 	size = 50;
 
-	tausta1.setTexture(&Content::get()->backgroundTexture1);
-	tausta1.setPosition(0,0);
-	tausta1.setSize(sf::Vector2f(1536,1536));
-
 	numberOfMap = 0;
-
+	//luetaan mappi fili ja pilkotaan se x ja y akselittain
 	file.open("Files\\Maps\\Map" + std::to_string(numberOfMap) + ".txt");
 	while (getline(file, line))
 	{
@@ -61,17 +72,33 @@ Map::Map()
 		}				
 	}
 	file.close();
+#pragma endregion
 }
 
 void Map::update(sf::View view)
 {
 	tausta1.setPosition(view.getCenter().x - tausta1.getGlobalBounds().width / 2, view.getCenter().y - tausta1.getGlobalBounds().height / 2);
+	for (int i = 0; i < clouds.size(); i++)
+	{
+		clouds[i]->setPos(clouds[i]->getPos() + view.getCenter()*clouds[i]->speed);
+		/*
+		if (view.getCenter().x - clouds[i]->getPos().x < SCREEN_WIDTH / 2 || view.getCenter().x  - clouds[i]->getPos().x  > SCREEN_WIDTH / 2)
+			clouds[i]->setPos(sf::Vector2f(clouds[i]->getPos().x + view.getCenter().x, view.getCenter().y + Utility::random(-512, 512)));
+		*/
+	}
+	
+	std::cout << clouds[0]->getPos().x << "    " << view.getCenter().x << std::endl;
+		
 }
 
 void Map::draw(sf::View view)
 {
 	window.draw(tausta1);
 
+	for (int i = 0; i < clouds.size(); i++)
+		window.draw(clouds[i]->shape);
+
+	//otetaan kamerasta pelaajan sijainti
 	int xxx = floor(view.getCenter().x / 512);
 	int yyy = floor(view.getCenter().y / 512);
 
@@ -103,4 +130,8 @@ Map::~Map()
 	for (int k = 0; k < xRivi[i].size();k++)
 	for (int e = 0; e < xRivi[i][k].size(); e++)
 		delete xRivi[i][k][e];
+
+	for (int i = 0; i < clouds.size(); i++)
+		delete clouds[i];
+
 }

@@ -9,4 +9,5 @@ const char OPTIONS_FILENAME[] = "options.dat";
 
 extern sf::RenderWindow window; //Piirtoikkuna
 
+
 #endif;

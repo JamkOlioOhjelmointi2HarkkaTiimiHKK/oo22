@@ -99,6 +99,7 @@ bool EditorState::checkValid()
 		sf::Vector2f snappedPos = Controls::get()->getmousepos();
 		int xpos = pieceArea.getGlobalBounds().left + (floor((snappedPos.x - pieceArea.getGlobalBounds().left) / 32) * 32);
 		int ypos = pieceArea.getGlobalBounds().top + (floor((snappedPos.y - pieceArea.getGlobalBounds().top) / 32) * 32);
+		
 		if (xpos + selectedObject->getSize().x > pieceArea.getGlobalBounds().left + pieceArea.getGlobalBounds().width)
 			xpos = pieceArea.getGlobalBounds().left + pieceArea.getGlobalBounds().width - selectedObject->getSize().x;
 		if (ypos + selectedObject->getSize().y > pieceArea.getGlobalBounds().top + pieceArea.getGlobalBounds().height)

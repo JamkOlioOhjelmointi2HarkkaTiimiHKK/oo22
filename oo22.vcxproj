@@ -14,6 +14,7 @@
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="character.cpp" />
+    <ClCompile Include="Cloud.cpp" />
     <ClCompile Include="Content.cpp" />
     <ClCompile Include="Controls.cpp" />
     <ClCompile Include="EditorState.cpp" />
@@ -38,6 +39,7 @@
     <ClInclude Include="Block.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="character.h" />
+    <ClInclude Include="Cloud.h" />
     <ClInclude Include="Content.h" />
     <ClInclude Include="Controls.h" />
     <ClInclude Include="EditorState.h" />

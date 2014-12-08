@@ -24,6 +24,7 @@ Content::Content(void) //ladataan sisältö. Tekstuureja, fontteja, etc.
 	floorTexture.loadFromFile("res/floor.png");
 	ladderTexture.loadFromFile("res/tikkaat.png");
 	backgroundTexture1.loadFromFile("res\\kypala.png");
+	cloudTexture.loadFromFile("res\\pilvi.png");
 }
 
 Content::~Content(void)

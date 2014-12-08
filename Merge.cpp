@@ -8,7 +8,7 @@ Merge::Merge()
 	halfScreenX = SCREEN_WIDTH / 2;
 	halfscreenY = SCREEN_HEIGHT / 2;
 
-#pragma region hyvä
+
 		facts.open("Files\\facts.txt");
 	getline(facts, howManuMapParts);
 	getline(facts, howManyMaps);
@@ -57,7 +57,7 @@ Merge::Merge()
 
 
 	Build(); 
-#pragma endregion
+
 	
 	view.reset(sf::FloatRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT));
 	window.setView(view);
@@ -131,7 +131,7 @@ void Merge::draw()
 
 	for (unsigned i = 0; i < temp; ++i)
 	{	
-		//ylempi on tapa millä pelitilassa piirto + törmäystarkastelut toimii. Keskimmäinen on vaan kätevämpi nopeaan tarkasteluun. Alin on tehokkain
+		//ylempi on tapa millä pelitilassa piirto + törmäystarkastelut toimii. Keskimmäinen on vaan kätevämpi nopeaan tarkasteluun. Alin on tehokkain. map.cpp;ssä on tehokkaampi tapa minkä keksin / opin jälkeenpäin
 		//if (std::pow(mapObjects[i]->getPos().x - view.getCenter().x,2)-350*70 < std::pow(halfScreenX,2) && std::pow(mapObjects[i]->getPos().y-view.getCenter().y,2)-350*70 < std::pow(halfscreenY,2))		
 		//if (mapObjects[i]->getPos().x - view.getCenter().x < halfScreenX && mapObjects[i]->getPos().y-view.getCenter().y < halfscreenY)
 		if ((mapObjects[i]->getPos().x - view.getCenter().x)*(mapObjects[i]->getPos().x - view.getCenter().x)  < (halfScreenX + 350)*(halfScreenX + 350) && (mapObjects[i]->getPos().y - view.getCenter().y)*(mapObjects[i]->getPos().y - view.getCenter().y) < (halfscreenY + 350)*(halfscreenY + 350))
@@ -196,7 +196,7 @@ void Merge::killAll()
 	{
 		delete mapObjects[i];
 	}
-	mapObjects.clear(); // there's no such a thing as overkill
+	mapObjects.clear();
 }
 
 Merge::~Merge()
