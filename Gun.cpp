@@ -1,18 +1,19 @@
 #include "Gun.h"
 
 Gun::Gun(){
-
+	create();
 }
 Gun::~Gun(){
 
 }
 
 void Gun::create(){
-	this->handSprite.setTexture(Content::get()->gunHandTexture);
+	handSprite.setTexture(Content::get()->gunHandTexture);
 }
 
 void Gun::update(sf::Sprite sprite){
 	handSprite.setPosition(sprite.getPosition());
+	handSprite.rotate(-1);
 }
 
 void Gun::draw(){

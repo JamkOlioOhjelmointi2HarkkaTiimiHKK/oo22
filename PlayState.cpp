@@ -62,6 +62,7 @@ void PlayState::drawPlayState(){
 
 	map.draw(view);
 	player.draw();
+	player.drawGun();
 	if (showDebug){
 		window.draw(Content::get()->debugText);
 		player.drawHitboxes();

@@ -8,6 +8,7 @@
 class Player:public Character{
 private:
 	float jumpstart;
+	bool canClimb, canClimbUp, canClimbDown, isClimbing, doesTouchLadder;
 public:
 	Player();
 	Gun gun;
@@ -20,6 +21,8 @@ public:
 	void fixValuesBasedOnCollision();
 	void acceleratePlayerX(float dt);
 	void deceleratePlayerX(float dt);
+	void updateGun();
+	void drawGun();
 	sf::RectangleShape getbody();
 	sf::Sprite getSprite();
 

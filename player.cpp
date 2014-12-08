@@ -13,10 +13,13 @@ void Player::create(float posX, float posY, float sizeX, float sizeY){
 void Player::update(float dt, Map &ptr,sf::View view){
 	
 	updateMovement(dt);
-	applyGravity(dt);
+	if (!isClimbing){
+		applyGravity(dt);
+	}
 	this->move(dt);
 	hitbox.update(sprite);
 	checkCollision(ptr, view);
+	updateGun();
 }
 //Kuunnellaan mit‰ n‰pp‰imi‰ pelaaja painaa
 void Player::updateMovement(float dt){
@@ -51,7 +54,30 @@ void Player::updateMovement(float dt){
 		deceleratePlayerX(dt);
 	}
 
+	if (canClimb){
+		if (Controls::get()->iskeydown(sf::Keyboard::W) && canClimbUp){
+			falling = false;
+			isClimbing = true;
+			this->setDY(-1);
+			velocityY = 40000 * dt;
+		}
+		else if (Controls::get()->iskeydown(sf::Keyboard::S) && canClimbDown){
+			falling = false;
+			isClimbing = true;
+			this->setDY(1);
+			velocityY = 40000 * dt;
+		}
+		else{
+			velocityY = 0;
+		}
+	}
+	else{
+		isClimbing = false;
+		
+	}
+	std::cout << canClimbUp << std::endl;
 	if (Controls::get()->iskeydown(sf::Keyboard::Space)){
+		isClimbing = false;
 		jump(dt);
 	}
 }
@@ -104,6 +130,7 @@ void Player::checkCollision(Map &ptr, sf::View view){
 
 	bool legHitboxPriority = false;
 
+	doesTouchLadder = false;
 	
 	//Saadaan pelaajan nykyinen sektori selville.
 	currentSectorX = floor(view.getCenter().x / 512);
@@ -123,6 +150,7 @@ void Player::checkCollision(Map &ptr, sf::View view){
 				//K‰yd‰‰n l‰pi sektorin jokainen maa pala.
 				for (int i = 0; i < ptr.xRivi[adjacentSectorX][adjacentSectorY].size(); ++i)
 				{
+					//Jos palan l‰pi ei voi menn‰
 					if (!ptr.xRivi[adjacentSectorX][adjacentSectorY][i]->passable){
 						//Jos jalat osuvat maahan
 						if (Utility::boxHit(this->hitbox.legHitbox, ptr.xRivi[adjacentSectorX][adjacentSectorY][i]->shape)){
@@ -155,6 +183,14 @@ void Player::checkCollision(Map &ptr, sf::View view){
 							this->bodyRightHitboxCollides = true;
 						}
 					}
+					//Jos kyseess‰ on esim. tikkaat
+					else{
+						if (Utility::boxHit(this->hitbox.bodyHitbox, ptr.xRivi[adjacentSectorX][adjacentSectorY][i]->shape)){
+							doesTouchLadder = true;
+						}
+						
+						
+					}
 				}
 
 			}
@@ -165,6 +201,9 @@ void Player::checkCollision(Map &ptr, sf::View view){
 }
 //Korjataan pelaajan arvoja tˆrm‰yksist‰ riippuen
 void Player::fixValuesBasedOnCollision(){
+
+	canClimb = canClimbUp = canClimbDown = false;
+	
 
 	if (this->legHitboxCollides){
 		falling = false;
@@ -185,9 +224,31 @@ void Player::fixValuesBasedOnCollision(){
 		this->velocityX = 0;
 	}
 
-	if (this->legHitboxCollides || this->bodyLeftHitboxCollides || this->bodyRightHitboxCollides){
+	if (doesTouchLadder){
+		canClimb = true;
+		if (this->legHitboxCollides){
+			canClimbUp = true;
+			canClimbDown = false;
+		}
+		else if (this->headHitboxCollides){
+			canClimbUp = false;
+			canClimbDown = true;
+		}
+		else{
+			canClimbUp = true;
+			canClimbDown = true;
+		}
+	}
+
+	if (this->legHitboxCollides || this->bodyLeftHitboxCollides || this->bodyRightHitboxCollides ||this->headHitboxCollides){
 		hitbox.update(sprite);
 	}
+}
+void Player::updateGun(){
+	gun.update(this->sprite);
+}
+void Player::drawGun(){
+	gun.draw();
 }
 sf::RectangleShape Player::getbody(){
 	return this->hitbox.bodyHitbox;
