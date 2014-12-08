@@ -13,7 +13,7 @@ protected:
 	bool falling;
 	bool recentlyjumped;
 	Hitbox hitbox;
-	bool legHitboxCollides, bodyHitboxCollides, bodyLeftHitboxCollides, bodyRightHitboxCollides, headHitboxCollides;
+	bool legHitboxCollides, bodyHitboxCollides, bodyLeftHitboxCollides, bodyRightHitboxCollides, headHitboxCollides, enemyCollides;
 	int currentSectorX, currentSectorY;
 	int offsetSectorX, offsetSectorY;
 	int adjacentSectorX, adjacentSectorY;

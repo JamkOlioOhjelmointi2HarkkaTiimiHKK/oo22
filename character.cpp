@@ -19,6 +19,7 @@ void Character::initializeCharacter(float posX, float posY, float sizeX, float s
 	velocityX = 0;
 	velocityY = 0;
 	sprite.setOrigin(sf::Vector2f(sizeX / 2, sizeY / 2));
+	enemyCollides = false;
 	falling = false;
 	recentlyjumped = false;
 	hitbox.initializeHitBoxes(sprite, sizeX, sizeY, isPlayer);

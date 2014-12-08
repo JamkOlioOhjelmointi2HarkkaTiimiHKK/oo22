@@ -15,11 +15,12 @@ public:
 	void update(float dt, Map &ptr, sf::View);
 	void updateMovement(float dt);
 	void jump(float dt);
+	void playerHit();
 	void checkCollision(Map &ptr, sf::View);
 	void fixValuesBasedOnCollision();
 	void acceleratePlayerX(float dt);
 	void deceleratePlayerX(float dt);
-
+	sf::RectangleShape getbody();
 	sf::Sprite getSprite();
 
 	~Player();

@@ -48,7 +48,10 @@ void PlayState::updatePlayState(){
 	}
 	
 	for (listIter = enemyList.begin(); listIter != enemyList.end(); ++listIter){
-		(*listIter)->update(dt, player.getSprite().getPosition().x, player.getSprite().getPosition().y, *mapPtr, view);
+		(*listIter)->update(dt, player.getSprite().getPosition().x, player.getSprite().getPosition().y, *mapPtr, view, player.getbody());
+		if ((*listIter)->getCollision()){
+			player.playerHit();
+		}
 	}
 
 	map.update(view);

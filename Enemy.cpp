@@ -17,25 +17,28 @@ Enemy::Enemy(const Enemy &copy){
 	hitbox = copy.hitbox;
 }
 //P‰ivitet‰‰n yksitt‰inen vihollinen riippuen mit‰ tyyppi‰ vihollinen edustaa
-void Enemy::update(float dt, float playerposX, float playerposY, Map &ptr, sf::View view){
+void Enemy::update(float dt, float playerposX, float playerposY, Map &ptr, sf::View view, sf::RectangleShape playerbody){
 	if (this->isEnemyOnAdjacentSector(ptr, view)){
 		switch (type){
 		case 0:
-			checkCollision(ptr, view);
+			
 			updateJanis(dt, playerposX, playerposY);
+			checkCollision(ptr, view, playerbody);
 			break;
 		case 1:
 			updateGhost(dt, playerposX, playerposY);
-			checkCollision(ptr, view);
+			checkCollision(ptr, view, playerbody);
 			
 			break;
 		case 2:
-			checkCollision(ptr, view);
+			
 			updateSlime(dt, playerposX, playerposY);
+			checkCollision(ptr, view, playerbody);
 			break;
 		case 3:
-			checkCollision(ptr, view);
+			
 			updateFox(dt, playerposX, playerposY);
+			checkCollision(ptr, view, playerbody);
 			break;
 		default:
 			break;
@@ -184,13 +187,18 @@ void Enemy::jump(){
 	}
 }
 //Tarkastetaan tˆrm‰‰kˆ vihollinen
-void Enemy::checkCollision(Map &ptr, sf::View view){
+void Enemy::checkCollision(Map &ptr, sf::View view, sf::RectangleShape playerbody){
 	this->legHitboxCollides = false;
 	this->bodyLeftHitboxCollides = false;
 	this->bodyRightHitboxCollides = false;
 	this->headHitboxCollides = false;
+	this->enemyCollides = false;
 
 	bool legHitboxPriority = false;
+
+	if (Utility::boxHit(this->hitbox.enemybodyHitbox, playerbody)){
+		this->enemyCollides = true;
+	}
 
 //K‰yd‰‰n l‰pi sektorin jokainen maa pala.
 				for (int i = 0; i < ptr.xRivi[adjacentSectorX][adjacentSectorY].size(); ++i)
@@ -262,6 +270,9 @@ void Enemy::fixValuesBasedOnCollision(){
 		hitbox.update(sprite);
 	}
 	hitbox.update(sprite);
+}
+bool Enemy::getCollision(){
+	return this->enemyCollides;
 }
 //Vihollisen destruktori
 Enemy::~Enemy(){

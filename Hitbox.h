@@ -16,6 +16,7 @@ public:
 	sf::RectangleShape bodyRightHitbox;
 	sf::RectangleShape headHitbox;
 	sf::RectangleShape enemyheadHitbox;
+	sf::RectangleShape enemybodyHitbox;
 	sf::RectangleShape enemyBodyleftHitbox;
 	sf::RectangleShape enemyBodyrightHitbox;
 	sf::RectangleShape enemyLegHitbox;

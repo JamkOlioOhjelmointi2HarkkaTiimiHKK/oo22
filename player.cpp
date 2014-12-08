@@ -86,6 +86,14 @@ void Player::jump(float dt){
 		recentlyjumped = true;
 	}
 }
+void Player::playerHit(){
+	velocityX = 500;
+	velocityY = 500;
+	setDX(-1);
+	setDY(-1);
+	falling = true;
+	recentlyjumped = true;
+}
 //Tarkistetaan osuuko pelaaja maastoon
 void Player::checkCollision(Map &ptr, sf::View view){
 
@@ -180,6 +188,9 @@ void Player::fixValuesBasedOnCollision(){
 	if (this->legHitboxCollides || this->bodyLeftHitboxCollides || this->bodyRightHitboxCollides){
 		hitbox.update(sprite);
 	}
+}
+sf::RectangleShape Player::getbody(){
+	return this->hitbox.bodyHitbox;
 }
 //Palautetaan pelaajan sprite
 sf::Sprite Player::getSprite()

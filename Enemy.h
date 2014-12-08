@@ -14,14 +14,15 @@ public:
 	Enemy(float posX, float posY, int type);
 	Enemy(const Enemy &);
 	void jump();
-	void checkCollision(Map &ptr, sf::View);
-	void update(float dt, float playerposX, float playerposY, Map &ptr, sf::View view);
+	void checkCollision(Map &ptr, sf::View, sf::RectangleShape playerbody);
+	void update(float dt, float playerposX, float playerposY, Map &ptr, sf::View view, sf::RectangleShape playerbody);
 	void updateJanis(float dt, float playerposX, float playerposY);
 	void updateGhost(float dt, float playerposX, float playerposY);
 	void updateSlime(float dt, float playerposX, float playerposY);
 	void updateFox(float dt, float playerposX, float playerposYp);
 	void draw(Map &ptr, sf::View view);
 	bool isEnemyOnAdjacentSector(Map &ptr, sf::View view);
+	bool getCollision();
 	void fixValuesBasedOnCollision();
 	void create(float posX, float posY, int type);
 	~Enemy();
