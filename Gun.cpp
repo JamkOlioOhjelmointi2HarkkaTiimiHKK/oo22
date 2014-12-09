@@ -28,7 +28,7 @@ void Gun::update(sf::Sprite sprite, bool isFacingLeft){
 	
 }
 void Gun::updateCursor(){
-	mousePos = Controls::get()->getmousepos;
+	mousePos = Controls::get()->getmousepos();
 }
 void Gun::draw(){
 	window.draw(handSprite);
