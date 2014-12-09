@@ -4,9 +4,10 @@ Content* Content::content;
 
 Content::Content(void) //ladataan sisältö. Tekstuureja, fontteja, etc.
 {
-	if (!playerTexture.loadFromFile("res/player.png")){
-		printf("Error: Player texture not found!\n");
+	try {
+		!playerTexture.loadFromFile("res/player.png");
 	}
+	catch (...){ printf("Error: Player texture not found!\n"); }
 	janisTexture.loadFromFile("res/janis.png");
 	ghostTexture.loadFromFile("res/ghost.png");
 	slimeTexture.loadFromFile("res/slime.png");

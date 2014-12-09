@@ -10,8 +10,6 @@
 #include "Controls.h"
 #include "Utility.h"
 
-//class MapObject; mitä vitun mustaa magiaa tämä on
-
 class Merge
 {
 private:
