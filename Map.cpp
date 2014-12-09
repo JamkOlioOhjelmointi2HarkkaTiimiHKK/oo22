@@ -75,12 +75,12 @@ Map::Map()
 #pragma endregion
 }
 
-void Map::update(sf::View view, float dt)
+void Map::update(sf::View view, float speed)
 {
 	tausta1.setPosition(view.getCenter().x - tausta1.getGlobalBounds().width / 2, view.getCenter().y - tausta1.getGlobalBounds().height / 2);
 	for (int i = 0; i < clouds.size(); i++)
 	{
-		clouds[i]->setPos(sf::Vector2f(clouds[i]->getPos().x - dt*clouds[i]->speed, clouds[i]->getPos().y));
+		clouds[i]->setPos(sf::Vector2f(clouds[i]->getPos().x - speed*clouds[i]->speed, clouds[i]->getPos().y));
 		
 		if (view.getCenter().x - clouds[i]->getPos().x > SCREEN_WIDTH / 2)
 			clouds[i]->setPos(sf::Vector2f(clouds[i]->getPos().x + SCREEN_WIDTH, view.getCenter().y + Utility::random(-512, 512)));

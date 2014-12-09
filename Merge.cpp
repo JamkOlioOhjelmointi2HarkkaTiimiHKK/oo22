@@ -72,6 +72,7 @@ void Merge::Build()
 	{
 		for (int yAkseli = 0; yAkseli < size; yAkseli++)
 		{
+			//otetaan satunnainen kartan pala vektorista
 			std::vector<MapObject*> kamikaze = parts[Utility::random(0, parts.size() - 1)];
 			for (unsigned i = 0; i < kamikaze.size(); i++)
 			{

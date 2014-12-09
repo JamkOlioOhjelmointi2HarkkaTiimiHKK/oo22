@@ -143,7 +143,7 @@ void EditorState::update()
 void EditorState::draw()
 {
 	window.draw(pieceArea);
-	window.draw(&gridLines[0], gridLines.size(), sf::Lines);
+	window.draw(&gridLines[0], gridLines.size(), sf::Lines); // piirret‰‰n viivat gridille
 	window.draw(numberText);
 
 	for (unsigned i = 0; i < buttons.size(); ++i)
