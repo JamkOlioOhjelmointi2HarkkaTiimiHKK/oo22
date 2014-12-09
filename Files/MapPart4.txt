@@ -1,0 +1,17 @@
+block 64 352
+block 96 352
+block 128 352
+block 160 352
+block 224 416
+block 256 416
+block 288 416
+block 320 416
+block 256 224
+block 288 224
+block 320 224
+block 352 224
+block 32 128
+block 96 128
+block 96 128
+block 128 128
+block 64 128

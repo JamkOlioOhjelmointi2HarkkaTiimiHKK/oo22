@@ -9,7 +9,7 @@ Map::Map()
 	tausta1.setPosition(0, 0);
 	tausta1.setSize(sf::Vector2f(1536, 1536));
 
-	for (int i = 0; i < 20; i++)
+	for (int i = 0; i < 10; i++)
 	{
 		clouds.push_back(new Cloud());
 		clouds[i]->setPos(sf::Vector2f(Utility::random(0, SCREEN_WIDTH), Utility::random(0, SCREEN_HEIGHT)));
@@ -88,7 +88,8 @@ void Map::update(sf::View view, float dt)
 			clouds[i]->setPos(sf::Vector2f(clouds[i]->getPos().x - SCREEN_WIDTH, view.getCenter().y + Utility::random(-512, 512)));
 	}
 	
-	std::cout << clouds[0]->getPos().x << "    " << view.getCenter().x << std::endl;
+	//testi käyttöön
+	//std::cout << clouds[0]->getPos().x << "    " << view.getCenter().x << std::endl;
 		
 }
 

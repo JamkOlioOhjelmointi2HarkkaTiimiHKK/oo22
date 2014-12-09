@@ -3,10 +3,14 @@
 
 Cloud::Cloud()
 {
-	shape.setSize(sf::Vector2f(Utility::random(70,120), Utility::random(70,120)));
+	size = Utility::random(50, 120);
+	shape.setSize(sf::Vector2f(size, size));
 	passable = true;
 	shape.setTexture(&Content::get()->cloudTexture);
-	speed =  (float) (rand()) / (float) (RAND_MAX / 1);
+	if (size > 100)
+		speed = (float)(rand()) / (float)(RAND_MAX)/2.0 + 0.5; // 0.5 - 1
+	else
+		speed = (float)(rand()) / (float)(RAND_MAX)/2.0; // 0 - 0.5
 }
 
 

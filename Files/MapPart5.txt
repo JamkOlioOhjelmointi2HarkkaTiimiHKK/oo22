@@ -1,0 +1,7 @@
+ladde 224 320
+ladde 224 160
+ladde 224 0
+floor 256 32
+floor 352 32
+floor 96 480
+floor 0 480

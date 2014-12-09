@@ -8,6 +8,7 @@ class Cloud : public MapObject
 
 public:
 	Cloud();
+	int size;
 	float speed;
 	~Cloud();
 };
