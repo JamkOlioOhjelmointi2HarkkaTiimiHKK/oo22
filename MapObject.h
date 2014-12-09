@@ -7,13 +7,13 @@ class MapObject
 {
 protected:
 	
-	std::string name;
+	std::string name; // tunnistamista varten
 	
 public:
 	sf::RectangleShape shape;
 	MapObject();
-	MapObject(MapObject&);
-	MapObject(int, int);
+	MapObject(MapObject&); // editorissa k‰ytet‰‰n
+	MapObject(int, int); // mergess‰ ja mapissa k‰ytet‰‰n
 	void setPos(sf::Vector2f);
 	sf::Vector2f getSize();
 	sf::Vector2f getPos();

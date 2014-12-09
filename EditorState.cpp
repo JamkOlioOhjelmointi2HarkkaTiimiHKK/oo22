@@ -16,7 +16,7 @@ EditorState::EditorState()
 	numberText.setString(std::to_string(numberOfPart));
 	numberText.setColor(sf::Color::White);
 	numberText.setPosition((250+380)/2, 690);
-
+	//ruudukon alustus
 #pragma region grid
 	for (float i = 0; i <= pieceArea.getGlobalBounds().width / 32; ++i)
 	{
@@ -30,7 +30,7 @@ EditorState::EditorState()
 	}
 #pragma endregion
 
-	
+	//nappuloiden luonti
 #pragma region Nappulat
 	buttons.push_back(new Button(sf::Vector2f(100, 50), sf::Vector2f(800, 170), "block", [&]()
 	{
@@ -94,6 +94,7 @@ EditorState::EditorState()
 
 bool EditorState::checkValid()
 {
+	//tarkistaa onko hiiri ruudukossa ja mahtuuko valittu kappale ruudukkoon
 	if (pieceArea.getGlobalBounds().contains(Controls::get()->getmousepos()))
 	{
 		sf::Vector2f snappedPos = Controls::get()->getmousepos();
@@ -127,7 +128,7 @@ void EditorState::update()
 		mapObjects.push_back(selectedObject);
 		if (Controls::get()->iskeydown(sf::Keyboard::LShift))
 		{
-			selectedObject = new MapObject(*selectedObject);
+			selectedObject = new MapObject(*selectedObject); // jos shifti on pohjassa luodaan kopio objektista jota piirettiin
 		}	
 		else
 			selectedObject = NULL;
@@ -136,7 +137,7 @@ void EditorState::update()
 	{
 		resetSelectedObject();
 	}
-	numberText.setPosition((300 + 380) / 2 - numberText.getGlobalBounds().width / 2, 690);
+	numberText.setPosition((300 + 380) / 2 - numberText.getGlobalBounds().width / 2, 690); // asetetaan tiedoston numero näppäinten väliin
 	numberText.setString(std::to_string(numberOfPart));
 }
 
@@ -185,7 +186,7 @@ void EditorState::save()
 	if (std::stoi(temp) < numberOfPart)
 	{
 		facts.seekg(0,std::ios_base::beg);
-		facts << numberOfPart;
+		facts << numberOfPart; //kerrotaan monesko mapPartti on luotu viimeksi ja samaan aikaan montako niitä on
 	}
 		
 	facts.close();

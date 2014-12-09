@@ -3,6 +3,7 @@
 
 Map::Map()
 {
+	//alustetaan tausta
 #pragma region tausta
 
 	tausta1.setTexture(&Content::get()->backgroundTexture1);
@@ -77,20 +78,19 @@ Map::Map()
 
 void Map::update(sf::View view, float speed)
 {
+
+	//päivitetään taustan sijaintia
 	tausta1.setPosition(view.getCenter().x - tausta1.getGlobalBounds().width / 2, view.getCenter().y - tausta1.getGlobalBounds().height / 2);
+	//päivitetään pilviä
 	for (int i = 0; i < clouds.size(); i++)
 	{
-		clouds[i]->setPos(sf::Vector2f(clouds[i]->getPos().x - speed*clouds[i]->speed, clouds[i]->getPos().y));
+		clouds[i]->setPos(sf::Vector2f(clouds[i]->getPos().x - (speed)*clouds[i]->speed, clouds[i]->getPos().y));
 		
 		if (view.getCenter().x - clouds[i]->getPos().x > SCREEN_WIDTH / 2)
 			clouds[i]->setPos(sf::Vector2f(clouds[i]->getPos().x + SCREEN_WIDTH, view.getCenter().y + Utility::random(-512, 512)));
 		else if (clouds[i]->getPos().x - view.getCenter().x > SCREEN_WIDTH / 2)
 			clouds[i]->setPos(sf::Vector2f(clouds[i]->getPos().x - SCREEN_WIDTH, view.getCenter().y + Utility::random(-512, 512)));
-	}
-	
-	//testi käyttöön
-	//std::cout << clouds[0]->getPos().x << "    " << view.getCenter().x << std::endl;
-		
+	}		
 }
 
 void Map::draw(sf::View view)

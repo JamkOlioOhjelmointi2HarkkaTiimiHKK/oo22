@@ -50,7 +50,7 @@ Merge::Merge()
 			}
 #pragma endregion
 		}
-		parts.push_back(partObjects);
+		parts.push_back(partObjects); // annetaan paloille käsitelty ruutu
 		file.close();
 		partObjects.clear();
 	}
@@ -59,7 +59,7 @@ Merge::Merge()
 	Build(); 
 
 	
-	view.reset(sf::FloatRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT));
+	view.reset(sf::FloatRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)); // kameran kuva
 	window.setView(view);
 
 }
@@ -72,14 +72,14 @@ void Merge::Build()
 	{
 		for (int yAkseli = 0; yAkseli < size; yAkseli++)
 		{
-			//otetaan satunnainen kartan pala vektorista
+			//otetaan satunnainen kartan pala vektorista. Tämä on nopeampaaa kuin se että luettasiin satunnainen tiedosto.
 			std::vector<MapObject*> kamikaze = parts[Utility::random(0, parts.size() - 1)];
 			for (unsigned i = 0; i < kamikaze.size(); i++)
 			{
 				MapObject* temp = new MapObject(*kamikaze[i]);
-				sf::Vector2f tempposition(kamikaze[i]->getPos().x + xAkseli * 512, kamikaze[i]->getPos().y + yAkseli * 512);
+				sf::Vector2f tempposition(kamikaze[i]->getPos().x + xAkseli * 512, kamikaze[i]->getPos().y + yAkseli * 512); // annetaan palalle oikeat koordinaatit
 				temp->setPos(tempposition);
-				mapObjects.push_back(temp);
+				mapObjects.push_back(temp); // työnnetään temp kartan pala vektoriin oikeilla koordinaateilla varustettuna
 			}
 		}
 	}
@@ -132,7 +132,8 @@ void Merge::draw()
 
 	for (unsigned i = 0; i < temp; ++i)
 	{	
-		//ylempi on tapa millä pelitilassa piirto + törmäystarkastelut toimii. Keskimmäinen on vaan kätevämpi nopeaan tarkasteluun. Alin on tehokkain. map.cpp;ssä on tehokkaampi tapa minkä keksin / opin jälkeenpäin
+		//tässä on pala kehityshistoriaa. Miten saada piirto mahdollisimman kevyeksi
+		//ylempi on tapa millä pelitilassa piirto + törmäystarkastelut toimii (ei enää). Keskimmäinen on vaan kätevämpi nopeaan tarkasteluun. Alin on tehokkain. map.cpp;ssä on tehokkaampi tapa minkä keksin & opin jälkeenpäin
 		//if (std::pow(mapObjects[i]->getPos().x - view.getCenter().x,2)-350*70 < std::pow(halfScreenX,2) && std::pow(mapObjects[i]->getPos().y-view.getCenter().y,2)-350*70 < std::pow(halfscreenY,2))		
 		//if (mapObjects[i]->getPos().x - view.getCenter().x < halfScreenX && mapObjects[i]->getPos().y-view.getCenter().y < halfscreenY)
 		if ((mapObjects[i]->getPos().x - view.getCenter().x)*(mapObjects[i]->getPos().x - view.getCenter().x)  < (halfScreenX + 350)*(halfScreenX + 350) && (mapObjects[i]->getPos().y - view.getCenter().y)*(mapObjects[i]->getPos().y - view.getCenter().y) < (halfscreenY + 350)*(halfscreenY + 350))
@@ -144,7 +145,7 @@ void Merge::draw()
 void Merge::loop(float dt)
 {
 	update(dt);
-	window.clear(sf::Color(0, 0, 0));
+	window.clear(sf::Color::White);
 	draw();
 	window.display();
 }
@@ -155,9 +156,10 @@ void Merge::save()
 	int temp = 1;
 
 	file2.open("Files\\Maps\\Map" + std::to_string(numberOfMap) + ".txt");
-
+	//Tämä hirviö luotiin kun keksin 3 ulotteisen vektori estyksen map.cpp:hen.
 	for (unsigned i = 0; i < mapObjects.size(); ++i)
 	{
+		//jos ollaan menossa alareunan yli
 		if (kerroinY == size && mapObjects[i]->getPos().x > temp * 512)
 		{
 			file2 << "--" << std::endl;
@@ -165,6 +167,7 @@ void Merge::save()
 			temp++;
 			kerroinY = 1;
 		}
+		//jos ruutu vaihtuisi mutta x akseli on sama
 		else if (mapObjects[i]->getPos().y > kerroinY * 512)
 		{
 			file2 << "--" << std::endl;
@@ -172,6 +175,7 @@ void Merge::save()
 			kerroinY++;
 
 		}
+		//ollaan keskellä kartan palaa
 		else
 		file2 << mapObjects[i]->getName() << " " << mapObjects[i]->getPos().x  << " " << mapObjects[i]->getPos().y<< std::endl;
 
@@ -183,8 +187,8 @@ void Merge::save()
 	facts.open("Files\\facts.txt");
 	if (std::stoi(howManyMaps) < numberOfMap)
 	{
-		facts.seekg(sizeof(numberOfPart), std::ios_base::beg);
-		facts << numberOfMap;
+		facts.seekg(sizeof(numberOfPart), std::ios_base::beg); // valitaan oikea kohta, toimii varmasti jos kartan paloja on 99 asti
+		facts << numberOfMap;                                  // kerrotaan montako mappia on olemassa
 	}
 	facts.close();
 
@@ -193,6 +197,7 @@ void Merge::save()
 
 void Merge::killAll()
 {
+	// alun perin tämä tappoi kaikki pointterit, ei enää
 	for (unsigned i = 0; i < mapObjects.size(); ++i)
 	{
 		delete mapObjects[i];

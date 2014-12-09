@@ -13,9 +13,9 @@
 class Merge
 {
 private:
-	std::vector<MapObject*> mapObjects;
-	std::vector<MapObject*> partObjects;
-	std::vector<std::vector<MapObject*>>parts;
+	std::vector<MapObject*> mapObjects; // Kertan osat säilötään tänne
+	std::vector<MapObject*> partObjects; // kartan osan objektit säilötään tänne
+	std::vector<std::vector<MapObject*>>parts; // palat, jotka säilövät noitä partObjects vektoreita
 	std::ifstream file;
 	std::fstream facts;
 	std::ofstream file2;
