@@ -56,6 +56,7 @@ void Character::setFacingDirection(bool facingLeft){
 	else
 		sprite.setScale(-1, 1);
 
+	isFacingLeft = facingLeft;
 }
 //Jos hahmo putoaa, niin siihen pistet‰‰n vaikuttamaan painovoima
 void Character::applyGravity(float dt){

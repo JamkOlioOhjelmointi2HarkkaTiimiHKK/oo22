@@ -17,6 +17,7 @@ protected:
 	int currentSectorX, currentSectorY;
 	int offsetSectorX, offsetSectorY;
 	int adjacentSectorX, adjacentSectorY;
+	bool isFacingLeft;
 public:
 	Character();
 	~Character();

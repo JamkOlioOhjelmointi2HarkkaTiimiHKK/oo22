@@ -7,7 +7,7 @@ Player::Player(){
 void Player::create(float posX, float posY, float sizeX, float sizeY){
 	this->createCharacter(posX, posY, sizeX, sizeY, true);
 	this->sprite.setTexture(Content::get()->playerTexture);
-	this->gun.create();
+	this->gun.create(sprite);
 }
 //Päivitetään pelaaja
 void Player::update(float dt, Map &ptr,sf::View view){
@@ -245,7 +245,7 @@ void Player::fixValuesBasedOnCollision(){
 	}
 }
 void Player::updateGun(){
-	gun.update(this->sprite);
+	gun.update(this->sprite, isFacingLeft);
 }
 void Player::drawGun(){
 	gun.draw();
