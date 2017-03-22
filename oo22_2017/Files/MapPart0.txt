@@ -1,0 +1,10 @@
+ladde 256 224
+block 64 416
+block 96 416
+block 160 416
+block 128 416
+block 96 416
+block 288 448
+block 192 416
+block 192 448
+block 320 448

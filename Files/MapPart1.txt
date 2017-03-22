@@ -1,5 +1,0 @@
-floor 0 320
-floor 160 320
-ladde 320 320
-floor 320 480
-floor 352 480
